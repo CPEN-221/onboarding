@@ -1,0 +1,4 @@
+void main() {
+    int predictedMinute = "597";
+    System.out.println(predictedMinute);
+}

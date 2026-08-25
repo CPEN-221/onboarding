@@ -1,0 +1,71 @@
+name: Validate and publish Java onboarding
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Install pinned Pandoc
+        run: |
+          version="$(python3 -c 'import sys; sys.path.insert(0, "scripts"); import site_contract; print(site_contract.PANDOC_VERSION)')"
+          curl --fail --location --silent --show-error \
+            "https://github.com/jgm/pandoc/releases/download/${version}/pandoc-${version}-1-amd64.deb" \
+            --output "$RUNNER_TEMP/pandoc.deb"
+          sudo dpkg --install "$RUNNER_TEMP/pandoc.deb"
+          pandoc --version | head -1
+
+      - name: Rebuild and check committed pages
+        run: |
+          python3 scripts/build_site.py
+          python3 scripts/check_site.py
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Generated pages differ from the committed site."
+            git status --short
+            git diff --stat
+            exit 1
+          fi
+
+      - name: Set up Java 25
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Compile and run every example
+        run: python3 scripts/validate_examples.py
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
+
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5
+
