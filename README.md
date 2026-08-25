@@ -1,7 +1,15 @@
 # Getting Started with Java
 
-This repository contains three self-paced segments for students who need to learn
-or refresh the Java used at the start of CPEN 221:
+This repository contains two self-paced preparation tracks for the start of CPEN
+221. Five guides establish the development environment and workflow:
+
+1. **Software to Install**
+2. **Using the Command Line Interface**
+3. **Installing and Using Visual Studio Code**
+4. **The Build Process and Tools**
+5. **Git and GitHub**
+
+Three segments then teach or refresh the required Java:
 
 1. **Running Java Programs**
 2. **Objects, State, and References**
@@ -16,7 +24,7 @@ can be offered separately in PrairieLearn without changing this material.
 
 | Path | Contents |
 |---|---|
-| `notes/` | Authoritative Markdown readings |
+| `notes/` | Authoritative Markdown guides and Java readings |
 | `examples/` | Complete Java 25 source files and deliberate failure fixtures |
 | `site/` | Generated static site committed for review and deployed by Pages |
 | `scripts/` | Site build, publication checks, and Java example validation |
@@ -31,16 +39,18 @@ Install Pandoc 3.10 and a Java 25 JDK. From the repository root:
 python3 scripts/build_site.py
 python3 scripts/check_site.py
 python3 scripts/validate_examples.py
+python3 scripts/validate_guides.py
 python3 -m http.server 8000 --directory site
 ```
 
 Then open <http://localhost:8000/>. The generated HTML includes source hashes, and
 the checker refuses stale pages, missing local links, invalid fragments, or a
-mismatch between the declared and published readings.
+mismatch between the declared and published guides or readings.
 
 ## Publish with GitHub Pages
 
 The workflow in `.github/workflows/pages.yml` rebuilds the committed pages, checks
 that the build creates no diff, validates the site, tests every Java example under
-Java 25, and deploys `site/`. After pushing the repository to GitHub, select
+Java 25, exercises the Gradle and Git guide workflows, and deploys `site/`. After
+pushing the repository to GitHub, select
 **GitHub Actions** as the Pages source in the repository settings.

@@ -55,7 +55,9 @@ jobs:
           java-version: "25"
 
       - name: Compile and run every example
-        run: python3 scripts/validate_examples.py
+        run: |
+          python3 scripts/validate_examples.py
+          python3 scripts/validate_guides.py
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
@@ -68,4 +70,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5
-

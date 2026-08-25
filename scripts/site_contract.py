@@ -14,6 +14,7 @@ NOTES_ROOT = REPOSITORY_ROOT / "notes"
 EXAMPLES_ROOT = REPOSITORY_ROOT / "examples"
 SITE_ROOT = REPOSITORY_ROOT / "site"
 READINGS_ROOT = SITE_ROOT / "readings"
+GUIDES_ROOT = SITE_ROOT / "guides"
 PUBLISHED_SOURCES = SITE_ROOT / "sources"
 
 PANDOC_VERSION = "3.10"
@@ -33,6 +34,56 @@ class Reading:
     number: int
     title: str
     description: str
+
+
+@dataclass(frozen=True)
+class Guide:
+    source: str
+    slug: str
+    number: int
+    title: str
+    description: str
+    example_slug: str | None = None
+
+
+GUIDES = (
+    Guide(
+        "guide-software-to-install.md",
+        "software-to-install",
+        1,
+        "Software to Install",
+        "Install and verify Java 25, Git, VS Code, and the project-supplied Gradle wrapper on macOS, Linux, or Windows.",
+    ),
+    Guide(
+        "guide-command-line-interface.md",
+        "using-command-line-interface",
+        2,
+        "Using the Command Line Interface",
+        "Navigate a project, read paths and commands, operate on files carefully, and preserve useful diagnostic output.",
+    ),
+    Guide(
+        "guide-vscode.md",
+        "installing-and-using-vscode",
+        3,
+        "Installing and Using Visual Studio Code",
+        "Configure Java, Gradle, Git, testing, debugging, and the integrated terminal without hiding the project build.",
+    ),
+    Guide(
+        "guide-build-process-and-tools.md",
+        "build-process-and-tools",
+        4,
+        "The Build Process and Tools",
+        "Follow Java source through compilation, testing, execution, and packaging with the Gradle wrapper and JUnit.",
+        "build-process-and-tools",
+    ),
+    Guide(
+        "guide-git-and-github.md",
+        "git-and-github",
+        5,
+        "Git and GitHub",
+        "Record coherent commits, synchronize a remote repository, work on a branch, and recover changes deliberately.",
+    ),
+)
 
 
 READINGS = (
@@ -91,4 +142,3 @@ def read_provenance(page_source: str) -> tuple[str | None, str | None]:
         source.group(1) if source else None,
         digest.group(1) if digest else None,
     )
-

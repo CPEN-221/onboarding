@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Install and verify Java 25, Git, VS Code, and the project-supplied Gradle wrapper on macOS, Linux, or Windows.">
+  <title>Software to Install · Getting Started with Java</title>
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <script src="../../assets/js/typeface-switcher.js"></script>
+  <script defer src="../../assets/js/quick-checks.js"></script>
+</head>
+<body id="top">
+  <!-- source-sha256: e41285336fc15152b10f09a9f2cdd4b7492b612fa370e41f22dd7dce6acbbe0f -->
+  <!-- source-file: guide-software-to-install.md -->
+  <a class="skip-link" href="#reading-content">Skip to reading</a>
+  <header class="site-header">
+    <a class="wordmark" href="../../"><strong>Getting Started with Java</strong><span>CPEN 221 preparation</span></a>
+  </header>
+  <div class="typeface-tools">
+    <label for="typeface-picker">Reading typeface</label>
+    <select id="typeface-picker" data-typeface-picker>
+      <option value="balanced">Balanced serif + sans</option>
+      <option value="serif">Serif</option>
+      <option value="sans">Sans serif</option>
+    </select>
+  </div>
+  <div class="reading-layout">
+    <nav class="contents" aria-label="On this page">
+      <p>Preparation guide 1 of 5</p>
+      <ol>
+          <li><a href="#1-what-you-need">What You Need</a></li>
+          <li><a href="#2-identify-your-operating-system-and-processor">Identify Your Operating System and Processor</a></li>
+          <li><a href="#3-macos">macOS</a></li>
+          <li><a href="#4-linux">Linux</a></li>
+          <li><a href="#5-windows">Windows</a></li>
+          <li><a href="#6-verify-the-complete-toolchain">Verify the Complete Toolchain</a></li>
+          <li><a href="#7-diagnose-a-version-mismatch">Diagnose a Version Mismatch</a></li>
+          <li><a href="#8-installation-check">Installation Check</a></li>
+          <li><a href="#9-summary">Summary</a></li>
+      </ol>
+    </nav>
+    <main id="reading-content">
+      <article class="reading">
+        <header class="reading-header">
+          <p>Preparation guide 1</p>
+          <h1>Software to Install</h1>
+          <p class="lede">Install and verify Java 25, Git, VS Code, and the project-supplied Gradle wrapper on macOS, Linux, or Windows.</p>
+        </header>
+<p>A programming assignment can fail before any of your Java code runs. The terminal may find an older Java installation, <code>javac</code> may be absent, Git may not know who you are, or an editor may open a single file without recognizing the project. This guide establishes one known starting point for CPEN 221.</p>
+<section class="learning-outcomes" aria-labelledby="learning-outcomes"><h2 id="learning-outcomes"><a href="#learning-outcomes">Learning outcomes</a></h2><ul>
+<li>install a Java 25 <strong>JDK</strong>, Git, and Visual Studio Code on macOS, Linux, or Windows;</li>
+<li>explain why course projects use the Gradle wrapper instead of a separately installed Gradle command;</li>
+<li>verify which program and version a terminal will run; and</li>
+<li>diagnose the common case in which an installation succeeded but the terminal still finds an older program.</li>
+</ul></section>
+<p>Use an account with permission to install software. If your computer is managed by an employer or school and you cannot install a required tool, ask the course staff before changing security settings.</p>
+<h2 id="1-what-you-need"><a href="#1-what-you-need">1. What You Need</a></h2>
+<p>Install these components before beginning the other preparation guides:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Course choice</th>
+<th>What it supplies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Java Development Kit</td>
+<td>Eclipse Temurin 25</td>
+<td><code>java</code>, <code>javac</code>, and the standard Java libraries</td>
+</tr>
+<tr>
+<td>Git</td>
+<td>A current Git 2 release</td>
+<td>Local version control and communication with GitHub</td>
+</tr>
+<tr>
+<td>Visual Studio Code</td>
+<td>Current stable release</td>
+<td>Editor, integrated terminal, debugger, and extension host</td>
+</tr>
+<tr>
+<td>Gradle</td>
+<td>The wrapper included in each project</td>
+<td>A reproducible build, test, and packaging command</td>
+</tr>
+</tbody>
+</table>
+<p>A <strong>JDK</strong> is a Java Development Kit. It includes the Java launcher and the compiler. A runtime-only installation is insufficient: <code>java</code> might work while <code>javac</code> is missing.</p>
+<p>Gradle is the unusual row. When a project contains <code>gradlew</code>, <code>gradlew.bat</code>, and <code>gradle/wrapper/</code>, Gradle's own installation guide says that no separate Gradle installation is required. The first wrapper run downloads the version named by the project. CPEN 221 projects use this mechanism, so <code>gradle test</code> is not the course command.</p>
+<blockquote class="design-note"><p><strong>Design principle: a project should declare the tool version it needs instead of relying on whichever version happens to be installed globally.</strong></p>
+</blockquote>
+<h2 id="2-identify-your-operating-system-and-processor"><a href="#2-identify-your-operating-system-and-processor">2. Identify Your Operating System and Processor</a></h2>
+<p>Choose instructions for the operating system on which you will actually edit and run the project. A Linux virtual machine inside Windows is a separate environment; software installed only in Windows is not automatically installed inside it.</p>
+<p>You may also have to choose a processor architecture:</p>
+<ul>
+<li><code>aarch64</code> or <code>arm64</code> is used by Apple silicon Macs and some Windows/Linux computers;</li>
+<li><code>x64</code> or <code>x86_64</code> is used by most Intel and AMD computers.</li>
+</ul>
+<p>On macOS, <strong>Apple menu → About This Mac</strong> names the chip. On Windows, <strong>Settings → System → About → System type</strong> reports the architecture. On Linux, <code>uname -m</code> reports it. Choose the installer matching that result.</p>
+<h2 id="3-macos"><a href="#3-macos">3. macOS</a></h2>
+<h3 id="install-java-25"><a href="#install-java-25">Install Java 25</a></h3>
+<p>Open the <a href="https://adoptium.net/temurin/releases/?version=25">Eclipse Temurin 25 downloads</a>, select macOS and your architecture, and download the JDK <code>.pkg</code> installer. Run the installer. The package format registers the JDK in the standard macOS location.</p>
+<p>Open a <strong>new</strong> terminal and run:</p>
+<div class="code-block"><pre class="sh"><code>java -version
+javac -version
+/usr/libexec/java_home -V</code></pre></div>
+<p>The first two commands must report major version <code>25</code>. The last command lists the JDKs macOS knows about. If an older JDK is selected, set <code>JAVA_HOME</code> for Java 25 in your shell configuration; do not delete another JDK that other software may use.</p>
+<h3 id="install-git"><a href="#install-git">Install Git</a></h3>
+<p>First try:</p>
+<div class="code-block"><pre class="sh"><code>git --version</code></pre></div>
+<p>If that opens an Apple developer-tools installer, completing that installer gives you Git. You may instead use one of the current installers linked from the official <a href="https://git-scm.com/install/">Git installation page</a>. If you already manage software with Homebrew, <code>brew install git</code> is also an option. The course does not require Homebrew.</p>
+<h3 id="install-vs-code"><a href="#install-vs-code">Install VS Code</a></h3>
+<p>Download the macOS build from the <a href="https://code.visualstudio.com/docs/setup/mac">official VS Code instructions</a>, open the <code>.dmg</code>, and drag Visual Studio Code to <strong>Applications</strong>. In VS Code, open the Command Palette and run <strong>Shell Command: Install 'code' command in PATH</strong>. Open a new terminal before testing <code>code --version</code>.</p>
+<h2 id="4-linux"><a href="#4-linux">4. Linux</a></h2>
+<p>Linux distributions use different package formats. Use the repository instructions for your distribution rather than pasting a command intended for another one.</p>
+<h3 id="install-java-25-1"><a href="#install-java-25-1">Install Java 25</a></h3>
+<p>Adoptium publishes signed DEB, RPM, and APK packages. Follow its <a href="https://adoptium.net/installation/">Linux package instructions</a> for your distribution and choose the Temurin 25 JDK package, not a JRE package. Then run:</p>
+<div class="code-block"><pre class="sh"><code>java -version
+javac -version
+command -v java</code></pre></div>
+<p>If several Java versions are installed, use your distribution's alternatives mechanism to select Java 25. Both <code>java</code> and <code>javac</code> must select version 25.</p>
+<h3 id="install-git-and-vs-code"><a href="#install-git-and-vs-code">Install Git and VS Code</a></h3>
+<p>Install Git through your distribution's package manager, following the Linux link on the <a href="https://git-scm.com/install/">official Git installation page</a>. For VS Code, use Microsoft's <a href="https://code.visualstudio.com/docs/setup/linux">Linux installation instructions</a>. They provide <code>.deb</code> and <code>.rpm</code> packages and distribution-specific repository instructions. A repository installation has the advantage that normal system updates can update VS Code.</p>
+<p>Verify:</p>
+<div class="code-block"><pre class="sh"><code>git --version
+code --version</code></pre></div>
+<h2 id="5-windows"><a href="#5-windows">5. Windows</a></h2>
+<p>Use a normal PowerShell terminal for installation and verification. The later command-line guide shows both PowerShell and Git Bash commands.</p>
+<h3 id="install-java-25-2"><a href="#install-java-25-2">Install Java 25</a></h3>
+<p>On a current Windows system with <code>winget</code>, run:</p>
+<div class="code-block"><pre class="powershell"><code>winget install EclipseAdoptium.Temurin.25.JDK</code></pre></div>
+<p>The command is published by Adoptium. Its Windows MSI installer is an equivalent graphical option. Accept the options that add Java to <code>PATH</code>; setting <code>JAVA_HOME</code> is also useful for build tools.</p>
+<p>Close all open terminals, open a new PowerShell window, and run:</p>
+<div class="code-block"><pre class="powershell"><code>java -version
+javac -version
+where.exe java</code></pre></div>
+<h3 id="install-git-1"><a href="#install-git-1">Install Git</a></h3>
+<p>Download <strong>Git for Windows</strong> through the <a href="https://git-scm.com/install/">official Git installation page</a>. The installer includes Git Bash and Git Credential Manager. Keeping the default options is suitable for this material. After installation, a new terminal should accept <code>git --version</code>.</p>
+<h3 id="install-vs-code-1"><a href="#install-vs-code-1">Install VS Code</a></h3>
+<p>Use the <strong>User Installer</strong> described in Microsoft's <a href="https://code.visualstudio.com/docs/setup/windows">Windows installation instructions</a>. It does not normally require administrator rights and adds <code>code</code> to <code>PATH</code>. Close and reopen the terminal, then run <code>code --version</code>.</p>
+<h2 id="6-verify-the-complete-toolchain"><a href="#6-verify-the-complete-toolchain">6. Verify the Complete Toolchain</a></h2>
+<p>Open a fresh terminal and run the four version checks:</p>
+<div class="code-block"><pre class="text"><code>java -version
+javac -version
+git --version
+code --version</code></pre></div>
+<p>The exact patch numbers will change. The properties that matter are:</p>
+<ul>
+<li>both Java commands report major version 25;</li>
+<li>Git reports a version rather than “command not found”;</li>
+<li>VS Code reports a version; and</li>
+<li>the paths point to the installations you intended.</li>
+</ul>
+<p>In a downloaded course project, verify Gradle from the project's top-level directory:</p>
+<div class="code-block"><pre class="sh"><code>./gradlew --version</code></pre></div>
+<p>In Windows PowerShell, use:</p>
+<div class="code-block"><pre class="powershell"><code>.\gradlew.bat --version</code></pre></div>
+<p>The first run may download Gradle and therefore needs a network connection. A later run can use the cached distribution. Do not replace the wrapper files merely because the pinned version differs from the newest Gradle release.</p>
+<form class="quick-check" data-quick-check data-answer="wrapper">
+<fieldset>
+<legend>A course repository contains <code>gradlew</code> and <code>gradlew.bat</code>. What should you install globally before running its build?</legend>
+<label><input type="radio" name="gradle-install" value="latest"> The newest global Gradle release</label>
+<label><input type="radio" name="gradle-install" value="wrapper"> No global Gradle; install Java 25 and run the wrapper</label>
+<label><input type="radio" name="gradle-install" value="jre"> A Java runtime without a compiler</label>
+</fieldset>
+<details class="quick-check-explanation">
+<summary>Show the explanation</summary>
+<p>The checked-in wrapper downloads and runs the Gradle version declared by the project. It still needs a suitable JDK, which is why both <code>java</code> and <code>javac</code> are verified.</p>
+</details>
+</form>
+
+<h2 id="7-diagnose-a-version-mismatch"><a href="#7-diagnose-a-version-mismatch">7. Diagnose a Version Mismatch</a></h2>
+<p>Installing a program does not change terminals that are already running. Start by closing and reopening the terminal and VS Code. If an older Java still appears, locate the executable:</p>
+<div class="code-block"><pre class="sh"><code>command -v java       # macOS or Linux</code></pre></div>
+<div class="code-block"><pre class="powershell"><code>where.exe java        # Windows</code></pre></div>
+<p><code>PATH</code> is an ordered list of directories. The shell chooses the first matching program. A stale Java directory earlier in <code>PATH</code> can therefore win even after Java 25 is installed. <code>JAVA_HOME</code> should name the JDK directory, while <code>PATH</code> should contain that JDK's <code>bin</code> directory. Do not make random path edits: first record the observed paths and compare them with the installed JDK location.</p>
+<p>A second common failure is opening a project at the wrong level. The directory you open should contain <code>settings.gradle.kts</code>, <code>build.gradle.kts</code>, and the wrapper scripts. If those files are in a child directory, the terminal is not yet at the project root.</p>
+<form class="quick-check" data-quick-check data-answer="path">
+<fieldset>
+<legend>You installed Java 25, but <code>java -version</code> still reports Java 21. What should you inspect first?</legend>
+<label><input type="radio" name="java-mismatch" value="source"> The Java source file</label>
+<label><input type="radio" name="java-mismatch" value="path"> The executable selected through <code>PATH</code></label>
+<label><input type="radio" name="java-mismatch" value="github"> Your GitHub repository visibility</label>
+</fieldset>
+<details class="quick-check-explanation">
+<summary>Show the explanation</summary>
+<p>The shell may still select an older executable. A fresh terminal plus <code>command -v java</code> or <code>where.exe java</code> reveals what is actually being run.</p>
+</details>
+</form>
+
+<h2 id="8-installation-check"><a href="#8-installation-check">8. Installation Check</a></h2>
+<p>Before moving on, collect the output from all version commands in one text file. Then answer:</p>
+<ol type="1">
+<li>Which JDK distribution, major version, and architecture did you install?</li>
+<li>Which path contains the <code>java</code> executable selected by your terminal?</li>
+<li>Does <code>javac -version</code> agree with <code>java -version</code>?</li>
+<li>In a project with wrapper files, which command reports the pinned Gradle version on your operating system?</li>
+</ol>
+<p>If you ask for installation help, include the operating system, processor architecture, commands entered, and complete output. “Java does not work” hides the evidence needed to distinguish a missing executable from a wrong version or wrong directory.</p>
+<h2 id="9-summary"><a href="#9-summary">9. Summary</a></h2>
+<p>The required base is a Java 25 JDK, Git, and VS Code. A course project supplies its own Gradle wrapper, so a global Gradle installation is unnecessary. Verification is part of installation: check both Java tools, Git, VS Code, and the project wrapper from a new terminal. When a version is wrong, identify the executable selected by <code>PATH</code> before changing configuration.</p>
+<h2 id="references"><a href="#references">References</a></h2>
+<ul>
+<li><a href="https://adoptium.net/installation/">Adoptium: Install Eclipse Temurin</a></li>
+<li><a href="https://adoptium.net/temurin/releases/?version=25">Adoptium: Eclipse Temurin 25 releases</a></li>
+<li><a href="https://docs.gradle.org/current/userguide/installation.html">Gradle User Manual: Installing Gradle</a></li>
+<li><a href="https://git-scm.com/install/">Git: Install</a></li>
+<li><a href="https://code.visualstudio.com/docs/setup/mac">Visual Studio Code setup for macOS</a></li>
+<li><a href="https://code.visualstudio.com/docs/setup/linux">Visual Studio Code setup for Linux</a></li>
+<li><a href="https://code.visualstudio.com/docs/setup/windows">Visual Studio Code setup for Windows</a></li>
+</ul>
+        <aside class="source-links" aria-label="Guide files">
+          <h2>Read the source</h2>
+          <p><a href="../../sources/guide-software-to-install.md">Open the Markdown source</a>.</p>
+        </aside>
+        <nav class="reading-nav" aria-label="Preparation guide sequence">
+          <a href="../../">← Contents</a>
+          <a href="../using-command-line-interface/">Using the Command Line Interface →</a>
+        </nav>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

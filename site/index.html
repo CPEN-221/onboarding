@@ -9,7 +9,7 @@
   <script src="assets/js/typeface-switcher.js"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to readings</a>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="hero">
     <p>CPEN 221 preparation</p>
     <h1>Getting Started with Java</h1>
@@ -24,8 +24,49 @@
     </select>
   </div>
   <main id="main" class="landing">
-    <section aria-labelledby="how-to-use">
-      <h2 id="how-to-use">How to use these segments</h2>
+    <section aria-labelledby="preparation-guides">
+      <h2 id="preparation-guides">Set up your tools and workflow</h2>
+      <p>Use these guides to establish the same development environment and project workflow used in CPEN 221. Start with installation, then follow the guides in order if the command line, build tools, or Git are new to you.</p>
+      <ol class="reading-cards">
+      <li>
+        <a href="guides/software-to-install/">
+          <span>Guide 1</span>
+          <strong>Software to Install</strong>
+          <small>Install and verify Java 25, Git, VS Code, and the project-supplied Gradle wrapper on macOS, Linux, or Windows.</small>
+        </a>
+      </li>
+      <li>
+        <a href="guides/using-command-line-interface/">
+          <span>Guide 2</span>
+          <strong>Using the Command Line Interface</strong>
+          <small>Navigate a project, read paths and commands, operate on files carefully, and preserve useful diagnostic output.</small>
+        </a>
+      </li>
+      <li>
+        <a href="guides/installing-and-using-vscode/">
+          <span>Guide 3</span>
+          <strong>Installing and Using Visual Studio Code</strong>
+          <small>Configure Java, Gradle, Git, testing, debugging, and the integrated terminal without hiding the project build.</small>
+        </a>
+      </li>
+      <li>
+        <a href="guides/build-process-and-tools/">
+          <span>Guide 4</span>
+          <strong>The Build Process and Tools</strong>
+          <small>Follow Java source through compilation, testing, execution, and packaging with the Gradle wrapper and JUnit.</small>
+        </a>
+      </li>
+      <li>
+        <a href="guides/git-and-github/">
+          <span>Guide 5</span>
+          <strong>Git and GitHub</strong>
+          <small>Record coherent commits, synchronize a remote repository, work on a branch, and recover changes deliberately.</small>
+        </a>
+      </li>
+      </ol>
+    </section>
+    <section aria-labelledby="java-segments">
+      <h2 id="java-segments">Learn or refresh Java</h2>
       <p>Begin with the first segment if Java is new to you. If the material is familiar, predict the examples and use the practice to decide where to spend time.</p>
       <ol class="reading-cards">
       <li>
@@ -53,7 +94,7 @@
     </section>
     <section class="requirements" aria-labelledby="requirements">
       <h2 id="requirements">What you need</h2>
-      <p>The readings work without JavaScript. To run the downloadable examples, install a Java 25 JDK and use a terminal. Each example directory includes the exact commands and observed output.</p>
+      <p>The readings work without JavaScript. Begin with <a href="guides/software-to-install/">Software to Install</a>, then use the downloadable examples to check the complete toolchain.</p>
     </section>
   </main>
 </body>

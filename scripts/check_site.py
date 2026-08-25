@@ -11,6 +11,8 @@ import re
 import sys
 
 from site_contract import (
+    GUIDES,
+    GUIDES_ROOT,
     LANG,
     PUBLISHED_SOURCES,
     READINGS,
@@ -118,30 +120,45 @@ def main() -> None:
                 if fragment not in target_page.ids:
                     failures.append(f"{relative}: missing fragment {reference}")
 
-    expected_slugs = {reading.slug for reading in READINGS}
-    actual_slugs = {path.parent.name for path in READINGS_ROOT.glob("*/index.html")}
-    if actual_slugs != expected_slugs:
-        failures.append("published reading directories do not match the contract")
+    for label, items, root in (
+        ("guide", GUIDES, GUIDES_ROOT),
+        ("reading", READINGS, READINGS_ROOT),
+    ):
+        expected_slugs = {item.slug for item in items}
+        actual_slugs = {path.parent.name for path in root.glob("*/index.html")}
+        if actual_slugs != expected_slugs:
+            failures.append(f"published {label} directories do not match the contract")
 
-    for reading in READINGS:
-        page_path = READINGS_ROOT / reading.slug / "index.html"
-        page_source = page_path.read_text(encoding="utf-8")
-        source_name, observed_digest = read_provenance(page_source)
-        source_path = PUBLISHED_SOURCES / reading.source
-        expected_digest = sha256(source_path.read_bytes()).hexdigest()
-        if source_name != reading.source or observed_digest != expected_digest:
-            failures.append(f"readings/{reading.slug}/: stale or missing source provenance")
-
-        check_count = len(re.findall(r"<form\b[^>]*data-quick-check", page_source))
-        for marker in ("<fieldset", "<legend", "quick-check-explanation", "data-answer="):
-            if page_source.count(marker) != check_count:
+    for items, root, prefix in (
+        (GUIDES, GUIDES_ROOT, "guides"),
+        (READINGS, READINGS_ROOT, "readings"),
+    ):
+        for item in items:
+            page_path = root / item.slug / "index.html"
+            page_source = page_path.read_text(encoding="utf-8")
+            source_name, observed_digest = read_provenance(page_source)
+            source_path = PUBLISHED_SOURCES / item.source
+            expected_digest = sha256(source_path.read_bytes()).hexdigest()
+            if source_name != item.source or observed_digest != expected_digest:
                 failures.append(
-                    f"readings/{reading.slug}/: {marker} count does not match quick checks"
+                    f"{prefix}/{item.slug}/: stale or missing source provenance"
                 )
-        if check_count and "quick-checks.js" not in page_source:
-            failures.append(f"readings/{reading.slug}/: checks lack enhancement script")
 
-    expected_sources = {reading.source for reading in READINGS}
+            check_count = len(re.findall(r"<form\b[^>]*data-quick-check", page_source))
+            for marker in (
+                "<fieldset",
+                "<legend",
+                "quick-check-explanation",
+                "data-answer=",
+            ):
+                if page_source.count(marker) != check_count:
+                    failures.append(
+                        f"{prefix}/{item.slug}/: {marker} count does not match quick checks"
+                    )
+            if check_count and "quick-checks.js" not in page_source:
+                failures.append(f"{prefix}/{item.slug}/: checks lack enhancement script")
+
+    expected_sources = {item.source for item in (*GUIDES, *READINGS)}
     actual_sources = {path.name for path in PUBLISHED_SOURCES.glob("*.md")}
     if actual_sources != expected_sources:
         failures.append("published Markdown sources do not match the contract")
@@ -151,7 +168,7 @@ def main() -> None:
         raise SystemExit(1)
     print(
         f"Checked {len(html_files)} HTML pages: local links, fragments, landmarks, "
-        f"three source digests, and all client-side checks are valid."
+        f"{len(expected_sources)} source digests, and all client-side checks are valid."
     )
 
 

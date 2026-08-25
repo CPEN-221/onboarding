@@ -43,18 +43,60 @@ directly to Gradle and JUnit. A novice must already understand enough Java synta
 read that example.
 
 The replacement should therefore be a **preparatory sequence** that precedes Chapter 1. It
-is not Chapter 1 itself: the sequence explains Java programs, values, methods,
-objects, references, iteration, collections, and interfaces. Chapter 1 then uses
-those mechanisms to establish the build, test, Git, and evidence loop.
+is not Chapter 1 itself. Five environment and workflow guides establish the tools,
+command line, editor, build, and version-control vocabulary. Three Java segments
+explain Java programs, values, methods, objects, references, iteration,
+collections, and interfaces. Chapter 1 can then use those mechanisms and tools to
+develop the course's build, test, Git, and evidence loop in a software-engineering
+context.
 
 Students with prior Java experience should be able to use a short readiness check
 to identify which segments they need. Later chapters may assume the
 sequence's stated outcomes whether a student learned them here or elsewhere.
 
-The sequence has its own landing page and three-segment navigation. This
-keeps preparatory material out of the numbered core readings while preserving a
-clear transition: the sequence establishes enough Java to read the opening example,
-then Chapter 1 introduces the course build, test, Git, and evidence loop.
+The sequence has its own landing page. Preparation guides and Java segments use
+separate navigation so the three-part Java sequence remains clear. This keeps all
+preparatory material out of the numbered core readings while giving novices a path
+from installation to the opening course example.
+
+## Preparation Guide Sequence
+
+The auxiliary notes in `CPEN 221 Aux` supplied topic coverage for the command line,
+build tools, and Git. The published guides use new outlines, current tools, and a
+new transit companion project rather than inheriting the old command transcripts,
+analogies, or worked examples.
+
+### Guide 1 — Software to Install
+
+Establish a Java 25 JDK, Git, and VS Code on macOS, Linux, or Windows. Explain that
+course projects supply a pinned Gradle wrapper, so students do not need a floating
+global Gradle installation. End with commands that verify the actual executables
+selected through `PATH`.
+
+### Guide 2 — Using the Command Line Interface
+
+Develop a working model of the terminal, shell, working directory, paths, command
+arguments, and output. Use POSIX examples with explicit PowerShell equivalents and
+avoid recursive deletion as a practice task.
+
+### Guide 3 — Installing and Using Visual Studio Code
+
+Open the project root, install Microsoft's Java and Gradle support, select Java 25,
+and use editing, testing, debugging, and the integrated terminal. Treat Git support
+as built in; keep GitHub's pull-request extension optional.
+
+### Guide 4 — The Build Process and Tools
+
+Follow a Java 25 project through dependency resolution, compilation, JUnit testing,
+execution, and JAR packaging. Use a complete Gradle 9.6.1/JUnit 6.1.3 companion
+project and distinguish generated `build/` output from authoritative source.
+
+### Guide 5 — Git and GitHub
+
+Distinguish local Git state from GitHub hosting. Develop the working tree, staging
+area, commit, remote, branch, and pull-request workflow using `main`, `git switch`,
+and `git restore`. Avoid broad destructive recovery commands in the introductory
+workflow.
 
 ## Segment Sequence
 
@@ -184,9 +226,10 @@ not remove the explanation or activity.
 
 ## Implemented Publication Model
 
-All three readings are complete under `notes/`. Each has complete downloadable Java
-source under `examples/`, and the generated site publishes both the rendered prose
-and the source files. Client-side JavaScript adds Check buttons to nine
+All five preparation guides and three Java readings are complete under `notes/`.
+The build guide and all Java readings have complete downloadable source under
+`examples/`, and the generated site publishes both the rendered prose and the
+source files. Client-side JavaScript adds Check buttons to twenty
 multiple-choice questions. Ordinary HTML disclosures supply the explanations when
 JavaScript is disabled.
 

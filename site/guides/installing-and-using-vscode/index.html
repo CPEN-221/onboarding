@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Configure Java, Gradle, Git, testing, debugging, and the integrated terminal without hiding the project build.">
+  <title>Installing and Using Visual Studio Code · Getting Started with Java</title>
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <script src="../../assets/js/typeface-switcher.js"></script>
+  <script defer src="../../assets/js/quick-checks.js"></script>
+</head>
+<body id="top">
+  <!-- source-sha256: c5308f314bc3ab2840be784b45b6d2a5e6da9ae1ce17929fff9257c186707133 -->
+  <!-- source-file: guide-vscode.md -->
+  <a class="skip-link" href="#reading-content">Skip to reading</a>
+  <header class="site-header">
+    <a class="wordmark" href="../../"><strong>Getting Started with Java</strong><span>CPEN 221 preparation</span></a>
+  </header>
+  <div class="typeface-tools">
+    <label for="typeface-picker">Reading typeface</label>
+    <select id="typeface-picker" data-typeface-picker>
+      <option value="balanced">Balanced serif + sans</option>
+      <option value="serif">Serif</option>
+      <option value="sans">Sans serif</option>
+    </select>
+  </div>
+  <div class="reading-layout">
+    <nav class="contents" aria-label="On this page">
+      <p>Preparation guide 3 of 5</p>
+      <ol>
+          <li><a href="#1-install-the-editor">Install the Editor</a></li>
+          <li><a href="#2-install-a-small-extension-set">Install a Small Extension Set</a></li>
+          <li><a href="#3-open-the-folder-not-an-isolated-file">Open the Folder, Not an Isolated File</a></li>
+          <li><a href="#4-confirm-java-25-and-import-the-build">Confirm Java 25 and Import the Build</a></li>
+          <li><a href="#5-edit-and-navigate-java">Edit and Navigate Java</a></li>
+          <li><a href="#6-run-and-test">Run and Test</a></li>
+          <li><a href="#7-debug-a-failing-test">Debug a Failing Test</a></li>
+          <li><a href="#8-use-the-integrated-terminal">Use the Integrated Terminal</a></li>
+          <li><a href="#9-use-source-control-without-hiding-the-model">Use Source Control Without Hiding the Model</a></li>
+          <li><a href="#10-a-setup-exercise">A Setup Exercise</a></li>
+          <li><a href="#11-summary">Summary</a></li>
+      </ol>
+    </nav>
+    <main id="reading-content">
+      <article class="reading">
+        <header class="reading-header">
+          <p>Preparation guide 3</p>
+          <h1>Installing and Using Visual Studio Code</h1>
+          <p class="lede">Configure Java, Gradle, Git, testing, debugging, and the integrated terminal without hiding the project build.</p>
+        </header>
+<p>An editor can colour Java syntax while knowing almost nothing about the project. That superficial success becomes confusing when imports remain unresolved, tests do not appear, or the Run button uses a different JDK from the terminal. A useful VS Code setup begins by opening the project as a folder and allowing its Java and Gradle support to import the build.</p>
+<section class="learning-outcomes" aria-labelledby="learning-outcomes"><h2 id="learning-outcomes"><a href="#learning-outcomes">Learning outcomes</a></h2><ul>
+<li>install VS Code and the extensions needed for a CPEN 221 Java project;</li>
+<li>open a repository at its project root and select Java 25;</li>
+<li>edit, navigate, run, test, and debug Java code;</li>
+<li>use the integrated terminal and built-in Git interface without treating them as separate project states; and</li>
+<li>distinguish required support from optional GitHub conveniences.</li>
+</ul></section>
+<h2 id="1-install-the-editor"><a href="#1-install-the-editor">1. Install the Editor</a></h2>
+<p>Follow the operating-system steps in <a href="../software-to-install/">Software to Install</a> or the official VS Code setup page for <a href="https://code.visualstudio.com/docs/setup/mac">macOS</a>, <a href="https://code.visualstudio.com/docs/setup/linux">Linux</a>, or <a href="https://code.visualstudio.com/docs/setup/windows">Windows</a>. Enable the <code>code</code> command, then verify it in a new terminal:</p>
+<div class="code-block"><pre class="text"><code>code --version</code></pre></div>
+<p>VS Code updates independently of your projects. Installing an update does not change the Java version declared by a Gradle build.</p>
+<h2 id="2-install-a-small-extension-set"><a href="#2-install-a-small-extension-set">2. Install a Small Extension Set</a></h2>
+<p>Open <strong>Extensions</strong> and install:</p>
+<ol type="1">
+<li><strong>Extension Pack for Java</strong>, published by Microsoft;</li>
+<li><strong>Gradle for Java</strong>, published by Microsoft.</li>
+</ol>
+<p>The Java pack includes language support, a debugger, a test runner, and project management. Gradle for Java imports Gradle projects and exposes their tasks. Check the publisher before installing: similarly named extensions are not necessarily the same software.</p>
+<p>Git support is built into VS Code and uses the Git executable installed on your computer. No Git extension is required for staging, committing, branching, pulling, or pushing. <strong>GitHub Pull Requests and Issues</strong>, published by GitHub, is an optional extension for reviewing pull requests and issues inside the editor. It is not required for the basic Git workflow in this preparation material.</p>
+<p>Avoid installing a large collection of extensions at the outset. Extensions can add commands, formatters, authentication prompts, and generated files. Begin with the required set so that a problem has fewer possible causes.</p>
+<form class="quick-check" data-quick-check data-answer="built-in">
+<fieldset>
+<legend>Which extension is required to make basic Git staging and commits available in VS Code?</legend>
+<label><input type="radio" name="git-extension" value="built-in"> None; Git support is built in and uses the installed Git program</label>
+<label><input type="radio" name="git-extension" value="java"> Extension Pack for Java</label>
+<label><input type="radio" name="git-extension" value="pull-request"> GitHub Pull Requests and Issues</label>
+</fieldset>
+<details class="quick-check-explanation">
+<summary>Show the explanation</summary>
+<p>VS Code includes its Git source-control provider. The GitHub extension adds pull-request and issue workflows, while the Java pack supplies Java language tooling.</p>
+</details>
+</form>
+
+<h2 id="3-open-the-folder-not-an-isolated-file"><a href="#3-open-the-folder-not-an-isolated-file">3. Open the Folder, Not an Isolated File</a></h2>
+<p>Clone or download a project, then open the directory containing these files:</p>
+<div class="code-block"><pre class="text"><code>build.gradle.kts
+settings.gradle.kts
+gradlew
+gradlew.bat
+src/</code></pre></div>
+<p>From a terminal already in that directory, run:</p>
+<div class="code-block"><pre class="sh"><code>code .</code></pre></div>
+<p>The dot means the current directory. Alternatively, use <strong>File → Open Folder</strong>. The folder shown at the top of the Explorer should be the project root.</p>
+<p>Opening only <code>TransitBoard.java</code> deprives the Java extension of the build file, test source set, and dependency declarations. A source file may still be editable, but the editor cannot accurately reproduce the project build.</p>
+<p>VS Code may display a <strong>Workspace Trust</strong> prompt. A repository can contain tasks, debug configurations, and extension recommendations that execute code. Trust a course repository obtained from its official location after confirming that you opened the intended folder. Do not automatically trust an unrelated archive.</p>
+<blockquote class="design-note"><p><strong>Design principle: the build definition is the authority for the project; configure the editor to follow it.</strong></p>
+</blockquote>
+<h2 id="4-confirm-java-25-and-import-the-build"><a href="#4-confirm-java-25-and-import-the-build">4. Confirm Java 25 and Import the Build</a></h2>
+<p>After the extensions start, VS Code shows Java's progress in the status bar. Let the initial import finish. The first Gradle wrapper run may download Gradle and test dependencies.</p>
+<p>Open the Command Palette and run <strong>Java: Configure Java Runtime</strong>. Confirm that the project resolves a Java 25 JDK. The editor can know about several JDKs; the one used for language services and the one requested by the Gradle toolchain should both support the project.</p>
+<p>Also open VS Code's terminal and run:</p>
+<div class="code-block"><pre class="text"><code>java -version
+javac -version</code></pre></div>
+<p>Then, from the project root:</p>
+<div class="code-block"><pre class="sh"><code>./gradlew test</code></pre></div>
+<p>or in Windows PowerShell:</p>
+<div class="code-block"><pre class="powershell"><code>.\gradlew.bat test</code></pre></div>
+<p>This command is the decisive check. An editor's green triangle is convenient, but the wrapper is the reproducible interface used by the project and continuous integration.</p>
+<p>If imports stay red after a successful command-line build, use <strong>Java: Clean Java Language Server Workspace</strong> and allow the project to re-import. If the wrapper also fails, fix that build failure before resetting editor caches.</p>
+<h2 id="5-edit-and-navigate-java"><a href="#5-edit-and-navigate-java">5. Edit and Navigate Java</a></h2>
+<p>The Java language server can:</p>
+<ul>
+<li>complete names and show method parameters;</li>
+<li>jump to a declaration or find references;</li>
+<li>report compiler diagnostics while you edit;</li>
+<li>rename a symbol across the project; and</li>
+<li>organize imports.</li>
+</ul>
+<p>Treat automated edits as proposed changes. Review the diff after a rename or import reorganization. Compilation is still required: a diagnostic underline can lag behind the file or omit a build-specific check.</p>
+<p>The Explorer reflects the filesystem. Java source belongs under <code>src/main/java</code>, while tests belong under <code>src/test/java</code>. Package declarations and directory names should match. Do not move a Java file merely to make the Explorer look tidy; use the project's layout.</p>
+<h2 id="6-run-and-test"><a href="#6-run-and-test">6. Run and Test</a></h2>
+<p>The <strong>Testing</strong> view discovers JUnit tests after the Gradle project imports. It can run one test or display a failure beside its source. The Java editor also offers Run and Debug links above runnable classes and tests.</p>
+<p>Use those controls for a focused investigation, then run the project command before considering the work complete:</p>
+<div class="code-block"><pre class="sh"><code>./gradlew test</code></pre></div>
+<p>The wrapper may run more checks than the selected editor test. It also records the same task failure that another developer or the CI service will see.</p>
+<form class="quick-check" data-quick-check data-answer="wrapper-test">
+<fieldset>
+<legend>One JUnit test passes when launched from the editor. What should you run before concluding that the project passes?</legend>
+<label><input type="radio" name="test-authority" value="reload"> Reload the VS Code window</label>
+<label><input type="radio" name="test-authority" value="wrapper-test"> The project's <code>gradlew test</code> command</label>
+<label><input type="radio" name="test-authority" value="commit"> <code>git commit</code></label>
+</fieldset>
+<details class="quick-check-explanation">
+<summary>Show the explanation</summary>
+<p>The editor run is useful but focused. The wrapper executes the versioned build and its complete test task, which is the shared project interface.</p>
+</details>
+</form>
+
+<h2 id="7-debug-a-failing-test"><a href="#7-debug-a-failing-test">7. Debug a Failing Test</a></h2>
+<p>A debugger pauses a running program and lets you inspect its current state. To investigate a failure:</p>
+<ol type="1">
+<li>reproduce it with a small test;</li>
+<li>place a breakpoint on an executable line before the failure;</li>
+<li>choose <strong>Debug Test</strong>;</li>
+<li>inspect local variables and the call stack;</li>
+<li>use <strong>Step Over</strong> for the next line or <strong>Step Into</strong> to enter a method call; and</li>
+<li>stop, edit, and rerun the test.</li>
+</ol>
+<p>The debugger shows one execution. It does not prove a rule about every execution, and it does not replace a test assertion. Record the observation that changed your explanation, then encode the required behaviour in a test where appropriate.</p>
+<h3 id="common-misconception"><a href="#common-misconception">Common misconception</a></h3>
+<p>“The debugger changed my code” is usually a confusion between state and source. Editing a variable in a debug session changes that running process, not the Java source. The change disappears when the process ends unless you also edit and save the source file.</p>
+<h2 id="8-use-the-integrated-terminal"><a href="#8-use-the-integrated-terminal">8. Use the Integrated Terminal</a></h2>
+<p>Open <strong>Terminal → New Terminal</strong>. VS Code normally starts it at the workspace root, but verify:</p>
+<div class="code-block"><pre class="sh"><code>pwd
+ls</code></pre></div>
+<p>The integrated terminal can run the same <code>git</code>, <code>java</code>, and wrapper commands as an external terminal. It is not an emulator with a separate copy of the repository. Changes made by a terminal command appear in the Explorer and Source Control view.</p>
+<p>On Windows, choose PowerShell or Git Bash from the terminal-profile menu and stay aware of which syntax you are using. The project wrapper provides a POSIX script for Git Bash and a <code>.bat</code> script for PowerShell.</p>
+<h2 id="9-use-source-control-without-hiding-the-model"><a href="#9-use-source-control-without-hiding-the-model">9. Use Source Control Without Hiding the Model</a></h2>
+<p>The Source Control view displays changed files. Selecting a file opens its diff. The plus button stages a file; the Commit action creates a local commit from staged changes; synchronization communicates with a remote.</p>
+<p>These actions operate on the same Git repository as terminal commands. Run <code>git status</code> at any time to see the underlying state. Learn the commands in <a href="../git-and-github/">Git and GitHub</a> even if you prefer the interface: command output is easier to share exactly when something goes wrong.</p>
+<p>Do not use <strong>Discard Changes</strong> casually. For an uncommitted file, discarding can remove work that Git has no snapshot of. Inspect the diff and know which version will replace it.</p>
+<h2 id="10-a-setup-exercise"><a href="#10-a-setup-exercise">10. A Setup Exercise</a></h2>
+<p>Open the companion Gradle project from the build-process guide and complete this checklist:</p>
+<ol type="1">
+<li>confirm the Explorer root contains both Gradle build files and wrapper scripts;</li>
+<li>confirm Java 25 under <strong>Java: Configure Java Runtime</strong>;</li>
+<li>locate the main class and use <strong>Go to Definition</strong> on one method call;</li>
+<li>run all tests in the Testing view;</li>
+<li>run the wrapper <code>test</code> task in the integrated terminal;</li>
+<li>introduce a failing expected value, debug that test, then undo the edit; and</li>
+<li>open Source Control and verify that your repository is clean again.</li>
+</ol>
+<p>Explain any difference between the editor test result and the wrapper output. If there is no difference, state which two independent observations agreed.</p>
+<h2 id="11-summary"><a href="#11-summary">11. Summary</a></h2>
+<p>Install the Java and Gradle extensions, while relying on VS Code's built-in Git support for ordinary version control. Open the project root as a folder, select Java 25, let Gradle import the build, and use the editor for navigation and focused runs. The checked-in wrapper remains the authoritative command for the complete build and tests.</p>
+<h2 id="references"><a href="#references">References</a></h2>
+<ul>
+<li><a href="https://code.visualstudio.com/docs/java/java-tutorial">Visual Studio Code: Getting Started with Java</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack">Visual Studio Marketplace: Extension Pack for Java</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-gradle">Visual Studio Marketplace: Gradle for Java</a></li>
+<li><a href="https://code.visualstudio.com/docs/sourcecontrol/overview">Visual Studio Code: Source Control</a></li>
+<li><a href="https://code.visualstudio.com/docs/terminal/basics">Visual Studio Code: Terminal Basics</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github">Visual Studio Marketplace: GitHub Pull Requests and Issues</a></li>
+</ul>
+        <aside class="source-links" aria-label="Guide files">
+          <h2>Read the source</h2>
+          <p><a href="../../sources/guide-vscode.md">Open the Markdown source</a>.</p>
+        </aside>
+        <nav class="reading-nav" aria-label="Preparation guide sequence">
+          <a href="../using-command-line-interface/">← Using the Command Line Interface</a>
+          <a href="../build-process-and-tools/">The Build Process and Tools →</a>
+        </nav>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

@@ -12,6 +12,8 @@ import subprocess
 
 from site_contract import (
     EXAMPLES_ROOT,
+    GUIDES,
+    GUIDES_ROOT,
     LANG,
     NOTES_ROOT,
     PANDOC_ARGUMENTS,
@@ -20,6 +22,7 @@ from site_contract import (
     READINGS,
     READINGS_ROOT,
     SITE_ROOT,
+    Guide,
     Reading,
     installed_pandoc_version,
     provenance_comments,
@@ -107,13 +110,16 @@ def typeface_tools() -> str:
   </div>"""
 
 
-def reading_page(
-    reading: Reading,
+def content_page(
+    item: Reading | Guide,
     body: str,
     sections: list[tuple[str, str]],
-    previous: Reading | None,
-    following: Reading | None,
+    previous: Reading | Guide | None,
+    following: Reading | Guide | None,
     digest: str,
+    *,
+    label: str,
+    total: int,
 ) -> str:
     section_links = "\n".join(
         f'          <li><a href="#{escape(identifier)}">{escape(title)}</a></li>'
@@ -134,14 +140,14 @@ def reading_page(
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="{escape(reading.description)}">
-  <title>{escape(reading.title)} · Getting Started with Java</title>
+  <meta name="description" content="{escape(item.description)}">
+  <title>{escape(item.title)} · Getting Started with Java</title>
   <link rel="stylesheet" href="../../assets/css/site.css">
   <script src="../../assets/js/typeface-switcher.js"></script>
   <script defer src="../../assets/js/quick-checks.js"></script>
 </head>
 <body id="top">
-  {provenance_comments(reading.source, digest)}
+  {provenance_comments(item.source, digest)}
   <a class="skip-link" href="#reading-content">Skip to reading</a>
   <header class="site-header">
     <a class="wordmark" href="../../"><strong>Getting Started with Java</strong><span>CPEN 221 preparation</span></a>
@@ -149,7 +155,7 @@ def reading_page(
 {typeface_tools()}
   <div class="reading-layout">
     <nav class="contents" aria-label="On this page">
-      <p>Segment {reading.number} of {len(READINGS)}</p>
+      <p>{escape(label)} {item.number} of {total}</p>
       <ol>
 {section_links}
       </ol>
@@ -157,16 +163,13 @@ def reading_page(
     <main id="reading-content">
       <article class="reading">
         <header class="reading-header">
-          <p>Segment {reading.number}</p>
-          <h1>{escape(reading.title)}</h1>
-          <p class="lede">{escape(reading.description)}</p>
+          <p>{escape(label)} {item.number}</p>
+          <h1>{escape(item.title)}</h1>
+          <p class="lede">{escape(item.description)}</p>
         </header>
 {body}
-        <aside class="source-links" aria-label="Reading files">
-          <h2>Use the complete files</h2>
-          <p><a href="../../examples/{escape(reading.slug)}/">Browse the Java examples</a> or <a href="../../sources/{escape(reading.source)}">open the Markdown source</a>.</p>
-        </aside>
-        <nav class="reading-nav" aria-label="Reading sequence">
+        {source_links(item)}
+        <nav class="reading-nav" aria-label="{escape(label)} sequence">
           {previous_link}
           {next_link}
         </nav>
@@ -178,8 +181,36 @@ def reading_page(
 """
 
 
+def source_links(item: Reading | Guide) -> str:
+    example_slug = item.slug if isinstance(item, Reading) else item.example_slug
+    if example_slug:
+        heading = "Use the complete files"
+        links = (
+            f'<a href="../../examples/{escape(example_slug)}/">Browse the complete example files</a> '
+            f'or <a href="../../sources/{escape(item.source)}">open the Markdown source</a>.'
+        )
+    else:
+        heading = "Read the source"
+        links = f'<a href="../../sources/{escape(item.source)}">Open the Markdown source</a>.'
+    kind = "Reading" if isinstance(item, Reading) else "Guide"
+    return f"""<aside class="source-links" aria-label="{kind} files">
+          <h2>{heading}</h2>
+          <p>{links}</p>
+        </aside>"""
+
+
 def landing_page() -> str:
-    cards = "\n".join(
+    guide_cards = "\n".join(
+        f"""      <li>
+        <a href="guides/{guide.slug}/">
+          <span>Guide {guide.number}</span>
+          <strong>{escape(guide.title)}</strong>
+          <small>{escape(guide.description)}</small>
+        </a>
+      </li>"""
+        for guide in GUIDES
+    )
+    reading_cards = "\n".join(
         f"""      <li>
         <a href="readings/{reading.slug}/">
           <span>Segment {reading.number}</span>
@@ -200,7 +231,7 @@ def landing_page() -> str:
   <script src="assets/js/typeface-switcher.js"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to readings</a>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="hero">
     <p>CPEN 221 preparation</p>
     <h1>Getting Started with Java</h1>
@@ -208,16 +239,23 @@ def landing_page() -> str:
   </header>
 {typeface_tools()}
   <main id="main" class="landing">
-    <section aria-labelledby="how-to-use">
-      <h2 id="how-to-use">How to use these segments</h2>
+    <section aria-labelledby="preparation-guides">
+      <h2 id="preparation-guides">Set up your tools and workflow</h2>
+      <p>Use these guides to establish the same development environment and project workflow used in CPEN 221. Start with installation, then follow the guides in order if the command line, build tools, or Git are new to you.</p>
+      <ol class="reading-cards">
+{guide_cards}
+      </ol>
+    </section>
+    <section aria-labelledby="java-segments">
+      <h2 id="java-segments">Learn or refresh Java</h2>
       <p>Begin with the first segment if Java is new to you. If the material is familiar, predict the examples and use the practice to decide where to spend time.</p>
       <ol class="reading-cards">
-{cards}
+{reading_cards}
       </ol>
     </section>
     <section class="requirements" aria-labelledby="requirements">
       <h2 id="requirements">What you need</h2>
-      <p>The readings work without JavaScript. To run the downloadable examples, install a Java 25 JDK and use a terminal. Each example directory includes the exact commands and observed output.</p>
+      <p>The readings work without JavaScript. Begin with <a href="guides/software-to-install/">Software to Install</a>, then use the downloadable examples to check the complete toolchain.</p>
     </section>
   </main>
 </body>
@@ -226,9 +264,13 @@ def landing_page() -> str:
 
 
 def example_index(directory: Path) -> str:
-    files = sorted(path for path in directory.iterdir() if path.is_file())
+    files = sorted(
+        path
+        for path in directory.rglob("*")
+        if path.is_file() and path.name != "index.html"
+    )
     items = "\n".join(
-        f'      <li><a href="{escape(path.name)}">{escape(path.name)}</a></li>'
+        f'      <li><a href="{escape(path.relative_to(directory).as_posix())}">{escape(path.relative_to(directory).as_posix())}</a></li>'
         for path in files
     )
     title = directory.name.replace("-", " ").title()
@@ -259,44 +301,65 @@ def example_index(directory: Path) -> str:
 
 def main() -> None:
     require_pandoc()
-    for generated in (READINGS_ROOT, PUBLISHED_SOURCES, SITE_ROOT / "examples"):
+    for generated in (
+        GUIDES_ROOT,
+        READINGS_ROOT,
+        PUBLISHED_SOURCES,
+        SITE_ROOT / "examples",
+    ):
         if generated.exists():
             shutil.rmtree(generated)
         generated.mkdir(parents=True)
 
-    for index, reading in enumerate(READINGS):
-        source = NOTES_ROOT / reading.source
-        markdown = source.read_text(encoding="utf-8")
-        source_copy = PUBLISHED_SOURCES / reading.source
-        shutil.copy2(source, source_copy)
-        digest = sha256(source_copy.read_bytes()).hexdigest()
+    def build_collection(
+        items: tuple[Reading | Guide, ...], target_root: Path, label: str
+    ) -> None:
+        for index, item in enumerate(items):
+            source = NOTES_ROOT / item.source
+            markdown = source.read_text(encoding="utf-8")
+            source_copy = PUBLISHED_SOURCES / item.source
+            shutil.copy2(source, source_copy)
+            digest = sha256(source_copy.read_bytes()).hexdigest()
 
-        without_title = re.sub(r"^# .+?\n+", "", markdown, count=1)
-        body, sections = transform_body(render_markdown(without_title))
-        target = READINGS_ROOT / reading.slug
-        target.mkdir(parents=True)
-        (target / "index.html").write_text(
-            reading_page(
-                reading,
-                body,
-                sections,
-                READINGS[index - 1] if index else None,
-                READINGS[index + 1] if index + 1 < len(READINGS) else None,
-                digest,
-            ),
-            encoding="utf-8",
-        )
+            without_title = re.sub(r"^# .+?\n+", "", markdown, count=1)
+            body, sections = transform_body(render_markdown(without_title))
+            target = target_root / item.slug
+            target.mkdir(parents=True)
+            (target / "index.html").write_text(
+                content_page(
+                    item,
+                    body,
+                    sections,
+                    items[index - 1] if index else None,
+                    items[index + 1] if index + 1 < len(items) else None,
+                    digest,
+                    label=label,
+                    total=len(items),
+                ),
+                encoding="utf-8",
+            )
+
+    build_collection(GUIDES, GUIDES_ROOT, "Preparation guide")
+    build_collection(READINGS, READINGS_ROOT, "Segment")
 
     published_examples = SITE_ROOT / "examples"
     for source_directory in sorted(path for path in EXAMPLES_ROOT.iterdir() if path.is_dir()):
         target_directory = published_examples / source_directory.name
-        shutil.copytree(source_directory, target_directory, dirs_exist_ok=True)
+        shutil.copytree(
+            source_directory,
+            target_directory,
+            dirs_exist_ok=True,
+            ignore=shutil.ignore_patterns("build", ".gradle", "index.html"),
+        )
         (target_directory / "index.html").write_text(
             example_index(target_directory), encoding="utf-8"
         )
 
     (SITE_ROOT / "index.html").write_text(landing_page(), encoding="utf-8")
-    print(f"Built {len(READINGS)} readings and {len(list(EXAMPLES_ROOT.iterdir()))} example sets.")
+    print(
+        f"Built {len(GUIDES)} guides, {len(READINGS)} readings, and "
+        f"{len([path for path in EXAMPLES_ROOT.iterdir() if path.is_dir()])} example sets."
+    )
 
 
 if __name__ == "__main__":

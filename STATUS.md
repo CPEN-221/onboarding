@@ -2,6 +2,29 @@
 
 Last updated: August 25, 2026
 
+## Complete preparation-guide sequence
+
+Five student-facing guides were written from new outlines, using the three
+documents in `CPEN 221 Aux` as topic references where applicable:
+
+| Guide | Words | Formative checks |
+|---|---:|---:|
+| Software to Install | 1,655 | 2 |
+| Using the Command Line Interface | 1,608 | 2 |
+| Installing and Using Visual Studio Code | 1,673 | 2 |
+| The Build Process and Tools | 1,523 | 2 |
+| Git and GitHub | 1,972 | 3 |
+
+The rewrite replaces outdated JUnit 4, Spring, `master`, `checkout`, password, and
+global-build-tool advice with Java 25, JUnit 6.1.3, Gradle wrappers, `main`, modern
+Git recovery commands, and current GitHub authentication guidance. The 29 direct
+references point to official Adoptium, Gradle, Git, GitHub, VS Code, Microsoft, GNU,
+and JUnit documentation.
+
+The build guide has a complete companion project. Its wrapper pins Gradle 9.6.1,
+its toolchain requests Java 25, its tests use JUnit 6.1.3, and all Java compilation
+enables `-Xlint:all`.
+
 ## Complete Java preparation sequence
 
 The standalone sequence contains three student-facing readings written from new
@@ -47,22 +70,30 @@ The following output and failure observations matched the readings:
 `scripts/validate_examples.py` reproduces these observations and refuses a Java
 version other than 25.
 
+`scripts/validate_guides.py` observed Eclipse Temurin 25.0.4.1 and Gradle 9.6.1,
+ran the companion project's `test`, `run`, and `build` tasks, and found the expected
+JAR and HTML test report. The application printed `Route 44: ON TIME`. The same
+script created a temporary Git 2.50.1 repository and observed the documented
+untracked, staged, committed, restored, and clean states.
+
 ## Publication validation
 
 The static-site build uses pinned Pandoc 3.10 and publishes the authoritative
-Markdown and complete example files alongside the rendered readings. The generated
-site has seven HTML pages: one landing page, three readings, and three example-file
-indexes.
+Markdown and complete example files alongside the rendered guides and readings.
+The generated site has thirteen HTML pages: one landing page, five preparation
+guides, three Java readings, and four example-file indexes.
 
-The published title is **Getting Started with Java**, organized as three segments.
-Every page includes a typeface selector with balanced, serif, and sans-serif
-choices. The preference is applied locally across the site and the content remains
-usable when the enhancement script is unavailable.
+The published title is **Getting Started with Java**. Five preparation guides form
+one track, while the Java material remains organized as three segments. Every page
+includes a typeface selector with balanced, serif, and sans-serif choices. The
+preference is applied locally across the site and the content remains usable when
+the enhancement script is unavailable.
 
-`scripts/check_site.py` accepted every local link, fragment, page landmark, source
-digest, and embedded quick-check structure. `node --check` accepted the progressive
-enhancement script. The activities remain readable as ordinary questions and
-answer disclosures without JavaScript; with JavaScript, they gain local Check
-buttons and retry feedback. They make no network requests and retain no completion
-record. Responsive and print rules are present, but final visual review in the
-target browsers remains part of the instructor review.
+`scripts/check_site.py` accepted every local link, fragment, page landmark, all
+eight source digests, and all twenty embedded quick-check structures. `node
+--check` accepted the progressive-enhancement scripts. The activities remain
+readable as ordinary questions and answer disclosures without JavaScript; with
+JavaScript, they gain local Check buttons and retry feedback. They make no network
+requests and retain no completion record. Responsive and print rules are present,
+but final visual review in the target browsers remains part of the instructor
+review.

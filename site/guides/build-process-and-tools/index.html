@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Follow Java source through compilation, testing, execution, and packaging with the Gradle wrapper and JUnit.">
+  <title>The Build Process and Tools · Getting Started with Java</title>
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <script src="../../assets/js/typeface-switcher.js"></script>
+  <script defer src="../../assets/js/quick-checks.js"></script>
+</head>
+<body id="top">
+  <!-- source-sha256: 4c0ead9e17a3cbcf20f58e796d9565d3d092c830276ee4a8c6f3bfe536b92426 -->
+  <!-- source-file: guide-build-process-and-tools.md -->
+  <a class="skip-link" href="#reading-content">Skip to reading</a>
+  <header class="site-header">
+    <a class="wordmark" href="../../"><strong>Getting Started with Java</strong><span>CPEN 221 preparation</span></a>
+  </header>
+  <div class="typeface-tools">
+    <label for="typeface-picker">Reading typeface</label>
+    <select id="typeface-picker" data-typeface-picker>
+      <option value="balanced">Balanced serif + sans</option>
+      <option value="serif">Serif</option>
+      <option value="sans">Sans serif</option>
+    </select>
+  </div>
+  <div class="reading-layout">
+    <nav class="contents" aria-label="On this page">
+      <p>Preparation guide 4 of 5</p>
+      <ol>
+          <li><a href="#1-one-source-file-is-not-the-build">One Source File Is Not the Build</a></li>
+          <li><a href="#2-meet-the-tools">Meet the Tools</a></li>
+          <li><a href="#3-read-the-project-layout">Read the Project Layout</a></li>
+          <li><a href="#4-run-the-wrapper">Run the Wrapper</a></li>
+          <li><a href="#5-locate-the-outputs">Locate the Outputs</a></li>
+          <li><a href="#6-read-a-failure-from-the-first-failed-task">Read a Failure from the First Failed Task</a></li>
+          <li><a href="#7-practice-with-one-controlled-failure">Practice with One Controlled Failure</a></li>
+          <li><a href="#8-summary">Summary</a></li>
+      </ol>
+    </nav>
+    <main id="reading-content">
+      <article class="reading">
+        <header class="reading-header">
+          <p>Preparation guide 4</p>
+          <h1>The Build Process and Tools</h1>
+          <p class="lede">Follow Java source through compilation, testing, execution, and packaging with the Gradle wrapper and JUnit.</p>
+        </header>
+<p><code>TransitSummary.java</code> compiles on one laptop, yet a teammate cannot even start its tests. The source file is identical. The difference is outside that file: one person manually assembled a compiler command and a collection of JAR paths, while the other has no record of those choices.</p>
+<p>A build turns those hidden choices into a versioned, repeatable procedure.</p>
+<section class="learning-outcomes" aria-labelledby="learning-outcomes"><h2 id="learning-outcomes"><a href="#learning-outcomes">Learning outcomes</a></h2><ul>
+<li>distinguish Java source, compiled classes, dependencies, test results, and a packaged JAR;</li>
+<li>explain the roles of the JDK, Gradle, the Gradle wrapper, and JUnit;</li>
+<li>read the main parts of a Gradle Java project;</li>
+<li>run focused and complete build tasks on macOS, Linux, and Windows; and</li>
+<li>use the first failed task to classify a build problem.</li>
+</ul></section>
+<p>This guide has a <a href="../../examples/build-process-and-tools/">complete companion project</a>. Clone or download the <a href="https://github.com/CPEN-221/onboarding">onboarding repository</a> so that the project's directories and wrapper files remain intact.</p>
+<h2 id="1-one-source-file-is-not-the-build"><a href="#1-one-source-file-is-not-the-build">1. One Source File Is Not the Build</a></h2>
+<p>A small Java program can be compiled directly:</p>
+<div class="code-block"><pre class="sh"><code>javac TransitSummary.java
+java TransitSummary</code></pre></div>
+<p><code>javac</code> reads Java source and produces JVM class files. <code>java</code> launches a JVM and loads the requested class. This is useful for learning the language, but a course project also has packages, several source files, tests, external libraries, compiler options, and generated reports.</p>
+<p>For a typical Gradle Java project, the build performs work such as:</p>
+<ol type="1">
+<li>resolve the requested JDK and external dependencies;</li>
+<li>compile production source from <code>src/main/java</code>;</li>
+<li>compile test source from <code>src/test/java</code> against production code and JUnit;</li>
+<li>run the tests and record reports; and</li>
+<li>package production classes and resources in a JAR.</li>
+</ol>
+<p>This is not a C-style “compile, then link” pipeline. The ordinary Java build in this guide has no separate native linker stage. Dependencies are made available on compile-time and runtime class paths, and the JVM loads classes when needed.</p>
+<h2 id="2-meet-the-tools"><a href="#2-meet-the-tools">2. Meet the Tools</a></h2>
+<p>The <strong>JDK</strong> supplies <code>javac</code>, <code>java</code>, and standard libraries. A Gradle Java <strong>toolchain</strong> declaration asks build tasks to use a particular Java language version—in this project, Java 25.</p>
+<p><strong>Gradle</strong> is the build tool. Plugins add conventions and tasks. The <code>application</code> plugin, for example, supplies Java compilation, testing, packaging, and a <code>run</code> task.</p>
+<p>The <strong>Gradle wrapper</strong> is the checked-in launch mechanism:</p>
+<div class="code-block"><pre class="text"><code>gradlew
+gradlew.bat
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties</code></pre></div>
+<p>The wrapper properties name a Gradle distribution. The scripts download that version when needed and then run it. Every contributor therefore invokes the same Gradle version without maintaining a global installation.</p>
+<p><strong>JUnit</strong> is the testing framework used by the test source. Gradle resolves the declared JUnit dependencies and its <code>test</code> task launches the tests.</p>
+<blockquote class="design-note"><p><strong>Design principle: version the build definition and its launcher with the source so that the same command reconstructs the same procedure.</strong></p>
+</blockquote>
+<h2 id="3-read-the-project-layout"><a href="#3-read-the-project-layout">3. Read the Project Layout</a></h2>
+<p>The companion project has this structure:</p>
+<div class="code-block"><pre class="text"><code>build-process-and-tools/
+├── build.gradle.kts
+├── settings.gradle.kts
+├── gradlew
+├── gradlew.bat
+├── gradle/wrapper/
+├── src/main/java/ca/ubc/ece/cpen221/prep/TransitSummary.java
+└── src/test/java/ca/ubc/ece/cpen221/prep/TransitSummaryTest.java</code></pre></div>
+<p><code>settings.gradle.kts</code> names the Gradle build. <code>build.gradle.kts</code> applies plugins and declares the Java toolchain, repositories, dependencies, compiler options, and test configuration. The <code>src/main</code> and <code>src/test</code> directories are separate <strong>source sets</strong>: production code must not depend on test code.</p>
+<p>Here are the central declarations, abbreviated only by omitting blank lines:</p>
+<div class="code-block"><pre class="kotlin"><code>plugins {
+    application
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+dependencies {
+    testImplementation(platform(&quot;org.junit:junit-bom:6.1.3&quot;))
+    testImplementation(&quot;org.junit.jupiter:junit-jupiter&quot;)
+    testRuntimeOnly(&quot;org.junit.platform:junit-platform-launcher&quot;)
+}</code></pre></div>
+<p>The dependency declarations are inputs to the build, not copies of JUnit source inside the repository. On the first build, Gradle resolves the named modules from the declared repository and stores them in a local cache.</p>
+<p>The full file also names the application entry point and enables all <code>javac</code> lint warnings. Read the checked-in file rather than reproducing it from the excerpt.</p>
+<form class="quick-check" data-quick-check data-answer="test-source">
+<fieldset>
+<legend>Where should <code>TransitSummaryTest.java</code> be placed in this Gradle project?</legend>
+<label><input type="radio" name="source-set" value="main-source"> Under <code>src/main/java</code></label>
+<label><input type="radio" name="source-set" value="test-source"> Under <code>src/test/java</code></label>
+<label><input type="radio" name="source-set" value="build-output"> Under <code>build/classes</code></label>
+</fieldset>
+<details class="quick-check-explanation">
+<summary>Show the explanation</summary>
+<p>Test code belongs to the test source set. The <code>build/</code> tree is generated output, not authoritative source.</p>
+</details>
+</form>
+
+<h2 id="4-run-the-wrapper"><a href="#4-run-the-wrapper">4. Run the Wrapper</a></h2>
+<p>From the project root on macOS, Linux, or Git Bash:</p>
+<div class="code-block"><pre class="sh"><code>./gradlew test
+./gradlew run
+./gradlew build</code></pre></div>
+<p>From Windows PowerShell:</p>
+<div class="code-block"><pre class="powershell"><code>.\gradlew.bat test
+.\gradlew.bat run
+.\gradlew.bat build</code></pre></div>
+<p>These are three requested tasks:</p>
+<ul>
+<li><code>test</code> compiles the required sources and runs all configured tests;</li>
+<li><code>run</code> compiles the production source and launches the configured main class;</li>
+<li><code>build</code> performs the standard verification and assembly work, including tests and the JAR.</li>
+</ul>
+<p>Tasks form a dependency graph. Requesting <code>build</code> causes Gradle to run the tasks on which <code>build</code> depends; it does not merely execute every conceivable task in a fixed list. A task whose inputs and outputs have not changed may be reported as <code>UP-TO-DATE</code>.</p>
+<p>The validated <code>run</code> task for the companion project printed:</p>
+<div class="code-block"><pre class="text"><code>Route 44: ON TIME</code></pre></div>
+<p>The validated <code>test</code> and <code>build</code> tasks both ended with <code>BUILD SUCCESSFUL</code>. These observations were produced with Java 25 and the checked-in Gradle 9.6.1 wrapper.</p>
+<h2 id="5-locate-the-outputs"><a href="#5-locate-the-outputs">5. Locate the Outputs</a></h2>
+<p>Gradle writes generated files under <code>build/</code>:</p>
+<div class="code-block"><pre class="text"><code>build/
+├── classes/
+├── libs/build-process-and-tools-1.0.jar
+├── reports/tests/test/index.html
+└── test-results/test/</code></pre></div>
+<p>Class files are JVM instructions produced from source. The JAR is a ZIP-format archive containing production classes and metadata. Test reports record what the test task observed.</p>
+<p>These outputs can be reconstructed, so they should not normally be committed. The project's <code>.gitignore</code> excludes <code>build/</code>. Remove generated output through the build's narrowly scoped task:</p>
+<div class="code-block"><pre class="sh"><code>./gradlew clean</code></pre></div>
+<p><code>clean</code> deletes the project build directory. It does not mean “repair the project,” and it should not be a ritual before every build. An incremental build is normally faster and is designed to determine which work must be repeated.</p>
+<form class="quick-check" data-quick-check data-answer="generated">
+<fieldset>
+<legend>After a successful build, Git reports hundreds of files under <code>build/</code>. What is the underlying problem?</legend>
+<label><input type="radio" name="build-directory" value="source"> Gradle moved the Java source</label>
+<label><input type="radio" name="build-directory" value="generated"> Generated output is not being ignored correctly</label>
+<label><input type="radio" name="build-directory" value="junit"> JUnit needs to be reinstalled globally</label>
+</fieldset>
+<details class="quick-check-explanation">
+<summary>Show the explanation</summary>
+<p>The <code>build/</code> directory is reconstructable output. A suitable <code>.gitignore</code> keeps it out of ordinary commits; <code>gradlew clean</code> removes it locally when needed.</p>
+</details>
+</form>
+
+<h2 id="6-read-a-failure-from-the-first-failed-task"><a href="#6-read-a-failure-from-the-first-failed-task">6. Read a Failure from the First Failed Task</a></h2>
+<p>Gradle output names tasks with a leading colon. The first failed task narrows the search:</p>
+<table>
+<thead>
+<tr>
+<th>Failed area</th>
+<th>Likely evidence</th>
+<th>First question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wrapper startup</td>
+<td>no download, permissions, wrong directory</td>
+<td>Are the wrapper files present and is Java available?</td>
+</tr>
+<tr>
+<td>Dependency resolution</td>
+<td>repository/network/module diagnostic</td>
+<td>Is the dependency declared correctly, and is the network available?</td>
+</tr>
+<tr>
+<td><code>compileJava</code></td>
+<td>source path and compiler diagnostic</td>
+<td>Which production source violates Java's rules?</td>
+</tr>
+<tr>
+<td><code>compileTestJava</code></td>
+<td>test source diagnostic</td>
+<td>Does test code compile against the current production API and JUnit?</td>
+</tr>
+<tr>
+<td><code>test</code></td>
+<td>failed test name, expected/actual values, stack trace</td>
+<td>What behaviour did the test observe?</td>
+</tr>
+<tr>
+<td><code>jar</code> or another assembly task</td>
+<td>packaging path or duplicate entry</td>
+<td>Which declared output could not be assembled?</td>
+</tr>
+</tbody>
+</table>
+<p>Begin with the earliest concrete failure, not the final generic “build failed” line. A test assertion failure does not mean Java failed to compile. Conversely, a compile failure means no test involving that source was run.</p>
+<p>Useful focused commands include:</p>
+<div class="code-block"><pre class="sh"><code>./gradlew tasks
+./gradlew test --tests &#39;*TransitSummaryTest&#39;
+./gradlew test --stacktrace</code></pre></div>
+<p>Use <code>--stacktrace</code> when the normal message does not expose the cause. More output is useful only if you can connect it to the failed task.</p>
+<h3 id="common-misconception"><a href="#common-misconception">Common misconception</a></h3>
+<p>“It works in VS Code” and “the project builds” are not equivalent statements. The editor can run one class or one test with its own launch configuration. The wrapper executes the versioned project tasks. Use editor controls for focused investigation and the wrapper as the shared build interface.</p>
+<h2 id="7-practice-with-one-controlled-failure"><a href="#7-practice-with-one-controlled-failure">7. Practice with One Controlled Failure</a></h2>
+<p>In the companion project:</p>
+<ol type="1">
+<li>run <code>test</code>, <code>run</code>, and <code>build</code> and record the summaries;</li>
+<li>inspect <code>build/libs</code> and the HTML test report;</li>
+<li>change the expected string in one test from <code>"ON TIME"</code> to <code>"LATE"</code>;</li>
+<li>run <code>test</code> and identify the first failed task, failed test, expected value, and observed value;</li>
+<li>restore the test and run <code>test</code> again; and</li>
+<li>run <code>clean</code>, inspect which directory disappeared, and run <code>build</code> once more.</li>
+</ol>
+<p>Explain why step 4 is a test failure rather than a compilation failure. Then explain why step 6 does not delete the source or wrapper.</p>
+<h2 id="8-summary"><a href="#8-summary">8. Summary</a></h2>
+<p>A Java build compiles source, resolves dependencies, compiles and runs tests, and can package production classes. The JDK performs Java compilation and execution; Gradle defines and schedules the work; the wrapper pins Gradle; and JUnit supplies the test model. Source and build definitions are authoritative, while <code>build/</code> is generated. Run the wrapper from the project root and diagnose the first failed task.</p>
+<h2 id="references"><a href="#references">References</a></h2>
+<ul>
+<li><a href="https://docs.gradle.org/current/userguide/installation.html">Gradle User Manual: Installing Gradle</a></li>
+<li><a href="https://docs.gradle.org/current/userguide/gradle_wrapper.html">Gradle User Manual: Gradle Wrapper</a></li>
+<li><a href="https://docs.gradle.org/current/userguide/building_java_projects.html">Gradle User Manual: Building Java and JVM Projects</a></li>
+<li><a href="https://docs.gradle.org/current/userguide/java_plugin.html">Gradle User Manual: The Java Plugin</a></li>
+<li><a href="https://docs.gradle.org/current/userguide/build_lifecycle.html">Gradle User Manual: Build Lifecycle</a></li>
+<li><a href="https://docs.junit.org/6.1.3/">JUnit 6.1.3 User Guide</a></li>
+</ul>
+        <aside class="source-links" aria-label="Guide files">
+          <h2>Use the complete files</h2>
+          <p><a href="../../examples/build-process-and-tools/">Browse the complete example files</a> or <a href="../../sources/guide-build-process-and-tools.md">open the Markdown source</a>.</p>
+        </aside>
+        <nav class="reading-nav" aria-label="Preparation guide sequence">
+          <a href="../installing-and-using-vscode/">← Installing and Using Visual Studio Code</a>
+          <a href="../git-and-github/">Git and GitHub →</a>
+        </nav>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

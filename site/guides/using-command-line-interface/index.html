@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Navigate a project, read paths and commands, operate on files carefully, and preserve useful diagnostic output.">
+  <title>Using the Command Line Interface · Getting Started with Java</title>
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <script src="../../assets/js/typeface-switcher.js"></script>
+  <script defer src="../../assets/js/quick-checks.js"></script>
+</head>
+<body id="top">
+  <!-- source-sha256: 3bbd1779d2f855ab0786aee225fdd403ac24e74e955e1ae2f80db6de447966c7 -->
+  <!-- source-file: guide-command-line-interface.md -->
+  <a class="skip-link" href="#reading-content">Skip to reading</a>
+  <header class="site-header">
+    <a class="wordmark" href="../../"><strong>Getting Started with Java</strong><span>CPEN 221 preparation</span></a>
+  </header>
+  <div class="typeface-tools">
+    <label for="typeface-picker">Reading typeface</label>
+    <select id="typeface-picker" data-typeface-picker>
+      <option value="balanced">Balanced serif + sans</option>
+      <option value="serif">Serif</option>
+      <option value="sans">Sans serif</option>
+    </select>
+  </div>
+  <div class="reading-layout">
+    <nav class="contents" aria-label="On this page">
+      <p>Preparation guide 2 of 5</p>
+      <ol>
+          <li><a href="#1-terminal-shell-and-prompt">Terminal, Shell, and Prompt</a></li>
+          <li><a href="#2-know-where-you-are">Know Where You Are</a></li>
+          <li><a href="#3-read-paths">Read Paths</a></li>
+          <li><a href="#4-inspect-before-you-change">Inspect Before You Change</a></li>
+          <li><a href="#5-run-programs-from-the-project-root">Run Programs from the Project Root</a></li>
+          <li><a href="#6-read-output-as-evidence">Read Output as Evidence</a></li>
+          <li><a href="#7-interrupt-do-not-close-blindly">Interrupt, Do Not Close Blindly</a></li>
+          <li><a href="#8-a-navigation-exercise">A Navigation Exercise</a></li>
+          <li><a href="#9-summary">Summary</a></li>
+      </ol>
+    </nav>
+    <main id="reading-content">
+      <article class="reading">
+        <header class="reading-header">
+          <p>Preparation guide 2</p>
+          <h1>Using the Command Line Interface</h1>
+          <p class="lede">Navigate a project, read paths and commands, operate on files carefully, and preserve useful diagnostic output.</p>
+        </header>
+<p>You have downloaded a project and can see it in a file browser. The instructions say to run <code>./gradlew test</code>, but the terminal replies that no such file exists. Nothing is wrong with Gradle: the terminal is in the wrong directory.</p>
+<p>This small failure captures why command-line fluency matters. A command runs in a specific working directory, with specific arguments, and produces evidence you can read and share.</p>
+<section class="learning-outcomes" aria-labelledby="learning-outcomes"><h2 id="learning-outcomes"><a href="#learning-outcomes">Learning outcomes</a></h2><ul>
+<li>identify the shell, prompt, command, arguments, and working directory;</li>
+<li>navigate a project using absolute and relative paths;</li>
+<li>inspect and perform basic file operations without losing track of their effects;</li>
+<li>run a program or Gradle wrapper from the project root; and</li>
+<li>preserve complete command output when diagnosing a failure.</li>
+</ul></section>
+<h2 id="1-terminal-shell-and-prompt"><a href="#1-terminal-shell-and-prompt">1. Terminal, Shell, and Prompt</a></h2>
+<p>A <strong>terminal</strong> is the window or panel that displays text input and output. A <strong>shell</strong> is the program inside it that reads commands. macOS commonly uses Zsh, Linux commonly uses Bash, and Windows commonly uses PowerShell. Git for Windows also supplies Git Bash.</p>
+<p>VS Code's integrated terminal runs one of these real shells. Open it with <strong>Terminal → New Terminal</strong>. It normally starts in the folder open in VS Code.</p>
+<p>A shell displays a <strong>prompt</strong> when it is ready. Prompts vary:</p>
+<div class="code-block"><pre class="text"><code>alex@laptop transit-board %
+PS C:\Users\alex\transit-board&gt;</code></pre></div>
+<p>Instructions often show a leading <code>$</code> or <code>&gt;</code> to represent that prompt:</p>
+<div class="code-block"><pre class="text"><code>$ git status</code></pre></div>
+<p>Type only <code>git status</code>. The prompt is not part of the command.</p>
+<p>Commands consist of a program name followed by arguments:</p>
+<div class="code-block"><pre class="text"><code>git status --short</code></pre></div>
+<p>Here <code>git</code> is the program. <code>status</code> selects an operation and <code>--short</code> requests a compact display. Spaces separate arguments. The shell then finds <code>git</code> using <code>PATH</code>, starts it in the current working directory, and prints its output.</p>
+<h2 id="2-know-where-you-are"><a href="#2-know-where-you-are">2. Know Where You Are</a></h2>
+<p>We will use this project tree:</p>
+<div class="code-block"><pre class="text"><code>transit-board/
+├── build.gradle.kts
+├── gradlew
+├── gradlew.bat
+├── settings.gradle.kts
+└── src/
+    ├── main/java/TransitBoard.java
+    └── test/java/TransitBoardTest.java</code></pre></div>
+<p>On macOS, Linux, or Git Bash:</p>
+<div class="code-block"><pre class="sh"><code>pwd
+ls</code></pre></div>
+<p>In PowerShell:</p>
+<div class="code-block"><pre class="powershell"><code>Get-Location
+Get-ChildItem</code></pre></div>
+<p><code>pwd</code> prints the <strong>working directory</strong>. <code>ls</code> lists its contents. PowerShell accepts <code>pwd</code> and <code>ls</code> as interactive aliases, but its full command names make scripts clearer.</p>
+<p>The wrapper command works only if the listing includes <code>gradlew</code> or <code>gradlew.bat</code>. If the listing shows a directory named <code>transit-board</code> instead, move into it:</p>
+<div class="code-block"><pre class="sh"><code>cd transit-board</code></pre></div>
+<p>Then list again. Checking after navigation is quick and prevents a long chain of commands from operating in the wrong place.</p>
+<form class="quick-check" data-quick-check data-answer="parent">
+<fieldset>
+<legend>Your current directory contains a folder named <code>transit-board</code>, but no <code>gradlew</code>. What is the likely next command?</legend>
+<label><input type="radio" name="working-directory" value="parent"> <code>cd transit-board</code></label>
+<label><input type="radio" name="working-directory" value="delete"> <code>rm transit-board</code></label>
+<label><input type="radio" name="working-directory" value="run"> <code>./gradlew test</code></label>
+</fieldset>
+<details class="quick-check-explanation">
+<summary>Show the explanation</summary>
+<p>The project root is one level below the current directory. Move there, confirm that the wrapper and build files are present, and then run the build.</p>
+</details>
+</form>
+
+<h2 id="3-read-paths"><a href="#3-read-paths">3. Read Paths</a></h2>
+<p>A path identifies a location in the filesystem. An <strong>absolute path</strong> begins from a filesystem root:</p>
+<div class="code-block"><pre class="text"><code>/Users/alex/cpen221/transit-board        macOS
+/home/alex/cpen221/transit-board         Linux
+C:\Users\alex\cpen221\transit-board      Windows</code></pre></div>
+<p>A <strong>relative path</strong> begins from the current directory. These names have special meanings:</p>
+<ul>
+<li><code>.</code> is the current directory;</li>
+<li><code>..</code> is its parent directory;</li>
+<li><code>src/main</code> descends through two child directories; and</li>
+<li><code>../other-project</code> goes to the parent, then into a sibling.</li>
+</ul>
+<p>Suppose the current directory is <code>transit-board/src/main</code>. <code>cd ../..</code> returns to <code>transit-board</code>. <code>cd /</code> does not: it jumps to the filesystem root.</p>
+<p>On macOS and Linux, a path beginning with <code>/</code> is absolute. On Windows, a drive letter and backslash commonly begin an absolute path. Both Git Bash and many Java tools display Windows paths using forward slashes. Read the shell's convention rather than mixing syntaxes within one command.</p>
+<p>Quote a path containing spaces:</p>
+<div class="code-block"><pre class="sh"><code>cd &quot;CPEN 221/transit-board&quot;</code></pre></div>
+<p>Tab completion is safer than typing a long path. Enter a few characters and press Tab. The shell completes an unambiguous name or offers choices.</p>
+<blockquote class="design-note"><p><strong>Design principle: establish and verify the working directory before running a project command.</strong></p>
+</blockquote>
+<h2 id="4-inspect-before-you-change"><a href="#4-inspect-before-you-change">4. Inspect Before You Change</a></h2>
+<p>The following table uses POSIX commands, which work in macOS, Linux, and Git Bash, and gives the corresponding PowerShell command.</p>
+<table>
+<thead>
+<tr>
+<th>Purpose</th>
+<th>macOS/Linux/Git Bash</th>
+<th>PowerShell</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Print working directory</td>
+<td><code>pwd</code></td>
+<td><code>Get-Location</code></td>
+</tr>
+<tr>
+<td>List files</td>
+<td><code>ls</code></td>
+<td><code>Get-ChildItem</code></td>
+</tr>
+<tr>
+<td>Include hidden files</td>
+<td><code>ls -la</code></td>
+<td><code>Get-ChildItem -Force</code></td>
+</tr>
+<tr>
+<td>Change directory</td>
+<td><code>cd path</code></td>
+<td><code>Set-Location path</code></td>
+</tr>
+<tr>
+<td>Create a directory</td>
+<td><code>mkdir notes</code></td>
+<td><code>New-Item -ItemType Directory notes</code></td>
+</tr>
+<tr>
+<td>Copy a file</td>
+<td><code>cp a.txt b.txt</code></td>
+<td><code>Copy-Item a.txt b.txt</code></td>
+</tr>
+<tr>
+<td>Move or rename</td>
+<td><code>mv old.txt new.txt</code></td>
+<td><code>Move-Item old.txt new.txt</code></td>
+</tr>
+<tr>
+<td>Remove one file</td>
+<td><code>rm draft.txt</code></td>
+<td><code>Remove-Item draft.txt</code></td>
+</tr>
+<tr>
+<td>Display a short text file</td>
+<td><code>cat README.md</code></td>
+<td><code>Get-Content README.md</code></td>
+</tr>
+</tbody>
+</table>
+<p>Before a copy, move, or removal, use <code>pwd</code> and <code>ls</code> to resolve both source and destination. Shell removal normally bypasses a graphical trash folder. This guide therefore does not ask you to use recursive deletion. Generated Gradle files should be removed with <code>./gradlew clean</code>, which has a narrowly defined target.</p>
+<p>Wildcards such as <code>*.java</code> are expanded by many shells. They are convenient, but they can select more files than you intended. Inspect the matching names before using a wildcard in a command that modifies or removes files.</p>
+<h2 id="5-run-programs-from-the-project-root"><a href="#5-run-programs-from-the-project-root">5. Run Programs from the Project Root</a></h2>
+<p>In macOS, Linux, or Git Bash, <code>./</code> explicitly names a program in the current directory:</p>
+<div class="code-block"><pre class="sh"><code>./gradlew test</code></pre></div>
+<p>The shell does not usually search the current directory for security reasons, so <code>gradlew test</code> may fail even when <code>gradlew</code> is visible in <code>ls</code>.</p>
+<p>PowerShell runs the Windows script with:</p>
+<div class="code-block"><pre class="powershell"><code>.\gradlew.bat test</code></pre></div>
+<p>In both cases, <code>test</code> is an argument passed to the wrapper. The wrapper launches the project's pinned Gradle version, which reads the build files and runs the test task.</p>
+<p>The same principle applies to Java's tools:</p>
+<div class="code-block"><pre class="sh"><code>javac Hello.java
+java Hello</code></pre></div>
+<p>The first command compiles source. The second asks the Java launcher to find and run the named class. A Gradle project normally supplies these invocations through its build, so prefer the wrapper command documented by that project.</p>
+<form class="quick-check" data-quick-check data-answer="dot-slash">
+<fieldset>
+<legend>On macOS or Linux, <code>ls</code> shows <code>gradlew</code> in the current directory. Why does the course command begin with <code>./</code>?</legend>
+<label><input type="radio" name="wrapper-path" value="java"> It selects Java 25</label>
+<label><input type="radio" name="wrapper-path" value="dot-slash"> It names the wrapper file in the current directory</label>
+<label><input type="radio" name="wrapper-path" value="remote"> It sends the command to GitHub</label>
+</fieldset>
+<details class="quick-check-explanation">
+<summary>Show the explanation</summary>
+<p><code>.</code> denotes the current directory. The slash joins it to the executable file name, avoiding reliance on the shell's program-search path.</p>
+</details>
+</form>
+
+<h2 id="6-read-output-as-evidence"><a href="#6-read-output-as-evidence">6. Read Output as Evidence</a></h2>
+<p>A successful command can print nothing, and a failed command can print several screenfuls. The prompt returning only means the process ended. Check the final summary and do not infer success from the presence of some green text near the top.</p>
+<p>For a build failure, preserve:</p>
+<ol type="1">
+<li>the command you entered;</li>
+<li>the working directory;</li>
+<li>the first task reported as failed;</li>
+<li>the complete diagnostic, including lines following “Caused by”; and</li>
+<li>any changes made immediately before the failure.</li>
+</ol>
+<p>Use the terminal's scrollback or copy the output as text. Screenshots often cut off the command, paths, or final cause. Do not post passwords, access tokens, or private repository URLs containing embedded credentials.</p>
+<p>Shells maintain command history. Press Up to recall a command, edit only the needed argument, and run it again. This reduces transcription errors and makes an experiment reproducible.</p>
+<h2 id="7-interrupt-do-not-close-blindly"><a href="#7-interrupt-do-not-close-blindly">7. Interrupt, Do Not Close Blindly</a></h2>
+<p>Some commands keep running: a web server waits for requests, and a program may be stuck in a loop. In a terminal, <code>Ctrl+C</code> usually asks the foreground process to stop. It is not the normal copy shortcut inside many terminals. VS Code uses the platform's terminal copy shortcuts and can copy a selection through its context menu.</p>
+<p>If <code>Ctrl+C</code> does not return a prompt, wait for the program's shutdown message and try once more. Closing the entire terminal loses context that might help diagnose the program.</p>
+<h2 id="8-a-navigation-exercise"><a href="#8-a-navigation-exercise">8. A Navigation Exercise</a></h2>
+<p>Create a disposable practice directory somewhere you can identify clearly. Then:</p>
+<ol type="1">
+<li>print the working directory;</li>
+<li>create <code>cli-practice</code> and enter it;</li>
+<li>create <code>src</code> and <code>notes</code> inside it;</li>
+<li>list the resulting tree;</li>
+<li>move from <code>src</code> to its sibling <code>notes</code> using <code>..</code>;</li>
+<li>return to <code>cli-practice</code>; and</li>
+<li>explain, before acting, how you would remove the practice directory safely.</li>
+</ol>
+<p>Do not memorize command lists in isolation. For each step, state the location before and after the command. The transferable skill is maintaining a correct model of where the shell is and what a path will select.</p>
+<h3 id="common-misconception"><a href="#common-misconception">Common misconception</a></h3>
+<p>The file explorer and terminal are not separate filesystems. They are two views of the same files. A change made in one should appear in the other after refresh. If it does not, compare their full paths: you probably opened two similarly named directories or two copies of the repository.</p>
+<h2 id="9-summary"><a href="#9-summary">9. Summary</a></h2>
+<p>The terminal hosts a shell, and the shell runs a command in a working directory. Paths may be absolute or relative; <code>.</code>, <code>..</code>, quoting, and tab completion make relative navigation reliable. Inspect before modifying files, run the Gradle wrapper from the project root, and preserve complete commands and output as diagnostic evidence.</p>
+<h2 id="references"><a href="#references">References</a></h2>
+<ul>
+<li><a href="https://code.visualstudio.com/docs/terminal/basics">Visual Studio Code: Terminal Basics</a></li>
+<li><a href="https://www.gnu.org/software/bash/manual/bash.html">GNU Bash Reference Manual</a></li>
+<li><a href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_aliases">Microsoft Learn: About aliases in PowerShell</a></li>
+</ul>
+        <aside class="source-links" aria-label="Guide files">
+          <h2>Read the source</h2>
+          <p><a href="../../sources/guide-command-line-interface.md">Open the Markdown source</a>.</p>
+        </aside>
+        <nav class="reading-nav" aria-label="Preparation guide sequence">
+          <a href="../software-to-install/">← Software to Install</a>
+          <a href="../installing-and-using-vscode/">Installing and Using Visual Studio Code →</a>
+        </nav>
+      </article>
+    </main>
+  </div>
+</body>
+</html>
