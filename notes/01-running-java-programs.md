@@ -1,4 +1,4 @@
-# Getting Started with Java | Segment 1: Running Java Programs
+# Getting Started with CPEN 221 | Segment 1: Running Java Programs
 
 The arrival display says that the next bus will arrive in −3 minutes.
 

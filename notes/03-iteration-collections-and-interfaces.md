@@ -1,4 +1,4 @@
-# Getting Started with Java | Segment 3: Iteration, Collections, and Interfaces
+# Getting Started with CPEN 221 | Segment 3: Iteration, Collections, and Interfaces
 
 A prediction service receives several observations for each route. The program must
 count late predictions, preserve the order in which observations arrived, identify

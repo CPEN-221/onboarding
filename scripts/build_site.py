@@ -24,6 +24,8 @@ from site_contract import (
     PUBLISHED_SOURCES,
     READINGS,
     READINGS_ROOT,
+    SITE_SUBTITLE,
+    SITE_TITLE,
     SITE_ROOT,
     Guide,
     Reading,
@@ -143,7 +145,7 @@ def content_page(
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{escape(item.description)}">
-  <title>{escape(item.title)} · Getting Started with Java</title>
+  <title>{escape(item.title)} · {escape(SITE_TITLE)}</title>
   <link rel="stylesheet" href="../../assets/css/site.css">
   <script src="../../assets/js/typeface-switcher.js"></script>
   <script defer src="../../assets/js/quick-checks.js"></script>
@@ -152,7 +154,7 @@ def content_page(
   {provenance_comments(item.source, digest)}
   <a class="skip-link" href="#reading-content">Skip to reading</a>
   <header class="site-header">
-    <a class="wordmark" href="../../"><strong>Getting Started with Java</strong><span>CPEN 221 preparation</span></a>
+    <a class="wordmark" href="../../"><strong>{escape(SITE_TITLE)}</strong><span>{escape(SITE_SUBTITLE)}</span></a>
   </header>
 {typeface_tools()}
   <div class="reading-layout">
@@ -219,17 +221,16 @@ def landing_page() -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Getting started with Java in preparation for CPEN 221.">
-  <title>Getting Started with Java · CPEN 221</title>
+  <meta name="description" content="Software tools and Java preparation for CPEN 221.">
+  <title>{escape(SITE_TITLE)}</title>
   <link rel="stylesheet" href="assets/css/site.css">
   <script src="assets/js/typeface-switcher.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="hero">
-    <p>CPEN 221 preparation</p>
-    <h1>Getting Started with Java</h1>
-    <p>Preparing for CPEN 221 in Three Segments</p>
+    <h1>{escape(SITE_TITLE)}</h1>
+    <p>{escape(SITE_SUBTITLE)}</p>
   </header>
 {typeface_tools()}
   <main id="main" class="landing">
@@ -273,12 +274,12 @@ def example_index(directory: Path) -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{escape(title)} · Getting Started with Java examples</title>
+  <title>{escape(title)} · {escape(SITE_TITLE)}</title>
   <link rel="stylesheet" href="../../assets/css/site.css">
   <script src="../../assets/js/typeface-switcher.js"></script>
 </head>
 <body>
-  <header class="site-header"><a class="wordmark" href="../../"><strong>Getting Started with Java</strong><span>Example files</span></a></header>
+  <header class="site-header"><a class="wordmark" href="../../"><strong>{escape(SITE_TITLE)}</strong><span>{escape(SITE_SUBTITLE)}</span></a></header>
 {typeface_tools()}
   <main class="file-list">
     <h1>{escape(title)}</h1>
@@ -307,9 +308,11 @@ def main() -> None:
         generated.mkdir(parents=True)
 
     for figure_name in FIGURE_FILES:
+        published_figure = PUBLISHED_FIGURES_ROOT / figure_name
+        published_figure.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(
             FIGURE_SOURCE_ROOT / figure_name,
-            PUBLISHED_FIGURES_ROOT / figure_name,
+            published_figure,
         )
 
     def build_collection(

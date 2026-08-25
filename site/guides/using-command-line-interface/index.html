@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Navigate a project, read paths and commands, operate on files carefully, and preserve useful diagnostic output.">
-  <title>Using the Command Line Interface · Getting Started with Java</title>
+  <title>Using the Command Line Interface · Getting Started with CPEN 221</title>
   <link rel="stylesheet" href="../../assets/css/site.css">
   <script src="../../assets/js/typeface-switcher.js"></script>
   <script defer src="../../assets/js/quick-checks.js"></script>
 </head>
 <body id="top">
-  <!-- source-sha256: 020524be4bee4a603392ade41af8947ed6933157e9bc9fc3e2348d5d82f2dd07 -->
+  <!-- source-sha256: b2f36c6fdd72c0f19884086cfa9f593236287c268f600c78adcbea81ef2bd687 -->
   <!-- source-file: guide-command-line-interface.md -->
   <a class="skip-link" href="#reading-content">Skip to reading</a>
   <header class="site-header">
-    <a class="wordmark" href="../../"><strong>Getting Started with Java</strong><span>CPEN 221 preparation</span></a>
+    <a class="wordmark" href="../../"><strong>Getting Started with CPEN 221</strong><span>Software Tools and Java</span></a>
   </header>
   <div class="typeface-tools">
     <label for="typeface-picker">Typeface set</label>
@@ -50,6 +50,7 @@
 <p>The command line interface gives you a textual way to navigate the filesystem and run programs. Course instructions use it for Java, Gradle, and Git because a written command states which program to run and which arguments to pass.</p>
 <section class="learning-outcomes" aria-labelledby="learning-outcomes"><h2 id="learning-outcomes"><a href="#learning-outcomes">Learning outcomes</a></h2><ul>
 <li>identify the shell, prompt, command, arguments, and working directory;</li>
+<li>distinguish the filesystem root, home directory, and project root, and describe parent, child, sibling, and descendant relationships;</li>
 <li>navigate a project using absolute and relative paths;</li>
 <li>inspect and perform basic file operations without losing track of their effects;</li>
 <li>run a program or Gradle wrapper from the project root; and</li>
@@ -68,7 +69,8 @@ PS C:\Users\alex\transit-board&gt;</code></pre></div>
 <div class="code-block"><pre class="text"><code>git status --short</code></pre></div>
 <p>Here <code>git</code> is the program. <code>status</code> selects an operation and <code>--short</code> requests a compact display. Spaces separate arguments. The shell then finds <code>git</code> using <code>PATH</code>, starts it in the current working directory, and prints its output.</p>
 <h2 id="2-how-the-filesystem-is-organized"><a href="#2-how-the-filesystem-is-organized">2. How the Filesystem Is Organized</a></h2>
-<p>The <strong>filesystem</strong> organizes files and directories as a hierarchy. A directory can contain files and other directories. In the tree below, <code>transit-board</code> contains three files and a directory named <code>src</code>; <code>src</code> contains <code>main</code> and <code>test</code>.</p>
+<p>Before <code>javac</code> can compile <code>TransitBoard.java</code>, it must locate that file among the files available to the computer. The <strong>filesystem</strong> organizes files and directories as a hierarchy. A <strong>directory</strong> is what graphical interfaces usually call a folder. It contains named entries for files and other directories. A file holds data; a directory establishes part of the route used to reach that data. Except for the root, every directory has a parent. A directory can have many children, and two entries in the same directory cannot have the same name.</p>
+<p>In the tree below, <code>transit-board</code> contains three files and a directory named <code>src</code>; <code>src</code> contains <code>main</code> and <code>test</code>.</p>
 <div class="code-block"><pre class="text"><code>transit-board/
 ├── build.gradle.kts
 ├── gradlew
@@ -88,6 +90,14 @@ PS C:\Users\alex\transit-board&gt;</code></pre></div>
 </ul>
 <p>Every filesystem has a <strong>root directory</strong> at the top of its hierarchy. macOS and Linux write that root as <code>/</code>. Windows has a root for each drive, such as <code>C:\</code>. Your <strong>home directory</strong> is a directory assigned to your user account; it is not the filesystem root. POSIX shells and PowerShell both accept <code>~</code> as a convenient way to name the current user's home directory in interactive commands.</p>
 <p>A course repository also has a <strong>project root</strong>. This is the top-level directory of that particular project, usually the directory containing <code>.git</code>, the Gradle build files, and the wrapper scripts. The filesystem root, home directory, and project root are three different locations.</p>
+<p>One branch of a macOS filesystem shows these locations in a single hierarchy (Figure 1). The solid line is the route from the filesystem root to one course project; the dashed lines lead to siblings that share a parent. Linux commonly replaces <code>/Users/alex</code> with <code>/home/alex</code>. Windows has the same parent-and-child relationships, although the branch usually begins at a drive root such as <code>C:\</code>.</p>
+<figure class="reading-figure">
+<div class="figure-scroll" tabindex="0" role="group" aria-label="Scrollable Figure 1">
+<img src="../../assets/figures/cli/filesystem-hierarchy.svg" alt="Directory tree from the filesystem root through the home and course directories to a project root, with sibling directories on dashed branches.">
+</div>
+<figcaption><strong>Figure 1. Root, home, and project root name different levels.</strong> The absolute path at the bottom records each directory on the solid branch. The project root is inside the home directory; neither one is the filesystem root.</figcaption>
+</figure>
+
 <p>A file browser presents this same hierarchy with expandable folders. The command line uses paths instead. Understanding the hierarchy matters because a path is interpreted from a particular starting location.</p>
 <h2 id="3-know-where-you-are"><a href="#3-know-where-you-are">3. Know Where You Are</a></h2>
 <p>We will use this project tree:</p>
@@ -135,7 +145,15 @@ C:\Users\alex\cpen221\transit-board      Windows</code></pre></div>
 <li><code>src/main</code> descends through two child directories; and</li>
 <li><code>../other-project</code> goes to the parent, then into a sibling.</li>
 </ul>
-<p>Suppose the current directory is <code>transit-board/src/main</code>. <code>cd ../..</code> returns to <code>transit-board</code>. <code>cd /</code> does not: it jumps to the filesystem root.</p>
+<p>The shell resolves a relative path one component at a time. It starts at the working directory, follows <code>..</code> to a parent or a directory name to a child, and stops with an error if the requested entry does not exist. A relative path therefore has no definite destination unless you also know the working directory.</p>
+<p>Suppose the current directory is <code>transit-board/src/main</code>. <code>cd ../..</code> returns to <code>transit-board</code>. <code>cd /</code> does not: it jumps to the filesystem root. Several paths that begin at <code>main</code> show how the starting location determines the result (Figure 2).</p>
+<figure class="reading-figure">
+<div class="figure-scroll" tabindex="0" role="group" aria-label="Scrollable Figure 2">
+<img src="../../assets/figures/cli/relative-paths.svg" alt="Project directory tree with main as the working directory and mappings from dot and dot-dot paths to main, src, test, and the project root.">
+</div>
+<figcaption><strong>Figure 2. Relative paths begin at the working directory.</strong> From <code>main</code>, <code>.</code> stays in place, <code>..</code> selects its parent <code>src</code>, <code>../test</code> selects its sibling, and <code>../..</code> reaches the project root.</figcaption>
+</figure>
+
 <p>On macOS and Linux, a path beginning with <code>/</code> is absolute. On Windows, a drive letter and backslash commonly begin an absolute path. Both Git Bash and many Java tools display Windows paths using forward slashes. Read the shell's convention rather than mixing syntaxes within one command.</p>
 <p>Quote a path containing spaces:</p>
 <div class="code-block"><pre class="sh"><code>cd &quot;CPEN 221/transit-board&quot;</code></pre></div>

@@ -7,6 +7,8 @@ written command states which program to run and which arguments to pass.
 By the end, you should be able to:
 
 - identify the shell, prompt, command, arguments, and working directory;
+- distinguish the filesystem root, home directory, and project root, and describe
+  parent, child, sibling, and descendant relationships;
 - navigate a project using absolute and relative paths;
 - inspect and perform basic file operations without losing track of their effects;
 - run a program or Gradle wrapper from the project root; and
@@ -49,9 +51,16 @@ compact display. Spaces separate arguments. The shell then finds `git` using
 
 ## 2. How the Filesystem Is Organized
 
-The **filesystem** organizes files and directories as a hierarchy. A directory can
-contain files and other directories. In the tree below, `transit-board` contains
-three files and a directory named `src`; `src` contains `main` and `test`.
+Before `javac` can compile `TransitBoard.java`, it must locate that file among the
+files available to the computer. The **filesystem** organizes files and directories
+as a hierarchy. A **directory** is what graphical interfaces usually call a
+folder. It contains named entries for files and other directories. A file holds
+data; a directory establishes part of the route used to reach that data. Except
+for the root, every directory has a parent. A directory can have many children,
+and two entries in the same directory cannot have the same name.
+
+In the tree below, `transit-board` contains three files and a directory named
+`src`; `src` contains `main` and `test`.
 
 ```text
 transit-board/
@@ -85,6 +94,19 @@ A course repository also has a **project root**. This is the top-level directory
 of that particular project, usually the directory containing `.git`, the Gradle
 build files, and the wrapper scripts. The filesystem root, home directory, and
 project root are three different locations.
+
+One branch of a macOS filesystem shows these locations in a single hierarchy
+(Figure 1). The solid line is the route from the filesystem root to one course
+project; the dashed lines lead to siblings that share a parent. Linux commonly
+replaces `/Users/alex` with `/home/alex`. Windows has the same parent-and-child
+relationships, although the branch usually begins at a drive root such as `C:\`.
+
+<figure class="reading-figure">
+<div class="figure-scroll" tabindex="0" role="group" aria-label="Scrollable Figure 1">
+<img src="../../assets/figures/cli/filesystem-hierarchy.svg" alt="Directory tree from the filesystem root through the home and course directories to a project root, with sibling directories on dashed branches.">
+</div>
+<figcaption><strong>Figure 1. Root, home, and project root name different levels.</strong> The absolute path at the bottom records each directory on the solid branch. The project root is inside the home directory; neither one is the filesystem root.</figcaption>
+</figure>
 
 A file browser presents this same hierarchy with expandable folders. The command
 line uses paths instead. Understanding the hierarchy matters because a path is
@@ -167,8 +189,22 @@ meanings:
 - `src/main` descends through two child directories; and
 - `../other-project` goes to the parent, then into a sibling.
 
+The shell resolves a relative path one component at a time. It starts at the
+working directory, follows `..` to a parent or a directory name to a child, and
+stops with an error if the requested entry does not exist. A relative path
+therefore has no definite destination unless you also know the working directory.
+
 Suppose the current directory is `transit-board/src/main`. `cd ../..` returns to
-`transit-board`. `cd /` does not: it jumps to the filesystem root.
+`transit-board`. `cd /` does not: it jumps to the filesystem root. Several paths
+that begin at `main` show how the starting location determines the result (Figure
+2).
+
+<figure class="reading-figure">
+<div class="figure-scroll" tabindex="0" role="group" aria-label="Scrollable Figure 2">
+<img src="../../assets/figures/cli/relative-paths.svg" alt="Project directory tree with main as the working directory and mappings from dot and dot-dot paths to main, src, test, and the project root.">
+</div>
+<figcaption><strong>Figure 2. Relative paths begin at the working directory.</strong> From <code>main</code>, <code>.</code> stays in place, <code>..</code> selects its parent <code>src</code>, <code>../test</code> selects its sibling, and <code>../..</code> reaches the project root.</figcaption>
+</figure>
 
 On macOS and Linux, a path beginning with `/` is absolute. On Windows, a drive
 letter and backslash commonly begin an absolute path. Both Git Bash and many Java

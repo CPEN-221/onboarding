@@ -10,10 +10,10 @@ documents in `CPEN 221 Aux` as topic references where applicable:
 | Guide | Words | Formative checks |
 |---|---:|---:|
 | Software to Install | 1,598 | 2 |
-| Using the Command Line Interface | 1,932 | 2 |
+| Using the Command Line Interface | 2,295 | 2 |
 | Installing and Using Visual Studio Code | 1,643 | 2 |
 | The Build Process and Tools | 1,871 | 2 |
-| Git and GitHub | 3,455 | 4 |
+| Git and GitHub | 3,454 | 4 |
 
 The command-line guide now develops the filesystem hierarchy before introducing
 navigation: root, home, and project directories; parent, child, sibling, and
@@ -25,6 +25,13 @@ control: related files must be recorded as one project state, temporary saves
 should not become permanent checkpoints, and concurrent changes need a controlled
 merge. It then develops repository storage, file states, remotes, branches, and
 recovery.
+
+The command-line guide now includes two original SVG figures. The first places the
+filesystem root, home directory, course directory, project root, and sibling
+directories in one hierarchy. The second marks a working directory in the project
+tree and resolves `.`, `..`, `../test`, and `../..` from that location. The prose
+also distinguishes directories from files and explains how a shell resolves a
+relative path one component at a time.
 
 The Git guide now includes three original SVG figures: linked project-wide
 snapshots, the working-tree/staging/local-repository/GitHub flow, and the branch
@@ -104,8 +111,9 @@ guides, three Java readings, and four example-file indexes. Rendered pages do no
 link to the published Markdown copies; pages with companion code link only to the
 complete example files.
 
-The published title is **Getting Started with Java**. Five preparation guides form
-one track, while the Java material remains organized as three segments. Every page
+The published title is **Getting Started with CPEN 221**, with the subtitle
+**Software Tools and Java**. Five preparation guides form one track, while the
+Java material remains organized as three segments. Every page
 includes a selector for two self-hosted type systems: IBM Plex Sans with IBM Plex
 Serif headings and JetBrains Mono code, or Google Sans Flex with Google Sans Code.
 The preference is applied locally across the site and the content remains usable
@@ -115,11 +123,11 @@ makes no request to a font CDN.
 
 `scripts/check_site.py` accepted every local link, fragment, page landmark, all
 eight source digests, all eight WOFF2 font assets and their four licence notices,
-all three figure source/output pairs, and all twenty-one embedded quick-check
-structures. `node
---check` accepted the progressive-enhancement scripts. The activities remain
-readable as ordinary questions and answer disclosures without JavaScript; with
-JavaScript, they gain local Check buttons and retry feedback. They make no network
+all five figure source/output pairs, and all twenty-one embedded quick-check
+structures. `node --check` accepted the progressive-enhancement scripts. The
+activities remain readable as ordinary questions and answer disclosures without
+JavaScript. With JavaScript, they gain local Check buttons and retry feedback.
+They make no network
 requests and retain no completion record. Responsive and print rules are present,
 but final visual review in the target browsers remains part of the instructor
 review.

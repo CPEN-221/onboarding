@@ -16,8 +16,8 @@ SITE_ROOT = REPOSITORY_ROOT / "site"
 READINGS_ROOT = SITE_ROOT / "readings"
 GUIDES_ROOT = SITE_ROOT / "guides"
 PUBLISHED_SOURCES = SITE_ROOT / "sources"
-FIGURE_SOURCE_ROOT = REPOSITORY_ROOT / "assets" / "diagrams" / "source" / "git"
-PUBLISHED_FIGURES_ROOT = SITE_ROOT / "assets" / "figures" / "git"
+FIGURE_SOURCE_ROOT = REPOSITORY_ROOT / "assets" / "diagrams" / "source"
+PUBLISHED_FIGURES_ROOT = SITE_ROOT / "assets" / "figures"
 FIGURE_MANIFEST = REPOSITORY_ROOT / "assets" / "manifest.yml"
 
 PANDOC_VERSION = "3.10"
@@ -28,6 +28,8 @@ PANDOC_ARGUMENTS = (
     "--syntax-highlighting=none",
 )
 LANG = "en-CA"
+SITE_TITLE = "Getting Started with CPEN 221"
+SITE_SUBTITLE = "Software Tools and Java"
 
 FONT_FILES = (
     "GoogleSansCode-Latin.woff2",
@@ -46,9 +48,11 @@ FONT_LICENSES = (
     "JetBrains-Mono-OFL.txt",
 )
 FIGURE_FILES = (
-    "branch-fast-forward.svg",
-    "git-state-flow.svg",
-    "project-wide-commits.svg",
+    "cli/filesystem-hierarchy.svg",
+    "cli/relative-paths.svg",
+    "git/branch-fast-forward.svg",
+    "git/git-state-flow.svg",
+    "git/project-wide-commits.svg",
 )
 
 

@@ -1,4 +1,4 @@
-# Getting Started with Java — Design Record
+# Getting Started with CPEN 221 — Design Record
 
 Last updated: August 25, 2026
 

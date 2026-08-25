@@ -1,4 +1,24 @@
 figures:
+  - id: cli-filesystem-hierarchy
+    guide: using-command-line-interface
+    source: assets/diagrams/source/cli/filesystem-hierarchy.svg
+    output: site/assets/figures/cli/filesystem-hierarchy.svg
+    tool: SVG
+    purpose: Place the filesystem root, home directory, course directory, and project root in one directory hierarchy.
+    alt: Directory tree from the filesystem root through the home and course directories to a project root, with sibling directories on dashed branches.
+    provenance: Original CPEN 221 diagram.
+    reviewed: 2026-08-25
+
+  - id: cli-relative-paths
+    guide: using-command-line-interface
+    source: assets/diagrams/source/cli/relative-paths.svg
+    output: site/assets/figures/cli/relative-paths.svg
+    tool: SVG
+    purpose: Resolve common relative paths from a highlighted working directory in the course project tree.
+    alt: Project directory tree with main as the working directory and mappings from dot and dot-dot paths to main, src, test, and the project root.
+    provenance: Original CPEN 221 diagram.
+    reviewed: 2026-08-25
+
   - id: git-project-wide-commits
     guide: git-and-github
     source: assets/diagrams/source/git/project-wide-commits.svg

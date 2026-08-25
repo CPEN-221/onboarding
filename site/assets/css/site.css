@@ -186,7 +186,6 @@ a:hover {
   padding: clamp(4rem, 10vw, 8rem) max(1.25rem, calc((100vw - 68rem) / 2));
 }
 
-.hero p:first-child,
 .reading-header > p:first-child {
   color: var(--accent-dark);
   font-size: 0.78rem;

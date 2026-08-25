@@ -1,4 +1,4 @@
-# Getting Started with Java | Segment 2: Objects, State, and References
+# Getting Started with CPEN 221 | Segment 2: Objects, State, and References
 
 The platform display and a mobile view both show the prediction for Brock Hall. A
 new update reaches the mobile view first. The platform display changes too, even

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" role="img" aria-labelledby="title description">
+  <title id="title">Filesystem, home, and project directories in one hierarchy</title>
+  <desc id="description">A tree begins at the POSIX filesystem root, then follows Users, alex, cpen221, and transit-board. Sibling directories appear on dashed branches. Alex is marked as the home directory and transit-board as the project root.</desc>
+  <defs>
+    <style>
+      text { fill: #17211b; font-family: "IBM Plex Sans", Arial, sans-serif; }
+      .branch { fill: none; stroke: #064638; stroke-width: 4; }
+      .sibling-branch { fill: none; stroke: #839087; stroke-dasharray: 7 6; stroke-width: 2.5; }
+      .directory { fill: #fffdf7; stroke: #526057; stroke-width: 2; }
+      .main-directory { fill: #edf4ee; stroke: #064638; stroke-width: 3; }
+      .project-directory { fill: #f5e8cb; stroke: #7b5514; stroke-width: 3; }
+      .root-directory { fill: #17211b; stroke: #17211b; stroke-width: 3; }
+      .root-name { fill: #fffdf7; font-family: "JetBrains Mono", Menlo, monospace; font-size: 31px; font-weight: 700; text-anchor: middle; }
+      .name { font-family: "JetBrains Mono", Menlo, monospace; font-size: 16px; font-weight: 700; text-anchor: middle; }
+      .kind { fill: #526057; font-size: 13px; text-anchor: middle; }
+      .tag { fill: #fffdf7; font-size: 12px; font-weight: 700; letter-spacing: 0.6px; text-anchor: middle; }
+      .path-label { fill: #526057; font-size: 14px; font-weight: 700; letter-spacing: 0.8px; }
+      .path { font-family: "JetBrains Mono", Menlo, monospace; font-size: 21px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <path class="branch" d="M170 160 H215"/>
+  <path class="sibling-branch" d="M192 160 V300 H215"/>
+  <path class="branch" d="M375 160 H415"/>
+  <path class="sibling-branch" d="M395 160 V300 H415"/>
+  <path class="branch" d="M575 160 H615"/>
+  <path class="sibling-branch" d="M595 160 V300 H615"/>
+  <path class="branch" d="M775 160 H785 V130 H800"/>
+  <path class="sibling-branch" d="M785 160 V270 H800"/>
+
+  <rect class="root-directory" x="30" y="120" width="140" height="80" rx="12"/>
+  <text class="root-name" x="100" y="158">/</text>
+  <text class="tag" x="100" y="184">FILESYSTEM ROOT</text>
+
+  <rect class="main-directory" x="215" y="120" width="160" height="80" rx="10"/>
+  <text class="name" x="295" y="153">Users/</text>
+  <text class="kind" x="295" y="179">directory</text>
+  <rect class="directory" x="215" y="260" width="160" height="80" rx="10"/>
+  <text class="name" x="295" y="293">Applications/</text>
+  <text class="kind" x="295" y="319">sibling of Users</text>
+
+  <rect class="main-directory" x="415" y="120" width="160" height="80" rx="10"/>
+  <text class="name" x="495" y="151">alex/</text>
+  <rect x="447" y="163" width="96" height="24" rx="12" fill="#064638"/>
+  <text class="tag" x="495" y="180">HOME</text>
+  <rect class="directory" x="415" y="260" width="160" height="80" rx="10"/>
+  <text class="name" x="495" y="293">sam/</text>
+  <text class="kind" x="495" y="319">sibling of alex</text>
+
+  <rect class="main-directory" x="615" y="120" width="160" height="80" rx="10"/>
+  <text class="name" x="695" y="153">cpen221/</text>
+  <text class="kind" x="695" y="179">course directory</text>
+  <rect class="directory" x="615" y="260" width="160" height="80" rx="10"/>
+  <text class="name" x="695" y="293">Documents/</text>
+  <text class="kind" x="695" y="319">sibling of cpen221</text>
+
+  <rect class="project-directory" x="800" y="90" width="145" height="80" rx="10"/>
+  <text class="name" x="872.5" y="121">transit-board/</text>
+  <rect x="817" y="135" width="111" height="24" rx="12" fill="#7b5514"/>
+  <text class="tag" x="872.5" y="152">PROJECT ROOT</text>
+  <rect class="directory" x="800" y="230" width="145" height="80" rx="10"/>
+  <text class="name" x="872.5" y="263">other-project/</text>
+  <text class="kind" x="872.5" y="289">sibling project</text>
+
+  <rect x="60" y="397" width="840" height="76" rx="10" fill="#edf4ee" stroke="#cbd7ce" stroke-width="1.5"/>
+  <text class="path-label" x="84" y="423">ABSOLUTE PATH THROUGH THIS BRANCH</text>
+  <text class="path" x="84" y="454">/Users/alex/cpen221/transit-board</text>
+</svg>

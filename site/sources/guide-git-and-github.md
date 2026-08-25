@@ -216,7 +216,7 @@ Git asks you to distinguish three local views. The **working tree** contains the
 files you edit. The **staging area**, also called the index, specifies the exact
 content proposed for the next commit. The local repository stores completed
 commits. GitHub introduces a fourth location: the remote repository. Saving,
-staging, committing, and pushing therefore do different work, as Figure 2 shows.
+staging, committing, and pushing therefore cross different boundaries (Figure 2).
 
 <figure class="reading-figure">
 <div class="figure-scroll" tabindex="0" role="group" aria-label="Scrollable Figure 2">
@@ -395,8 +395,8 @@ the branches diverged; inspect the commit graph and follow the team's workflow.
 
 In the simple case above, the merge does not copy files and does not create another
 commit. It moves the `main` branch name forward to the commit already named by the
-topic branch. Figure 3 abbreviates `improve-arrival-message` as `improve-message`
-so that the two branch pointers remain legible.
+topic branch. The shorter name `improve-message` keeps the two branch pointers
+legible in the diagram (Figure 3).
 
 <figure class="reading-figure">
 <div class="figure-scroll" tabindex="0" role="group" aria-label="Scrollable Figure 3">

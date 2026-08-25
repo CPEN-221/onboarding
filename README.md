@@ -1,4 +1,6 @@
-# Getting Started with Java
+# Getting Started with CPEN 221
+
+**Software Tools and Java**
 
 This repository contains two self-paced preparation tracks for the start of CPEN
 221. Five guides establish the development environment and workflow:
@@ -9,7 +11,7 @@ This repository contains two self-paced preparation tracks for the start of CPEN
 4. **The Build Process and Tools**
 5. **Git and GitHub**
 
-Three segments then teach or refresh the required Java:
+Three Java readings then teach or refresh the required language material:
 
 1. **Running Java Programs**
 2. **Objects, State, and References**
