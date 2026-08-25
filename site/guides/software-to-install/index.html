@@ -10,7 +10,7 @@
   <script defer src="../../assets/js/quick-checks.js"></script>
 </head>
 <body id="top">
-  <!-- source-sha256: e41285336fc15152b10f09a9f2cdd4b7492b612fa370e41f22dd7dce6acbbe0f -->
+  <!-- source-sha256: d99cd082f6c174c88689798f4784d05a11bfb565f240f2ffca77e7078b3281dd -->
   <!-- source-file: guide-software-to-install.md -->
   <a class="skip-link" href="#reading-content">Skip to reading</a>
   <header class="site-header">
@@ -45,7 +45,6 @@
           <h1>Software to Install</h1>
           <p class="lede">Install and verify Java 25, Git, VS Code, and the project-supplied Gradle wrapper on macOS, Linux, or Windows.</p>
         </header>
-<p>A programming assignment can fail before any of your Java code runs. The terminal may find an older Java installation, <code>javac</code> may be absent, Git may not know who you are, or an editor may open a single file without recognizing the project. This guide establishes one known starting point for CPEN 221.</p>
 <section class="learning-outcomes" aria-labelledby="learning-outcomes"><h2 id="learning-outcomes"><a href="#learning-outcomes">Learning outcomes</a></h2><ul>
 <li>install a Java 25 <strong>JDK</strong>, Git, and Visual Studio Code on macOS, Linux, or Windows;</li>
 <li>explain why course projects use the Gradle wrapper instead of a separately installed Gradle command;</li>
@@ -88,8 +87,7 @@
 </table>
 <p>A <strong>JDK</strong> is a Java Development Kit. It includes the Java launcher and the compiler. A runtime-only installation is insufficient: <code>java</code> might work while <code>javac</code> is missing.</p>
 <p>Gradle is the unusual row. When a project contains <code>gradlew</code>, <code>gradlew.bat</code>, and <code>gradle/wrapper/</code>, Gradle's own installation guide says that no separate Gradle installation is required. The first wrapper run downloads the version named by the project. CPEN 221 projects use this mechanism, so <code>gradle test</code> is not the course command.</p>
-<blockquote class="design-note"><p><strong>Design principle: a project should declare the tool version it needs instead of relying on whichever version happens to be installed globally.</strong></p>
-</blockquote>
+<p>A project should declare the tool version it needs instead of relying on whichever version happens to be installed globally.</p>
 <h2 id="2-identify-your-operating-system-and-processor"><a href="#2-identify-your-operating-system-and-processor">2. Identify Your Operating System and Processor</a></h2>
 <p>Choose instructions for the operating system on which you will actually edit and run the project. A Linux virtual machine inside Windows is a separate environment; software installed only in Windows is not automatically installed inside it.</p>
 <p>You may also have to choose a processor architecture:</p>
@@ -210,10 +208,7 @@ code --version</code></pre></div>
 <li><a href="https://code.visualstudio.com/docs/setup/linux">Visual Studio Code setup for Linux</a></li>
 <li><a href="https://code.visualstudio.com/docs/setup/windows">Visual Studio Code setup for Windows</a></li>
 </ul>
-        <aside class="source-links" aria-label="Guide files">
-          <h2>Read the source</h2>
-          <p><a href="../../sources/guide-software-to-install.md">Open the Markdown source</a>.</p>
-        </aside>
+
         <nav class="reading-nav" aria-label="Preparation guide sequence">
           <a href="../../">← Contents</a>
           <a href="../using-command-line-interface/">Using the Command Line Interface →</a>

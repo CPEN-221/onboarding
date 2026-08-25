@@ -167,7 +167,7 @@ def content_page(
           <p class="lede">{escape(item.description)}</p>
         </header>
 {body}
-        {source_links(item)}
+{example_links(item)}
         <nav class="reading-nav" aria-label="{escape(label)} sequence">
           {previous_link}
           {next_link}
@@ -180,21 +180,13 @@ def content_page(
 """
 
 
-def source_links(item: Reading | Guide) -> str:
+def example_links(item: Reading | Guide) -> str:
     example_slug = item.slug if isinstance(item, Reading) else item.example_slug
-    if example_slug:
-        heading = "Use the complete files"
-        links = (
-            f'<a href="../../examples/{escape(example_slug)}/">Browse the complete example files</a> '
-            f'or <a href="../../sources/{escape(item.source)}">open the Markdown source</a>.'
-        )
-    else:
-        heading = "Read the source"
-        links = f'<a href="../../sources/{escape(item.source)}">Open the Markdown source</a>.'
-    kind = "Reading" if isinstance(item, Reading) else "Guide"
-    return f"""<aside class="source-links" aria-label="{kind} files">
-          <h2>{heading}</h2>
-          <p>{links}</p>
+    if not example_slug:
+        return ""
+    return f"""<aside class="source-links" aria-label="Example files">
+          <h2>Use the complete files</h2>
+          <p><a href="../../examples/{escape(example_slug)}/">Browse the complete example files</a>.</p>
         </aside>"""
 
 

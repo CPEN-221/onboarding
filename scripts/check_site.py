@@ -108,6 +108,14 @@ def main() -> None:
         if any(alt is None or not alt.strip() for alt in page.image_alt):
             failures.append(f"{relative}: image without useful alt text")
         for reference in page.references:
+            parsed_reference = urlsplit(reference)
+            if (
+                not parsed_reference.scheme
+                and not parsed_reference.netloc
+                and "sources" in Path(parsed_reference.path).parts
+                and Path(parsed_reference.path).suffix.lower() == ".md"
+            ):
+                failures.append(f"{relative}: links to published Markdown source")
             try:
                 target, fragment = local_target(path, reference)
             except ValueError as error:

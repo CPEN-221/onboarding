@@ -1,12 +1,8 @@
 # Using the Command Line Interface
 
-You have downloaded a project and can see it in a file browser. The instructions
-say to run `./gradlew test`, but the terminal replies that no such file exists.
-Nothing is wrong with Gradle: the terminal is in the wrong directory.
-
-This small failure captures why command-line fluency matters. A command runs in a
-specific working directory, with specific arguments, and produces evidence you can
-read and share.
+The command line interface gives you a textual way to navigate the filesystem and
+run programs. Course instructions use it for Java, Gradle, and Git because a
+written command states which program to run and which arguments to pass.
 
 By the end, you should be able to:
 
@@ -51,7 +47,50 @@ Here `git` is the program. `status` selects an operation and `--short` requests 
 compact display. Spaces separate arguments. The shell then finds `git` using
 `PATH`, starts it in the current working directory, and prints its output.
 
-## 2. Know Where You Are
+## 2. How the Filesystem Is Organized
+
+The **filesystem** organizes files and directories as a hierarchy. A directory can
+contain files and other directories. In the tree below, `transit-board` contains
+three files and a directory named `src`; `src` contains `main` and `test`.
+
+```text
+transit-board/
+├── build.gradle.kts
+├── gradlew
+├── gradlew.bat
+└── src/
+    ├── main/
+    │   └── java/
+    │       └── TransitBoard.java
+    └── test/
+        └── java/
+            └── TransitBoardTest.java
+```
+
+The terminology describes relationships within this tree:
+
+- `src` is a child of `transit-board`, and `transit-board` is the parent of
+  `src`;
+- `main` and `test` are siblings because they have the same parent; and
+- `TransitBoard.java` is a descendant of `transit-board`, even though it is not
+  an immediate child.
+
+Every filesystem has a **root directory** at the top of its hierarchy. macOS and
+Linux write that root as `/`. Windows has a root for each drive, such as `C:\`.
+Your **home directory** is a directory assigned to your user account; it is not
+the filesystem root. POSIX shells and PowerShell both accept `~` as a convenient
+way to name the current user's home directory in interactive commands.
+
+A course repository also has a **project root**. This is the top-level directory
+of that particular project, usually the directory containing `.git`, the Gradle
+build files, and the wrapper scripts. The filesystem root, home directory, and
+project root are three different locations.
+
+A file browser presents this same hierarchy with expandable folders. The command
+line uses paths instead. Understanding the hierarchy matters because a path is
+interpreted from a particular starting location.
+
+## 3. Know Where You Are
 
 We will use this project tree:
 
@@ -108,7 +147,7 @@ commands from operating in the wrong place.
 </details>
 </form>
 
-## 3. Read Paths
+## 4. Read Paths
 
 A path identifies a location in the filesystem. An **absolute path** begins from a
 filesystem root:
@@ -124,6 +163,7 @@ meanings:
 
 - `.` is the current directory;
 - `..` is its parent directory;
+- `~` names your home directory in the shells used in this guide;
 - `src/main` descends through two child directories; and
 - `../other-project` goes to the parent, then into a sibling.
 
@@ -144,10 +184,14 @@ cd "CPEN 221/transit-board"
 Tab completion is safer than typing a long path. Enter a few characters and press
 Tab. The shell completes an unambiguous name or offers choices.
 
-> **Design principle: establish and verify the working directory before running a
-> project command.**
+Names are case-sensitive on most Linux filesystems. On common macOS and Windows
+installations they are often case-insensitive, although that is a filesystem
+configuration rather than a Java rule. Use the spelling stored in the project so
+that commands also work on a case-sensitive system.
 
-## 4. Inspect Before You Change
+Before running a project command, establish the working directory and verify it.
+
+## 5. Inspect Before You Change
 
 The following table uses POSIX commands, which work in macOS, Linux, and Git Bash,
 and gives the corresponding PowerShell command.
@@ -173,7 +217,7 @@ Wildcards such as `*.java` are expanded by many shells. They are convenient, but
 they can select more files than you intended. Inspect the matching names before
 using a wildcard in a command that modifies or removes files.
 
-## 5. Run Programs from the Project Root
+## 6. Run Programs from the Project Root
 
 In macOS, Linux, or Git Bash, `./` explicitly names a program in the current
 directory:
@@ -219,7 +263,7 @@ its build, so prefer the wrapper command documented by that project.
 </details>
 </form>
 
-## 6. Read Output as Evidence
+## 7. Read Output as Evidence
 
 A successful command can print nothing, and a failed command can print several
 screenfuls. The prompt returning only means the process ended. Check the final
@@ -241,7 +285,7 @@ Shells maintain command history. Press Up to recall a command, edit only the nee
 argument, and run it again. This reduces transcription errors and makes an
 experiment reproducible.
 
-## 7. Interrupt, Do Not Close Blindly
+## 8. Stop a Running Program
 
 Some commands keep running: a web server waits for requests, and a program may be
 stuck in a loop. In a terminal, `Ctrl+C` usually asks the foreground process to
@@ -253,7 +297,7 @@ If `Ctrl+C` does not return a prompt, wait for the program's shutdown message an
 try once more. Closing the entire terminal loses context that might help diagnose
 the program.
 
-## 8. A Navigation Exercise
+## 9. A Navigation Exercise
 
 Create a disposable practice directory somewhere you can identify clearly. Then:
 
@@ -266,17 +310,22 @@ Create a disposable practice directory somewhere you can identify clearly. Then:
 7. explain, before acting, how you would remove the practice directory safely.
 
 Do not memorize command lists in isolation. For each step, state the location before
-and after the command. The transferable skill is maintaining a correct model of
-where the shell is and what a path will select.
+and after the command. Keep track of where the shell is and what each path will
+select.
 
-### Common misconception
+## 10. The Terminal and File Browser Use the Same Files
 
 The file explorer and terminal are not separate filesystems. They are two views of
 the same files. A change made in one should appear in the other after refresh. If
 it does not, compare their full paths: you probably opened two similarly named
 directories or two copies of the repository.
 
-## 9. Summary
+Changing directory does not move any files. It changes the location that the shell
+uses to interpret relative paths for subsequent commands. A second terminal can
+have a different working directory at the same time because each shell keeps its
+own location.
+
+## 11. Summary
 
 The terminal hosts a shell, and the shell runs a command in a working directory.
 Paths may be absolute or relative; `.`, `..`, quoting, and tab completion make

@@ -1,10 +1,8 @@
 # Git and GitHub
 
-You repair a transit-classification method and then discover that another edit,
-made yesterday, broke an unrelated case. Without recorded checkpoints, the two
-changes are tangled together. Git lets you inspect the difference, save a coherent
-snapshot, and compare it with earlier snapshots. GitHub gives that repository a
-remote home for sharing and collaboration.
+Git records the history of a project. GitHub can host a copy of that history and
+provides tools for sharing and reviewing it. They are related, but they are not
+the same system.
 
 By the end, you should be able to:
 
@@ -15,11 +13,40 @@ By the end, you should be able to:
 - create and merge a short-lived branch; and
 - recover an unstaged edit without using destructive history-rewriting commands.
 
-## 1. Git Is Local; GitHub Is a Host
+## 1. What Git Records
 
 **Git** is a version-control program. A Git **repository** stores a history of
-snapshots called commits. Most Git operations—viewing differences, making commits,
-and switching branches—work locally without contacting a server.
+project states called **commits**. Each commit records the state of the tracked
+files together with an author, time, message, and link to its parent commit. The
+links form the project's history.
+
+Saving a file and committing it are separate actions. Saving updates the file in
+the working directory. Git can show that the saved file differs from the current
+commit, but Git does not add a new point to the history until you stage content and
+commit it. This separation lets you compile and test intermediate edits before
+deciding which changes belong together.
+
+Git records a project as a whole rather than maintaining an independent timeline
+for each file. A useful commit may change a Java class, its tests, and documentation
+together because those files implement one change. Git can later compare the whole
+project at two commits or show only the paths that changed between them.
+
+This differs from a synchronized folder. A synchronization service generally
+copies each saved edit to other devices. Git records only commits and can combine
+non-overlapping changes made by different people. If two changes cannot be combined
+automatically, Git leaves a conflict for a person to resolve.
+
+A repository initialized with `git init` contains a hidden `.git` directory. Git
+stores its objects, references, and configuration there. The files you normally
+edit sit beside it in the **working tree**. Do not edit files inside `.git`
+directly; use Git commands to inspect and change repository state.
+
+## 2. How GitHub Fits In
+
+Most Git operations, including viewing differences, creating commits, and changing
+branches, run on your computer without contacting a server. Git is a
+**distributed** version-control system: a normal clone contains the repository
+history as well as the current working files.
 
 **GitHub** hosts remote Git repositories and adds accounts, access control, pull
 requests, issues, and web views. A local commit is not automatically on GitHub.
@@ -30,10 +57,7 @@ repository exposes its history, including assignment code, to anyone. Changing a
 repository from public to private later does not guarantee that earlier public
 copies disappeared.
 
-> **Design principle: make each commit a small, coherent, reproducible explanation
-> of one change.**
-
-## 2. Configure Your Author Identity
+## 3. Tell Git Who You Are
 
 After installing Git, configure the name and email recorded in new commits:
 
@@ -59,7 +83,7 @@ includes Git Credential Manager. SSH uses a key registered with your GitHub
 account. Follow GitHub's current setup instructions rather than placing a token in
 a remote URL or text file.
 
-## 3. Clone the Repository Once
+## 4. Clone the Repository Once
 
 On the GitHub repository page, choose **Code**, select HTTPS or SSH according to
 your configured authentication, and copy the URL. In the directory that should
@@ -74,6 +98,10 @@ git remote -v
 
 Cloning creates a new project directory, downloads the repository history, checks
 out its default branch, and records the source as a remote named `origin`.
+
+`origin` is a short local name for a remote URL. It is conventional, not special
+to GitHub. A repository can have several remotes, and two local clones can use
+different short names for the same server location.
 
 Do not clone the same repository before every work session. Reuse the local clone
 and synchronize it. Multiple clones with nearly identical names are a common cause
@@ -95,7 +123,7 @@ reports the fetch and push URLs. Neither command changes anything.
 </details>
 </form>
 
-## 4. Understand the Three Local States
+## 5. Follow Changes Through the Local Repository
 
 Git asks you to distinguish three views:
 
@@ -106,6 +134,19 @@ working tree  --git add-->  staging area  --git commit-->  repository history
 The **working tree** contains the files you edit. The **staging area**, also called
 the index, specifies the exact content proposed for the next commit. The local
 repository stores completed commits.
+
+`git status` describes files using four related terms:
+
+| State | Meaning |
+|---|---|
+| Untracked | The path is in the working tree but is not part of the current commit or staging area. |
+| Unmodified | The tracked file matches the version in the current commit. |
+| Modified | The working-tree content differs from the version already staged. |
+| Staged | The staging area contains content to include in the next commit. |
+
+These are states of content, not permanent labels attached to a file. After you
+stage a file, edit it again, and save it, the path has both staged content for the
+next commit and a newer unstaged change in the working tree.
 
 Suppose you change `TransitSummary.java` and add a test. Inspect before staging:
 
@@ -146,7 +187,7 @@ not copy files to GitHub and does not make a backup commit.
 </details>
 </form>
 
-## 5. Commit a Tested Change
+## 6. Commit a Tested Change
 
 Before committing, run the project's checks and review the staged diff. Then:
 
@@ -157,6 +198,11 @@ git commit -m "Handle on-time transit predictions"
 A useful message states what the change accomplishes. “Changes,” “work,” or
 “assignment” provides little help when reading history. Use the imperative form:
 “Handle…”, “Reject…”, “Document…”, or “Add…”.
+
+Make each commit a coherent explanation of one change. It should include the files
+needed for that change and pass the relevant build. “Small” does not mean one file
+or one line; it means that the commit has one purpose that another reader can
+understand and, if necessary, reverse.
 
 Inspect the result:
 
@@ -175,7 +221,7 @@ they are staged. Ignoring a path does not remove a file already tracked by Git.
 Check `git status` after each build and investigate unexpected files rather than
 blindly adding everything.
 
-## 6. Pull and Push Deliberately
+## 7. Exchange Commits with a Remote
 
 At the start of a work session, from a clean working tree, synchronize the current
 branch:
@@ -184,9 +230,10 @@ branch:
 git pull --ff-only
 ```
 
-This fetches remote changes and advances the local branch only when no merge commit
-is required. If Git refuses, read why before choosing a different command. You may
-have local work to commit, a branch divergence to reconcile, or no upstream branch.
+This first fetches objects and branch information from the remote. It then advances
+the local branch only when no merge commit is required. If Git refuses, read why
+before choosing a different command. You may have local work to commit, a branch
+divergence to reconcile, or no upstream branch.
 
 After local commits pass the build:
 
@@ -207,16 +254,21 @@ git push -u origin branch-name
 The `-u` option records the upstream relationship so later `git push` and `git
 pull` know which remote branch corresponds to the local one.
 
-### Common misconception
+### Committing and Pushing Are Separate
 
 “GitHub is my backup” is incomplete. Git records only committed content, and
 GitHub receives only pushed commits. An uncommitted file is absent from both Git
 history and the remote. Use frequent coherent commits and verify pushes, while
 still following an appropriate backup practice for work outside repositories.
 
-## 7. Use a Branch for One Line of Work
+## 8. Work on a Branch
 
-A branch is a movable name for a line of commits. Before starting a focused change:
+A branch is a movable name for one commit, usually the latest commit in a line of
+development. `HEAD` identifies the branch currently checked out. Creating a branch
+does not copy every project file; Git creates another name that initially points to
+the same commit. New commits move the checked-out branch name forward.
+
+Before starting a focused change:
 
 ```sh
 git switch main
@@ -251,7 +303,7 @@ git merge --ff-only improve-arrival-message
 requires a merge or rebase decision. Do not choose one mechanically when Git says
 the branches diverged; inspect the commit graph and follow the team's workflow.
 
-## 8. Recover an Unstaged Edit
+## 9. Undo One Unstaged Edit
 
 Git can restore tracked content, but the safety depends on what has been recorded.
 Suppose you made an unwanted unstaged edit to one file. First inspect it:
@@ -294,7 +346,7 @@ and intended outcome before using them.
 </details>
 </form>
 
-## 9. Handle a Merge Conflict as a Decision
+## 10. Resolve a Merge Conflict
 
 A conflict occurs when Git cannot combine competing changes automatically. Git
 marks the affected paths and `git status` reports an unmerged state. Open each
@@ -308,10 +360,10 @@ content, compile and test it, then stage the resolved file. Complete the merge o
 after all conflicts are resolved and the combined behaviour is verified.
 
 VS Code's merge editor can present the same choices graphically. It operates on the
-same files and Git index as the terminal. Whatever interface you use, the key work
-is a software decision about the combined result.
+same files and Git index as the terminal. Whichever interface you use, you must
+decide what the combined program should do.
 
-## 10. A Complete Daily Loop
+## 11. A Work Session from Start to Finish
 
 Use this loop for a small assignment change:
 
@@ -343,7 +395,7 @@ answer:
 A command list is not a substitute for `git status`. Use status between transitions
 until you can predict its output.
 
-## 11. Summary
+## 12. Summary
 
 Git records local commits; GitHub hosts remote repositories and collaboration
 features. The working tree, staging area, and commit history are distinct states.
@@ -354,7 +406,9 @@ recorded version will replace it.
 
 ## References
 
+- [Pro Git: Getting a Git Repository](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository)
 - [Pro Git: Recording Changes to the Repository](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository)
+- [Pro Git: Branches in a Nutshell](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)
 - [Git Reference: `git switch`](https://git-scm.com/docs/git-switch)
 - [Git Reference: `git restore`](https://git-scm.com/docs/git-restore)
 - [GitHub Docs: Set up Git](https://docs.github.com/en/get-started/git-basics/set-up-git)

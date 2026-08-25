@@ -1,11 +1,9 @@
 # The Build Process and Tools
 
-`TransitSummary.java` compiles on one laptop, yet a teammate cannot even start its
-tests. The source file is identical. The difference is outside that file: one
-person manually assembled a compiler command and a collection of JAR paths, while
-the other has no record of those choices.
-
-A build turns those hidden choices into a versioned, repeatable procedure.
+A Java project usually contains more than one source file. It may also depend on
+libraries, tests, compiler options, resources, and packaging instructions. The
+**build process** turns those inputs into compiled code, test results, and other
+outputs. A build tool records and runs that process.
 
 By the end, you should be able to:
 
@@ -20,7 +18,7 @@ This guide has a [complete companion project](../../examples/build-process-and-t
 Clone or download the [onboarding repository](https://github.com/CPEN-221/onboarding)
 so that the project's directories and wrapper files remain intact.
 
-## 1. One Source File Is Not the Build
+## 1. What the Build Includes
 
 A small Java program can be compiled directly:
 
@@ -46,7 +44,12 @@ This is not a C-style “compile, then link” pipeline. The ordinary Java build
 this guide has no separate native linker stage. Dependencies are made available on
 compile-time and runtime class paths, and the JVM loads classes when needed.
 
-## 2. Meet the Tools
+The build definition records this work as part of the project. It specifies the
+inputs, the tools and versions to use, and the relationships among build steps.
+Generated class files, reports, and archives are outputs. If the outputs disappear,
+the build should be able to reconstruct them from the source and build definition.
+
+## 2. The Tools and Their Roles
 
 The **JDK** supplies `javac`, `java`, and standard libraries. A Gradle Java
 **toolchain** declaration asks build tasks to use a particular Java language
@@ -72,10 +75,43 @@ Gradle version without maintaining a global installation.
 **JUnit** is the testing framework used by the test source. Gradle resolves the
 declared JUnit dependencies and its `test` task launches the tests.
 
-> **Design principle: version the build definition and its launcher with the
-> source so that the same command reconstructs the same procedure.**
+Keep the build definition and wrapper with the source. A fresh clone can then use
+the same command and Gradle version as every other clone.
 
-## 3. Read the Project Layout
+## 3. Build Tools and Why We Use Gradle
+
+Build automation predates Java, and several tools use different models for the
+same general problem:
+
+- `make` defines targets, their prerequisites, and the commands that produce
+  them. It uses file timestamps to avoid rebuilding targets whose inputs have not
+  changed. It works with many languages, but dependency download and Java project
+  layout require additional conventions or tools.
+- Maven describes a project in `pom.xml` and supplies a standard lifecycle with
+  phases such as `compile`, `test`, and `package`. Its fixed conventions make many
+  Java builds similar to one another.
+- Gradle describes a graph of **tasks**. Plugins supply standard tasks and project
+  conventions, while Groovy or Kotlin build scripts can configure or extend them.
+
+CPEN 221 uses Gradle. This is a course choice, not a claim that Gradle is the best
+tool for every project. The important ideas transfer: a build tool records the
+procedure, tracks dependencies among steps, and decides which work is required for
+the requested output.
+
+Gradle handles one invocation in three phases. It first initializes the build and
+finds its projects. It then evaluates the build scripts and constructs the task
+graph. Finally, it executes the requested tasks and the tasks they depend on. This
+explains why `./gradlew build` can run compilation and tests even though the command
+names only `build`.
+
+Gradle also resolves external libraries. A declaration such as
+`org.junit.jupiter:junit-jupiter` identifies a module, while the JUnit bill of
+materials used below supplies compatible versions. Gradle searches the declared
+repositories, downloads the required artifacts and their declared dependencies,
+and keeps them in a local cache. A first build may therefore need network access;
+later builds can often reuse the cache.
+
+## 4. The Gradle Project Layout
 
 The companion project has this structure:
 
@@ -139,7 +175,7 @@ warnings. Read the checked-in file rather than reproducing it from the excerpt.
 </details>
 </form>
 
-## 4. Run the Wrapper
+## 5. Run Gradle Through the Wrapper
 
 From the project root on macOS, Linux, or Git Bash:
 
@@ -165,9 +201,8 @@ These are three requested tasks:
   and the JAR.
 
 Tasks form a dependency graph. Requesting `build` causes Gradle to run the tasks on
-which `build` depends; it does not merely execute every conceivable task in a fixed
-list. A task whose inputs and outputs have not changed may be reported as
-`UP-TO-DATE`.
+which `build` depends. Gradle does not execute every task defined by every plugin.
+A task whose inputs and outputs have not changed may be reported as `UP-TO-DATE`.
 
 The validated `run` task for the companion project printed:
 
@@ -178,7 +213,7 @@ Route 44: ON TIME
 The validated `test` and `build` tasks both ended with `BUILD SUCCESSFUL`. These
 observations were produced with Java 25 and the checked-in Gradle 9.6.1 wrapper.
 
-## 5. Locate the Outputs
+## 6. Locate the Outputs
 
 Gradle writes generated files under `build/`:
 
@@ -219,7 +254,7 @@ faster and is designed to determine which work must be repeated.
 </details>
 </form>
 
-## 6. Read a Failure from the First Failed Task
+## 7. Read a Failure from the First Failed Task
 
 Gradle output names tasks with a leading colon. The first failed task narrows the
 search:
@@ -248,14 +283,14 @@ Useful focused commands include:
 Use `--stacktrace` when the normal message does not expose the cause. More output
 is useful only if you can connect it to the failed task.
 
-### Common misconception
+### The Editor and the Build Can Run Different Work
 
 “It works in VS Code” and “the project builds” are not equivalent statements. The
 editor can run one class or one test with its own launch configuration. The wrapper
 executes the versioned project tasks. Use editor controls for focused investigation
 and the wrapper as the shared build interface.
 
-## 7. Practice with One Controlled Failure
+## 8. Practice with One Controlled Failure
 
 In the companion project:
 
@@ -270,7 +305,7 @@ In the companion project:
 Explain why step 4 is a test failure rather than a compilation failure. Then
 explain why step 6 does not delete the source or wrapper.
 
-## 8. Summary
+## 9. Summary
 
 A Java build compiles source, resolves dependencies, compiles and runs tests, and
 can package production classes. The JDK performs Java compilation and execution;
@@ -281,6 +316,8 @@ task.
 
 ## References
 
+- [GNU Make Manual: What a Rule Looks Like](https://www.gnu.org/software/make/manual/html_node/Rule-Introduction.html)
+- [Apache Maven: Introduction to the Build Lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
 - [Gradle User Manual: Installing Gradle](https://docs.gradle.org/current/userguide/installation.html)
 - [Gradle User Manual: Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html)
 - [Gradle User Manual: Building Java and JVM Projects](https://docs.gradle.org/current/userguide/building_java_projects.html)

@@ -9,15 +9,24 @@ documents in `CPEN 221 Aux` as topic references where applicable:
 
 | Guide | Words | Formative checks |
 |---|---:|---:|
-| Software to Install | 1,655 | 2 |
-| Using the Command Line Interface | 1,608 | 2 |
-| Installing and Using Visual Studio Code | 1,673 | 2 |
-| The Build Process and Tools | 1,523 | 2 |
-| Git and GitHub | 1,972 | 3 |
+| Software to Install | 1,598 | 2 |
+| Using the Command Line Interface | 1,932 | 2 |
+| Installing and Using Visual Studio Code | 1,643 | 2 |
+| The Build Process and Tools | 1,871 | 2 |
+| Git and GitHub | 2,470 | 3 |
+
+The command-line guide now develops the filesystem hierarchy before introducing
+navigation: root, home, and project directories; parent, child, sibling, and
+descendant relationships; absolute and relative paths; and the working directory
+maintained by each shell. The build guide compares `make`, Maven, and Gradle before
+explaining Gradle phases, its task graph, dependency resolution, caching, wrapper,
+and outputs. The Git guide distinguishes saving from committing and synchronized
+folders from version control, then develops repository storage, file states,
+remotes, branches, and recovery.
 
 The rewrite replaces outdated JUnit 4, Spring, `master`, `checkout`, password, and
 global-build-tool advice with Java 25, JUnit 6.1.3, Gradle wrappers, `main`, modern
-Git recovery commands, and current GitHub authentication guidance. The 29 direct
+Git recovery commands, and current GitHub authentication guidance. The 33 direct
 references point to official Adoptium, Gradle, Git, GitHub, VS Code, Microsoft, GNU,
 and JUnit documentation.
 
@@ -81,7 +90,9 @@ untracked, staged, committed, restored, and clean states.
 The static-site build uses pinned Pandoc 3.10 and publishes the authoritative
 Markdown and complete example files alongside the rendered guides and readings.
 The generated site has thirteen HTML pages: one landing page, five preparation
-guides, three Java readings, and four example-file indexes.
+guides, three Java readings, and four example-file indexes. Rendered pages do not
+link to the published Markdown copies; pages with companion code link only to the
+complete example files.
 
 The published title is **Getting Started with Java**. Five preparation guides form
 one track, while the Java material remains organized as three segments. Every page

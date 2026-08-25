@@ -69,10 +69,10 @@
           }
 
           if (sameValues(selected, expectedValues(form))) {
-            result.textContent = "Correct. Open the explanation to compare the reasoning.";
+            result.textContent = "Correct.";
             result.classList.add("is-correct");
           } else {
-            result.textContent = "Not yet. Trace the values or control flow and try again.";
+            result.textContent = "Not quite. Try again.";
             result.classList.add("is-incorrect");
           }
         });

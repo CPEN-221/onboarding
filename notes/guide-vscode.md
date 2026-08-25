@@ -1,10 +1,8 @@
 # Installing and Using Visual Studio Code
 
-An editor can colour Java syntax while knowing almost nothing about the project.
-That superficial success becomes confusing when imports remain unresolved, tests
-do not appear, or the Run button uses a different JDK from the terminal. A useful
-VS Code setup begins by opening the project as a folder and allowing its Java and
-Gradle support to import the build.
+For CPEN 221, open the complete Gradle project in Visual Studio Code (VS Code),
+not an individual Java file. The Java and Gradle extensions then read the build,
+find the source and test directories, and use the project's Java configuration.
 
 By the end, you should be able to:
 
@@ -95,8 +93,7 @@ debug configurations, and extension recommendations that execute code. Trust a
 course repository obtained from its official location after confirming that you
 opened the intended folder. Do not automatically trust an unrelated archive.
 
-> **Design principle: the build definition is the authority for the project;
-> configure the editor to follow it.**
+The build definition specifies the project. Configure the editor to read it.
 
 ## 4. Confirm Java 25 and Import the Build
 
@@ -128,9 +125,8 @@ or in Windows PowerShell:
 .\gradlew.bat test
 ```
 
-This command is the decisive check. An editor's green triangle is convenient, but
-the wrapper is the reproducible interface used by the project and continuous
-integration.
+The editor can run a selected class or test. The wrapper runs the versioned task
+that the project and continuous-integration service share.
 
 If imports stay red after a successful command-line build, use **Java: Clean Java
 Language Server Workspace** and allow the project to re-import. If the wrapper
@@ -200,7 +196,7 @@ The debugger shows one execution. It does not prove a rule about every execution
 and it does not replace a test assertion. Record the observation that changed your
 explanation, then encode the required behaviour in a test where appropriate.
 
-### Common misconception
+### Debugger Changes Do Not Edit the Source
 
 “The debugger changed my code” is usually a confusion between state and source.
 Editing a variable in a debug session changes that running process, not the Java
@@ -261,8 +257,7 @@ there is no difference, state which two independent observations agreed.
 Install the Java and Gradle extensions, while relying on VS Code's built-in Git
 support for ordinary version control. Open the project root as a folder, select
 Java 25, let Gradle import the build, and use the editor for navigation and focused
-runs. The checked-in wrapper remains the authoritative command for the complete
-build and tests.
+runs. Use the checked-in wrapper for the complete build and tests.
 
 ## References
 

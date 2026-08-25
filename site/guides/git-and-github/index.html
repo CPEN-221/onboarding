@@ -10,7 +10,7 @@
   <script defer src="../../assets/js/quick-checks.js"></script>
 </head>
 <body id="top">
-  <!-- source-sha256: 29f7b1221aef93a48d5d4b62fcd6083da9d00ec83a9d0560a912840bc3013893 -->
+  <!-- source-sha256: e8318171276b29a92e3e2cc3c34ab0c9c70b3502852d8719c1fb2e0c910f3b3e -->
   <!-- source-file: guide-git-and-github.md -->
   <a class="skip-link" href="#reading-content">Skip to reading</a>
   <header class="site-header">
@@ -27,17 +27,18 @@
     <nav class="contents" aria-label="On this page">
       <p>Preparation guide 5 of 5</p>
       <ol>
-          <li><a href="#1-git-is-local-github-is-a-host">Git Is Local; GitHub Is a Host</a></li>
-          <li><a href="#2-configure-your-author-identity">Configure Your Author Identity</a></li>
-          <li><a href="#3-clone-the-repository-once">Clone the Repository Once</a></li>
-          <li><a href="#4-understand-the-three-local-states">Understand the Three Local States</a></li>
-          <li><a href="#5-commit-a-tested-change">Commit a Tested Change</a></li>
-          <li><a href="#6-pull-and-push-deliberately">Pull and Push Deliberately</a></li>
-          <li><a href="#7-use-a-branch-for-one-line-of-work">Use a Branch for One Line of Work</a></li>
-          <li><a href="#8-recover-an-unstaged-edit">Recover an Unstaged Edit</a></li>
-          <li><a href="#9-handle-a-merge-conflict-as-a-decision">Handle a Merge Conflict as a Decision</a></li>
-          <li><a href="#10-a-complete-daily-loop">A Complete Daily Loop</a></li>
-          <li><a href="#11-summary">Summary</a></li>
+          <li><a href="#1-what-git-records">What Git Records</a></li>
+          <li><a href="#2-how-github-fits-in">How GitHub Fits In</a></li>
+          <li><a href="#3-tell-git-who-you-are">Tell Git Who You Are</a></li>
+          <li><a href="#4-clone-the-repository-once">Clone the Repository Once</a></li>
+          <li><a href="#5-follow-changes-through-the-local-repository">Follow Changes Through the Local Repository</a></li>
+          <li><a href="#6-commit-a-tested-change">Commit a Tested Change</a></li>
+          <li><a href="#7-exchange-commits-with-a-remote">Exchange Commits with a Remote</a></li>
+          <li><a href="#8-work-on-a-branch">Work on a Branch</a></li>
+          <li><a href="#9-undo-one-unstaged-edit">Undo One Unstaged Edit</a></li>
+          <li><a href="#10-resolve-a-merge-conflict">Resolve a Merge Conflict</a></li>
+          <li><a href="#11-a-work-session-from-start-to-finish">A Work Session from Start to Finish</a></li>
+          <li><a href="#12-summary">Summary</a></li>
       </ol>
     </nav>
     <main id="reading-content">
@@ -47,7 +48,7 @@
           <h1>Git and GitHub</h1>
           <p class="lede">Record coherent commits, synchronize a remote repository, work on a branch, and recover changes deliberately.</p>
         </header>
-<p>You repair a transit-classification method and then discover that another edit, made yesterday, broke an unrelated case. Without recorded checkpoints, the two changes are tangled together. Git lets you inspect the difference, save a coherent snapshot, and compare it with earlier snapshots. GitHub gives that repository a remote home for sharing and collaboration.</p>
+<p>Git records the history of a project. GitHub can host a copy of that history and provides tools for sharing and reviewing it. They are related, but they are not the same system.</p>
 <section class="learning-outcomes" aria-labelledby="learning-outcomes"><h2 id="learning-outcomes"><a href="#learning-outcomes">Learning outcomes</a></h2><ul>
 <li>distinguish Git from GitHub and a working tree from a commit;</li>
 <li>clone a repository and identify its local and remote locations;</li>
@@ -56,13 +57,17 @@
 <li>create and merge a short-lived branch; and</li>
 <li>recover an unstaged edit without using destructive history-rewriting commands.</li>
 </ul></section>
-<h2 id="1-git-is-local-github-is-a-host"><a href="#1-git-is-local-github-is-a-host">1. Git Is Local; GitHub Is a Host</a></h2>
-<p><strong>Git</strong> is a version-control program. A Git <strong>repository</strong> stores a history of snapshots called commits. Most Git operations—viewing differences, making commits, and switching branches—work locally without contacting a server.</p>
+<h2 id="1-what-git-records"><a href="#1-what-git-records">1. What Git Records</a></h2>
+<p><strong>Git</strong> is a version-control program. A Git <strong>repository</strong> stores a history of project states called <strong>commits</strong>. Each commit records the state of the tracked files together with an author, time, message, and link to its parent commit. The links form the project's history.</p>
+<p>Saving a file and committing it are separate actions. Saving updates the file in the working directory. Git can show that the saved file differs from the current commit, but Git does not add a new point to the history until you stage content and commit it. This separation lets you compile and test intermediate edits before deciding which changes belong together.</p>
+<p>Git records a project as a whole rather than maintaining an independent timeline for each file. A useful commit may change a Java class, its tests, and documentation together because those files implement one change. Git can later compare the whole project at two commits or show only the paths that changed between them.</p>
+<p>This differs from a synchronized folder. A synchronization service generally copies each saved edit to other devices. Git records only commits and can combine non-overlapping changes made by different people. If two changes cannot be combined automatically, Git leaves a conflict for a person to resolve.</p>
+<p>A repository initialized with <code>git init</code> contains a hidden <code>.git</code> directory. Git stores its objects, references, and configuration there. The files you normally edit sit beside it in the <strong>working tree</strong>. Do not edit files inside <code>.git</code> directly; use Git commands to inspect and change repository state.</p>
+<h2 id="2-how-github-fits-in"><a href="#2-how-github-fits-in">2. How GitHub Fits In</a></h2>
+<p>Most Git operations, including viewing differences, creating commits, and changing branches, run on your computer without contacting a server. Git is a <strong>distributed</strong> version-control system: a normal clone contains the repository history as well as the current working files.</p>
 <p><strong>GitHub</strong> hosts remote Git repositories and adds accounts, access control, pull requests, issues, and web views. A local commit is not automatically on GitHub. Likewise, editing a file on GitHub does not silently update an existing local copy.</p>
 <p>Use the repository visibility specified by the course activity. A public repository exposes its history, including assignment code, to anyone. Changing a repository from public to private later does not guarantee that earlier public copies disappeared.</p>
-<blockquote class="design-note"><p><strong>Design principle: make each commit a small, coherent, reproducible explanation of one change.</strong></p>
-</blockquote>
-<h2 id="2-configure-your-author-identity"><a href="#2-configure-your-author-identity">2. Configure Your Author Identity</a></h2>
+<h2 id="3-tell-git-who-you-are"><a href="#3-tell-git-who-you-are">3. Tell Git Who You Are</a></h2>
 <p>After installing Git, configure the name and email recorded in new commits:</p>
 <div class="code-block"><pre class="sh"><code>git config --global user.name &quot;Alex Student&quot;
 git config --global user.email &quot;alex@example.com&quot;</code></pre></div>
@@ -70,13 +75,14 @@ git config --global user.email &quot;alex@example.com&quot;</code></pre></div>
 <div class="code-block"><pre class="sh"><code>git config --global --list</code></pre></div>
 <p>These values label commits; they are not a GitHub password. Use an email connected to your GitHub account if you want GitHub to associate command-line commits with that account. GitHub also supports a private <code>noreply</code> address.</p>
 <p>For authentication, choose either HTTPS or SSH. GitHub does not accept an account password as the Git password for command-line HTTPS operations. GitHub recommends GitHub CLI or Git Credential Manager for storing HTTPS credentials; Git for Windows includes Git Credential Manager. SSH uses a key registered with your GitHub account. Follow GitHub's current setup instructions rather than placing a token in a remote URL or text file.</p>
-<h2 id="3-clone-the-repository-once"><a href="#3-clone-the-repository-once">3. Clone the Repository Once</a></h2>
+<h2 id="4-clone-the-repository-once"><a href="#4-clone-the-repository-once">4. Clone the Repository Once</a></h2>
 <p>On the GitHub repository page, choose <strong>Code</strong>, select HTTPS or SSH according to your configured authentication, and copy the URL. In the directory that should contain your projects, run:</p>
 <div class="code-block"><pre class="sh"><code>git clone https://github.com/ORGANIZATION/REPOSITORY.git
 cd REPOSITORY
 git status
 git remote -v</code></pre></div>
 <p>Cloning creates a new project directory, downloads the repository history, checks out its default branch, and records the source as a remote named <code>origin</code>.</p>
+<p><code>origin</code> is a short local name for a remote URL. It is conventional, not special to GitHub. A repository can have several remotes, and two local clones can use different short names for the same server location.</p>
 <p>Do not clone the same repository before every work session. Reuse the local clone and synchronize it. Multiple clones with nearly identical names are a common cause of editing one directory while building or committing another.</p>
 <p><code>git status</code> reports the current branch and working-tree state. <code>git remote -v</code> reports the fetch and push URLs. Neither command changes anything.</p>
 <form class="quick-check" data-quick-check data-answer="local-only">
@@ -92,10 +98,38 @@ git remote -v</code></pre></div>
 </details>
 </form>
 
-<h2 id="4-understand-the-three-local-states"><a href="#4-understand-the-three-local-states">4. Understand the Three Local States</a></h2>
+<h2 id="5-follow-changes-through-the-local-repository"><a href="#5-follow-changes-through-the-local-repository">5. Follow Changes Through the Local Repository</a></h2>
 <p>Git asks you to distinguish three views:</p>
 <div class="code-block"><pre class="text"><code>working tree  --git add--&gt;  staging area  --git commit--&gt;  repository history</code></pre></div>
 <p>The <strong>working tree</strong> contains the files you edit. The <strong>staging area</strong>, also called the index, specifies the exact content proposed for the next commit. The local repository stores completed commits.</p>
+<p><code>git status</code> describes files using four related terms:</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Untracked</td>
+<td>The path is in the working tree but is not part of the current commit or staging area.</td>
+</tr>
+<tr>
+<td>Unmodified</td>
+<td>The tracked file matches the version in the current commit.</td>
+</tr>
+<tr>
+<td>Modified</td>
+<td>The working-tree content differs from the version already staged.</td>
+</tr>
+<tr>
+<td>Staged</td>
+<td>The staging area contains content to include in the next commit.</td>
+</tr>
+</tbody>
+</table>
+<p>These are states of content, not permanent labels attached to a file. After you stage a file, edit it again, and save it, the path has both staged content for the next commit and a newer unstaged change in the working tree.</p>
 <p>Suppose you change <code>TransitSummary.java</code> and add a test. Inspect before staging:</p>
 <div class="code-block"><pre class="sh"><code>git status
 git diff</code></pre></div>
@@ -120,29 +154,31 @@ git status</code></pre></div>
 </details>
 </form>
 
-<h2 id="5-commit-a-tested-change"><a href="#5-commit-a-tested-change">5. Commit a Tested Change</a></h2>
+<h2 id="6-commit-a-tested-change"><a href="#6-commit-a-tested-change">6. Commit a Tested Change</a></h2>
 <p>Before committing, run the project's checks and review the staged diff. Then:</p>
 <div class="code-block"><pre class="sh"><code>git commit -m &quot;Handle on-time transit predictions&quot;</code></pre></div>
 <p>A useful message states what the change accomplishes. “Changes,” “work,” or “assignment” provides little help when reading history. Use the imperative form: “Handle…”, “Reject…”, “Document…”, or “Add…”.</p>
+<p>Make each commit a coherent explanation of one change. It should include the files needed for that change and pass the relevant build. “Small” does not mean one file or one line; it means that the commit has one purpose that another reader can understand and, if necessary, reverse.</p>
 <p>Inspect the result:</p>
 <div class="code-block"><pre class="sh"><code>git status
 git log --oneline --decorate -5</code></pre></div>
 <p>The commit records only staged content. If you edited a staged file again before committing, the new unstaged edit remains in the working tree and is not part of that commit. This is a feature: the staging area allows a coherent snapshot even when other work is present.</p>
 <p>Generated directories such as <code>build/</code> should be named in <code>.gitignore</code> before they are staged. Ignoring a path does not remove a file already tracked by Git. Check <code>git status</code> after each build and investigate unexpected files rather than blindly adding everything.</p>
-<h2 id="6-pull-and-push-deliberately"><a href="#6-pull-and-push-deliberately">6. Pull and Push Deliberately</a></h2>
+<h2 id="7-exchange-commits-with-a-remote"><a href="#7-exchange-commits-with-a-remote">7. Exchange Commits with a Remote</a></h2>
 <p>At the start of a work session, from a clean working tree, synchronize the current branch:</p>
 <div class="code-block"><pre class="sh"><code>git pull --ff-only</code></pre></div>
-<p>This fetches remote changes and advances the local branch only when no merge commit is required. If Git refuses, read why before choosing a different command. You may have local work to commit, a branch divergence to reconcile, or no upstream branch.</p>
+<p>This first fetches objects and branch information from the remote. It then advances the local branch only when no merge commit is required. If Git refuses, read why before choosing a different command. You may have local work to commit, a branch divergence to reconcile, or no upstream branch.</p>
 <p>After local commits pass the build:</p>
 <div class="code-block"><pre class="sh"><code>git push</code></pre></div>
 <p>Push transfers commits, not arbitrary uncommitted file changes. Verify on GitHub that the expected branch shows the new commit. A successful local commit followed by a failed push still leaves the commit safely in the local repository.</p>
 <p>For a newly created branch, the first push may need:</p>
 <div class="code-block"><pre class="sh"><code>git push -u origin branch-name</code></pre></div>
 <p>The <code>-u</code> option records the upstream relationship so later <code>git push</code> and <code>git pull</code> know which remote branch corresponds to the local one.</p>
-<h3 id="common-misconception"><a href="#common-misconception">Common misconception</a></h3>
+<h3 id="committing-and-pushing-are-separate"><a href="#committing-and-pushing-are-separate">Committing and Pushing Are Separate</a></h3>
 <p>“GitHub is my backup” is incomplete. Git records only committed content, and GitHub receives only pushed commits. An uncommitted file is absent from both Git history and the remote. Use frequent coherent commits and verify pushes, while still following an appropriate backup practice for work outside repositories.</p>
-<h2 id="7-use-a-branch-for-one-line-of-work"><a href="#7-use-a-branch-for-one-line-of-work">7. Use a Branch for One Line of Work</a></h2>
-<p>A branch is a movable name for a line of commits. Before starting a focused change:</p>
+<h2 id="8-work-on-a-branch"><a href="#8-work-on-a-branch">8. Work on a Branch</a></h2>
+<p>A branch is a movable name for one commit, usually the latest commit in a line of development. <code>HEAD</code> identifies the branch currently checked out. Creating a branch does not copy every project file; Git creates another name that initially points to the same commit. New commits move the checked-out branch name forward.</p>
+<p>Before starting a focused change:</p>
 <div class="code-block"><pre class="sh"><code>git switch main
 git pull --ff-only
 git switch -c improve-arrival-message</code></pre></div>
@@ -155,7 +191,7 @@ git pull --ff-only</code></pre></div>
 <div class="code-block"><pre class="sh"><code>git switch main
 git merge --ff-only improve-arrival-message</code></pre></div>
 <p><code>--ff-only</code> is suitable when <code>main</code> has not diverged. Real collaboration sometimes requires a merge or rebase decision. Do not choose one mechanically when Git says the branches diverged; inspect the commit graph and follow the team's workflow.</p>
-<h2 id="8-recover-an-unstaged-edit"><a href="#8-recover-an-unstaged-edit">8. Recover an Unstaged Edit</a></h2>
+<h2 id="9-undo-one-unstaged-edit"><a href="#9-undo-one-unstaged-edit">9. Undo One Unstaged Edit</a></h2>
 <p>Git can restore tracked content, but the safety depends on what has been recorded. Suppose you made an unwanted unstaged edit to one file. First inspect it:</p>
 <div class="code-block"><pre class="sh"><code>git diff -- src/main/java/ca/ubc/ece/cpen221/prep/TransitSummary.java</code></pre></div>
 <p>If you are certain the entire unstaged change should be discarded:</p>
@@ -177,11 +213,11 @@ git merge --ff-only improve-arrival-message</code></pre></div>
 </details>
 </form>
 
-<h2 id="9-handle-a-merge-conflict-as-a-decision"><a href="#9-handle-a-merge-conflict-as-a-decision">9. Handle a Merge Conflict as a Decision</a></h2>
+<h2 id="10-resolve-a-merge-conflict"><a href="#10-resolve-a-merge-conflict">10. Resolve a Merge Conflict</a></h2>
 <p>A conflict occurs when Git cannot combine competing changes automatically. Git marks the affected paths and <code>git status</code> reports an unmerged state. Open each conflicted file and decide what the final program should say. Git places the current branch text between a line beginning <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> and a line containing <code>=======</code>. The incoming text follows, ending at a line beginning <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> and the other branch name.</p>
 <p>Do not keep both halves blindly. Remove the markers, create the intended valid content, compile and test it, then stage the resolved file. Complete the merge only after all conflicts are resolved and the combined behaviour is verified.</p>
-<p>VS Code's merge editor can present the same choices graphically. It operates on the same files and Git index as the terminal. Whatever interface you use, the key work is a software decision about the combined result.</p>
-<h2 id="10-a-complete-daily-loop"><a href="#10-a-complete-daily-loop">10. A Complete Daily Loop</a></h2>
+<p>VS Code's merge editor can present the same choices graphically. It operates on the same files and Git index as the terminal. Whichever interface you use, you must decide what the combined program should do.</p>
+<h2 id="11-a-work-session-from-start-to-finish"><a href="#11-a-work-session-from-start-to-finish">11. A Work Session from Start to Finish</a></h2>
 <p>Use this loop for a small assignment change:</p>
 <div class="code-block"><pre class="sh"><code>git status
 git switch main
@@ -205,11 +241,13 @@ git push -u origin classify-early-arrivals</code></pre></div>
 <li>Which command would keep an edit but remove it from the proposed commit?</li>
 </ol>
 <p>A command list is not a substitute for <code>git status</code>. Use status between transitions until you can predict its output.</p>
-<h2 id="11-summary"><a href="#11-summary">11. Summary</a></h2>
+<h2 id="12-summary"><a href="#12-summary">12. Summary</a></h2>
 <p>Git records local commits; GitHub hosts remote repositories and collaboration features. The working tree, staging area, and commit history are distinct states. Inspect with status and diff, stage only the intended content, test it, commit one coherent change, and push the commit. Branches separate lines of work. Recovery commands are safest when they name an exact path and you first understand which recorded version will replace it.</p>
 <h2 id="references"><a href="#references">References</a></h2>
 <ul>
+<li><a href="https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository">Pro Git: Getting a Git Repository</a></li>
 <li><a href="https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository">Pro Git: Recording Changes to the Repository</a></li>
+<li><a href="https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell">Pro Git: Branches in a Nutshell</a></li>
 <li><a href="https://git-scm.com/docs/git-switch">Git Reference: <code>git switch</code></a></li>
 <li><a href="https://git-scm.com/docs/git-restore">Git Reference: <code>git restore</code></a></li>
 <li><a href="https://docs.github.com/en/get-started/git-basics/set-up-git">GitHub Docs: Set up Git</a></li>
@@ -217,10 +255,7 @@ git push -u origin classify-early-arrivals</code></pre></div>
 <li><a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository">GitHub Docs: Cloning a repository</a></li>
 <li><a href="https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository">GitHub Docs: Pushing commits to a remote repository</a></li>
 </ul>
-        <aside class="source-links" aria-label="Guide files">
-          <h2>Read the source</h2>
-          <p><a href="../../sources/guide-git-and-github.md">Open the Markdown source</a>.</p>
-        </aside>
+
         <nav class="reading-nav" aria-label="Preparation guide sequence">
           <a href="../build-process-and-tools/">← The Build Process and Tools</a>
           <a href="../../">Contents ↑</a>

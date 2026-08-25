@@ -1,10 +1,5 @@
 # Software to Install
 
-A programming assignment can fail before any of your Java code runs. The terminal
-may find an older Java installation, `javac` may be absent, Git may not know who
-you are, or an editor may open a single file without recognizing the project. This
-guide establishes one known starting point for CPEN 221.
-
 By the end, you should be able to:
 
 - install a Java 25 **JDK**, Git, and Visual Studio Code on macOS, Linux, or
@@ -40,8 +35,8 @@ installation is required. The first wrapper run downloads the version named by t
 project. CPEN 221 projects use this mechanism, so `gradle test` is not the course
 command.
 
-> **Design principle: a project should declare the tool version it needs instead
-> of relying on whichever version happens to be installed globally.**
+A project should declare the tool version it needs instead of relying on whichever
+version happens to be installed globally.
 
 ## 2. Identify Your Operating System and Processor
 
