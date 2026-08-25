@@ -1,11 +1,89 @@
 # Git and GitHub
 
-Git records the history of a project. GitHub can host a copy of that history and
-provides tools for sharing and reviewing it. They are related, but they are not
-the same system.
+You probably already use software that saves files, synchronizes folders between
+computers, and shares documents with other people. Those tools are useful. A
+software project, however, needs a history of changes that span many files, and it
+needs a way to combine work performed by several programmers. Version control gives
+a project that history and provides operations for combining changes.
+
+## 1. Why Software Projects Need Version Control
+
+Consider a change to the transit program used in these guides. A new rule for
+classifying early arrivals may require changes to `TransitSummary.java`, several
+tests in `TransitSummaryTest.java`, and a short explanation in `README.md`. These
+edits belong together. The source without the new tests is incomplete, while the
+new tests without the source fail. What we want to preserve is one state of the
+project in which the three files agree.
+
+A synchronized folder treats those files separately. It can copy each saved edit
+to another computer and may retain earlier versions of each file. It does not know
+that one version of the Java class, one version of the test class, and one version
+of the README form a single change. Restoring the Java file from Tuesday while
+leaving Wednesday's tests and build file in place may produce a project state that
+never existed and does not build.
+
+A version-control system records a version of the project as a unit. In Git, that
+recorded state is a **commit**. A commit lets us return to the source, tests, build
+files, and documentation as they were at the same point in the project's history.
+It also lets us compare two project states and see the complete set of files changed
+by a bug fix or feature.
+
+### Saving and Recording a Version Are Different Actions
+
+Programmers save files frequently while working. Many of those saved states are
+temporary: the program may not compile while a method is half-written, or a test
+may fail while its implementation is being changed. Saving is still necessary,
+but every press of Save does not deserve a permanent entry in the project history.
+
+Git separates ordinary file saves from commits. You can save, compile, run tests,
+revise the code, and repeat that cycle without creating a commit. Once the files
+describe one coherent change, you select the content that belongs to the change
+and commit it. You decide where the meaningful checkpoints are.
+
+The commit also carries a message. The diff already shows which lines changed, so
+a useful commit message explains the purpose of the change: `Reject duplicate stop
+identifiers` is more informative than `Changed three files`. Months later, the
+history can answer questions that a directory full of dated copies cannot answer
+cleanly: which change introduced this behaviour, why was the build configuration
+updated, and which tests were added with the implementation?
+
+### Combining Work from Several Programmers
+
+Shared folders become especially awkward when two people edit at the same time.
+Suppose Alice changes the validation code near the beginning of a long Java file
+while Bob changes its output formatting near the end. Both changes may be valid.
+Choosing Alice's entire file discards Bob's work, while choosing Bob's file discards
+Alice's.
+
+Git compares both sets of changes with their common earlier version. When the edits
+do not overlap, Git can usually combine them. When they do overlap, Git marks a
+**merge conflict** and asks a programmer to decide what the combined source should
+say. Git handles the bookkeeping; it cannot decide the intended behaviour of the
+program. The programmer must resolve the source, compile it, and run the tests.
+
+Branches extend the same idea. Each programmer can record a sequence of commits
+without immediately changing the main line of development. The team can inspect
+the complete change and its tests before merging it.
+
+### Local History and a Shared Copy
+
+Git keeps the repository and its history on your computer. You can inspect
+differences, create commits, and change branches without a network connection.
+Until you send the commits elsewhere, that history exists only on your computer.
+
+GitHub can host another copy of the Git repository and control who may read or
+update it. It also supplies pull requests, issue tracking, and web pages for
+reviewing changes. Sending commits to GitHub makes them available to collaborators;
+it does not happen automatically when you save or commit locally.
+
+Git records deliberate project-wide checkpoints and their explanations. It also
+supports combining changes from several people. GitHub provides a shared location
+and review workflow for that history.
 
 By the end, you should be able to:
 
+- explain why software projects use version control rather than relying only on a
+  synchronized folder;
 - distinguish Git from GitHub and a working tree from a commit;
 - clone a repository and identify its local and remote locations;
 - inspect, stage, and commit one coherent change;
@@ -13,35 +91,37 @@ By the end, you should be able to:
 - create and merge a short-lived branch; and
 - recover an unstaged edit without using destructive history-rewriting commands.
 
-## 1. What Git Records
+<form class="quick-check" data-quick-check data-answer="project-state">
+<fieldset>
+<legend>A change updates a Java class, its tests, and its documentation. What is the main reason to record them in one commit?</legend>
+<label><input type="radio" name="why-version-control" value="java-only"> Git can record Java files but a synchronized folder cannot</label>
+<label><input type="radio" name="why-version-control" value="project-state"> The commit preserves one project state in which the related files agree</label>
+<label><input type="radio" name="why-version-control" value="automatic-upload"> The commit automatically uploads every saved draft to GitHub</label>
+</fieldset>
+<details class="quick-check-explanation">
+<summary>Show the explanation</summary>
+<p>The class, tests, and documentation describe one change. A commit records their versions together, so that project state can be compared with or restored from the history.</p>
+</details>
+</form>
+
+## 2. What Git Records
 
 **Git** is a version-control program. A Git **repository** stores a history of
 project states called **commits**. Each commit records the state of the tracked
 files together with an author, time, message, and link to its parent commit. The
 links form the project's history.
 
-Saving a file and committing it are separate actions. Saving updates the file in
-the working directory. Git can show that the saved file differs from the current
-commit, but Git does not add a new point to the history until you stage content and
-commit it. This separation lets you compile and test intermediate edits before
-deciding which changes belong together.
-
-Git records a project as a whole rather than maintaining an independent timeline
-for each file. A useful commit may change a Java class, its tests, and documentation
-together because those files implement one change. Git can later compare the whole
-project at two commits or show only the paths that changed between them.
-
-This differs from a synchronized folder. A synchronization service generally
-copies each saved edit to other devices. Git records only commits and can combine
-non-overlapping changes made by different people. If two changes cannot be combined
-automatically, Git leaves a conflict for a person to resolve.
+It is useful to think of a commit as a snapshot of the tracked files. Git does not
+need to store a separate physical copy of every unchanged file for every commit,
+but the commit identifies enough information to reconstruct that project state.
+The link to the parent identifies the state from which the change was made.
 
 A repository initialized with `git init` contains a hidden `.git` directory. Git
 stores its objects, references, and configuration there. The files you normally
 edit sit beside it in the **working tree**. Do not edit files inside `.git`
 directly; use Git commands to inspect and change repository state.
 
-## 2. How GitHub Fits In
+## 3. How GitHub Fits In
 
 Most Git operations, including viewing differences, creating commits, and changing
 branches, run on your computer without contacting a server. Git is a
@@ -57,7 +137,7 @@ repository exposes its history, including assignment code, to anyone. Changing a
 repository from public to private later does not guarantee that earlier public
 copies disappeared.
 
-## 3. Tell Git Who You Are
+## 4. Tell Git Who You Are
 
 After installing Git, configure the name and email recorded in new commits:
 
@@ -83,7 +163,7 @@ includes Git Credential Manager. SSH uses a key registered with your GitHub
 account. Follow GitHub's current setup instructions rather than placing a token in
 a remote URL or text file.
 
-## 4. Clone the Repository Once
+## 5. Clone the Repository Once
 
 On the GitHub repository page, choose **Code**, select HTTPS or SSH according to
 your configured authentication, and copy the URL. In the directory that should
@@ -123,7 +203,7 @@ reports the fetch and push URLs. Neither command changes anything.
 </details>
 </form>
 
-## 5. Follow Changes Through the Local Repository
+## 6. Follow Changes Through the Local Repository
 
 Git asks you to distinguish three views:
 
@@ -187,7 +267,7 @@ not copy files to GitHub and does not make a backup commit.
 </details>
 </form>
 
-## 6. Commit a Tested Change
+## 7. Commit a Tested Change
 
 Before committing, run the project's checks and review the staged diff. Then:
 
@@ -221,7 +301,7 @@ they are staged. Ignoring a path does not remove a file already tracked by Git.
 Check `git status` after each build and investigate unexpected files rather than
 blindly adding everything.
 
-## 7. Exchange Commits with a Remote
+## 8. Exchange Commits with a Remote
 
 At the start of a work session, from a clean working tree, synchronize the current
 branch:
@@ -261,7 +341,7 @@ GitHub receives only pushed commits. An uncommitted file is absent from both Git
 history and the remote. Use frequent coherent commits and verify pushes, while
 still following an appropriate backup practice for work outside repositories.
 
-## 8. Work on a Branch
+## 9. Work on a Branch
 
 A branch is a movable name for one commit, usually the latest commit in a line of
 development. `HEAD` identifies the branch currently checked out. Creating a branch
@@ -303,7 +383,7 @@ git merge --ff-only improve-arrival-message
 requires a merge or rebase decision. Do not choose one mechanically when Git says
 the branches diverged; inspect the commit graph and follow the team's workflow.
 
-## 9. Undo One Unstaged Edit
+## 10. Undo One Unstaged Edit
 
 Git can restore tracked content, but the safety depends on what has been recorded.
 Suppose you made an unwanted unstaged edit to one file. First inspect it:
@@ -346,7 +426,7 @@ and intended outcome before using them.
 </details>
 </form>
 
-## 10. Resolve a Merge Conflict
+## 11. Resolve a Merge Conflict
 
 A conflict occurs when Git cannot combine competing changes automatically. Git
 marks the affected paths and `git status` reports an unmerged state. Open each
@@ -363,7 +443,7 @@ VS Code's merge editor can present the same choices graphically. It operates on 
 same files and Git index as the terminal. Whichever interface you use, you must
 decide what the combined program should do.
 
-## 11. A Work Session from Start to Finish
+## 12. A Work Session from Start to Finish
 
 Use this loop for a small assignment change:
 
@@ -395,7 +475,7 @@ answer:
 A command list is not a substitute for `git status`. Use status between transitions
 until you can predict its output.
 
-## 12. Summary
+## 13. Summary
 
 Git records local commits; GitHub hosts remote repositories and collaboration
 features. The working tree, staging area, and commit history are distinct states.

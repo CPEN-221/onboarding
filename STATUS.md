@@ -13,16 +13,18 @@ documents in `CPEN 221 Aux` as topic references where applicable:
 | Using the Command Line Interface | 1,932 | 2 |
 | Installing and Using Visual Studio Code | 1,643 | 2 |
 | The Build Process and Tools | 1,871 | 2 |
-| Git and GitHub | 2,470 | 3 |
+| Git and GitHub | 3,200 | 4 |
 
 The command-line guide now develops the filesystem hierarchy before introducing
 navigation: root, home, and project directories; parent, child, sibling, and
 descendant relationships; absolute and relative paths; and the working directory
 maintained by each shell. The build guide compares `make`, Maven, and Gradle before
 explaining Gradle phases, its task graph, dependency resolution, caching, wrapper,
-and outputs. The Git guide distinguishes saving from committing and synchronized
-folders from version control, then develops repository storage, file states,
-remotes, branches, and recovery.
+and outputs. The Git guide first explains why software projects need version
+control: related files must be recorded as one project state, temporary saves
+should not become permanent checkpoints, and concurrent changes need a controlled
+merge. It then develops repository storage, file states, remotes, branches, and
+recovery.
 
 The rewrite replaces outdated JUnit 4, Spring, `master`, `checkout`, password, and
 global-build-tool advice with Java 25, JUnit 6.1.3, Gradle wrappers, `main`, modern
@@ -105,7 +107,7 @@ makes no request to a font CDN.
 
 `scripts/check_site.py` accepted every local link, fragment, page landmark, all
 eight source digests, all eight WOFF2 font assets and their four licence notices,
-and all twenty embedded quick-check structures. `node
+and all twenty-one embedded quick-check structures. `node
 --check` accepted the progressive-enhancement scripts. The activities remain
 readable as ordinary questions and answer disclosures without JavaScript; with
 JavaScript, they gain local Check buttons and retry feedback. They make no network

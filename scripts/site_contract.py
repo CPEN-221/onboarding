@@ -98,7 +98,7 @@ GUIDES = (
         "git-and-github",
         5,
         "Git and GitHub",
-        "Record coherent commits, synchronize a remote repository, work on a branch, and recover changes deliberately.",
+        "Understand why projects need version control, then record commits, share work, use branches, and recover changes.",
     ),
 )
 
