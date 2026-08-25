@@ -30,6 +30,7 @@ PANDOC_ARGUMENTS = (
 LANG = "en-CA"
 SITE_TITLE = "Getting Started with CPEN 221"
 SITE_SUBTITLE = "Software Tools and Java"
+TYPEFACE_CHOICES = ("plex", "google-sans")
 
 FONT_FILES = (
     "GoogleSansCode-Latin.woff2",
@@ -38,14 +39,15 @@ FONT_FILES = (
     "IBMPlexSans-Italic.woff2",
     "IBMPlexSans-Regular.woff2",
     "IBMPlexSerif-Bold.woff2",
-    "JetBrainsMono-Bold.woff2",
-    "JetBrainsMono-Regular.woff2",
+    "ibm-plex-mono-normal-400-latin-01c04f4d69.woff2",
+    "ibm-plex-mono-normal-400-latin-ext-2532acb5e3.woff2",
+    "ibm-plex-mono-normal-600-latin-11ced52deb.woff2",
+    "ibm-plex-mono-normal-600-latin-ext-2d8cfbcbf9.woff2",
 )
 FONT_LICENSES = (
     "Google-Sans-Code-OFL.txt",
     "Google-Sans-Flex-OFL.txt",
     "IBM-Plex-OFL.txt",
-    "JetBrains-Mono-OFL.txt",
 )
 FIGURE_FILES = (
     "cli/filesystem-hierarchy.svg",

@@ -27,6 +27,7 @@ from site_contract import (
     SITE_SUBTITLE,
     SITE_TITLE,
     SITE_ROOT,
+    TYPEFACE_CHOICES,
     read_provenance,
 )
 
@@ -119,6 +120,9 @@ def main() -> None:
             failures.append(f"{relative}: missing typeface preference script")
         if "data-typeface-picker" not in page_source:
             failures.append(f"{relative}: missing typeface selector")
+        for choice in TYPEFACE_CHOICES:
+            if f'<option value="{choice}">' not in page_source:
+                failures.append(f"{relative}: missing {choice} typeface option")
         if SITE_SUBTITLE not in page_source:
             failures.append(f"{relative}: missing site subtitle")
         if len(page.ids) != len(set(page.ids)):
@@ -233,6 +237,16 @@ def main() -> None:
     for font_name in FONT_FILES:
         if f'../fonts/{font_name}' not in stylesheet_source:
             failures.append(f"assets/css/site.css: does not declare {font_name}")
+    for choice in TYPEFACE_CHOICES:
+        if f'html[data-typeface="{choice}"]' not in stylesheet_source:
+            failures.append(f"assets/css/site.css: missing {choice} typeface mapping")
+
+    switcher_source = (
+        SITE_ROOT / "assets" / "js" / "typeface-switcher.js"
+    ).read_text(encoding="utf-8")
+    for choice in TYPEFACE_CHOICES:
+        if f'"{choice}"' not in switcher_source:
+            failures.append(f"typeface switcher does not allow {choice}")
 
     expected_figures = set(FIGURE_FILES)
     source_figures = {

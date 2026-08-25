@@ -115,7 +115,7 @@ The published title is **Getting Started with CPEN 221**, with the subtitle
 **Software Tools and Java**. Five preparation guides form one track, while the
 Java material remains organized as three segments. Every page
 includes a selector for two self-hosted type systems: IBM Plex Sans with IBM Plex
-Serif headings and JetBrains Mono code, or Google Sans Flex with Google Sans Code.
+Serif headings and IBM Plex Mono code, or Google Sans Flex with Google Sans Code.
 The preference is applied locally across the site and the content remains usable
 when the enhancement script is unavailable. The font binaries and their SIL OFL
 1.1 licence notices are committed under `site/assets/fonts/`; selecting either set
@@ -131,8 +131,9 @@ two onboarding typeface choices rather than copying the main site's publication
 content or font selector.
 
 `scripts/check_site.py` accepted every local link, fragment, page landmark, all
-eight source digests, all eight WOFF2 font assets and their four licence notices,
-all five figure source/output pairs, balanced stylesheet braces, and all twenty-one embedded quick-check
+eight source digests, all ten WOFF2 font assets and their three licence notices,
+both typeface mappings, all five figure source/output pairs, balanced stylesheet
+braces, and all twenty-one embedded quick-check
 structures. `node --check` accepted the progressive-enhancement scripts. The
 activities remain readable as ordinary questions and answer disclosures without
 JavaScript. With JavaScript, they gain local Check buttons and retry feedback.

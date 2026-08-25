@@ -126,7 +126,7 @@ def typeface_tools() -> str:
     <label>
       <span>Reading type</span>
       <select data-typeface-picker aria-label="Reading typeface combination">
-        <option value="plex">IBM Plex Serif + Sans</option>
+        <option value="plex">IBM Plex Serif + Sans + Mono</option>
         <option value="google-sans">Google Sans Flex + Code</option>
       </select>
     </label>
