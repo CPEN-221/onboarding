@@ -85,12 +85,16 @@ guides, three Java readings, and four example-file indexes.
 
 The published title is **Getting Started with Java**. Five preparation guides form
 one track, while the Java material remains organized as three segments. Every page
-includes a typeface selector with balanced, serif, and sans-serif choices. The
-preference is applied locally across the site and the content remains usable when
-the enhancement script is unavailable.
+includes a selector for two self-hosted type systems: IBM Plex Sans with IBM Plex
+Serif headings and JetBrains Mono code, or Google Sans Flex with Google Sans Code.
+The preference is applied locally across the site and the content remains usable
+when the enhancement script is unavailable. The font binaries and their SIL OFL
+1.1 licence notices are committed under `site/assets/fonts/`; selecting either set
+makes no request to a font CDN.
 
 `scripts/check_site.py` accepted every local link, fragment, page landmark, all
-eight source digests, and all twenty embedded quick-check structures. `node
+eight source digests, all eight WOFF2 font assets and their four licence notices,
+and all twenty embedded quick-check structures. `node
 --check` accepted the progressive-enhancement scripts. The activities remain
 readable as ordinary questions and answer disclosures without JavaScript; with
 JavaScript, they gain local Check buttons and retry feedback. They make no network

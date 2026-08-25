@@ -11,6 +11,8 @@ import re
 import sys
 
 from site_contract import (
+    FONT_FILES,
+    FONT_LICENSES,
     GUIDES,
     GUIDES_ROOT,
     LANG,
@@ -163,12 +165,35 @@ def main() -> None:
     if actual_sources != expected_sources:
         failures.append("published Markdown sources do not match the contract")
 
+    fonts_root = SITE_ROOT / "assets" / "fonts"
+    actual_fonts = {path.name for path in fonts_root.glob("*.woff2")}
+    if actual_fonts != set(FONT_FILES):
+        failures.append("published font files do not match the contract")
+    for font_name in FONT_FILES:
+        if (fonts_root / font_name).read_bytes()[:4] != b"wOF2":
+            failures.append(f"assets/fonts/{font_name}: not a WOFF2 font")
+
+    licences_root = fonts_root / "licenses"
+    actual_licences = {path.name for path in licences_root.glob("*.txt")}
+    if actual_licences != set(FONT_LICENSES):
+        failures.append("published font licences do not match the contract")
+    for licence_name in FONT_LICENSES:
+        licence = (licences_root / licence_name).read_text(encoding="utf-8")
+        if "SIL OPEN FONT LICENSE Version 1.1" not in licence:
+            failures.append(f"assets/fonts/licenses/{licence_name}: invalid licence")
+
+    stylesheet = SITE_ROOT / "assets" / "css" / "site.css"
+    for font_name in FONT_FILES:
+        if f'../fonts/{font_name}' not in stylesheet.read_text(encoding="utf-8"):
+            failures.append(f"assets/css/site.css: does not declare {font_name}")
+
     if failures:
         print("\n".join(failures), file=sys.stderr)
         raise SystemExit(1)
     print(
         f"Checked {len(html_files)} HTML pages: local links, fragments, landmarks, "
-        f"{len(expected_sources)} source digests, and all client-side checks are valid."
+        f"{len(expected_sources)} source digests, {len(FONT_FILES)} self-hosted fonts, "
+        "and all client-side checks are valid."
     )
 
 

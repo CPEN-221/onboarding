@@ -26,6 +26,23 @@ PANDOC_ARGUMENTS = (
 )
 LANG = "en-CA"
 
+FONT_FILES = (
+    "GoogleSansCode-Latin.woff2",
+    "GoogleSansFlex-Latin.woff2",
+    "IBMPlexSans-Bold.woff2",
+    "IBMPlexSans-Italic.woff2",
+    "IBMPlexSans-Regular.woff2",
+    "IBMPlexSerif-Bold.woff2",
+    "JetBrainsMono-Bold.woff2",
+    "JetBrainsMono-Regular.woff2",
+)
+FONT_LICENSES = (
+    "Google-Sans-Code-OFL.txt",
+    "Google-Sans-Flex-OFL.txt",
+    "IBM-Plex-OFL.txt",
+    "JetBrains-Mono-OFL.txt",
+)
+
 
 @dataclass(frozen=True)
 class Reading:

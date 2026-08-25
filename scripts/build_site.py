@@ -101,11 +101,10 @@ def transform_body(body: str) -> tuple[str, list[tuple[str, str]]]:
 
 def typeface_tools() -> str:
     return """  <div class="typeface-tools">
-    <label for="typeface-picker">Reading typeface</label>
+    <label for="typeface-picker">Typeface set</label>
     <select id="typeface-picker" data-typeface-picker>
-      <option value="balanced">Balanced serif + sans</option>
-      <option value="serif">Serif</option>
-      <option value="sans">Sans serif</option>
+      <option value="plex">IBM Plex Serif + Sans</option>
+      <option value="google-sans">Google Sans Flex + Code</option>
     </select>
   </div>"""
 

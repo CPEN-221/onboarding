@@ -2,7 +2,7 @@
   "use strict";
 
   var storageKey = "cpen221-java-typeface";
-  var allowed = ["balanced", "serif", "sans"];
+  var allowed = ["plex", "google-sans"];
 
   function valid(value) {
     return allowed.indexOf(value) !== -1;
@@ -11,9 +11,9 @@
   function storedChoice() {
     try {
       var value = window.localStorage.getItem(storageKey);
-      return valid(value) ? value : "balanced";
+      return valid(value) ? value : "plex";
     } catch (error) {
-      return "balanced";
+      return "plex";
     }
   }
 
@@ -32,7 +32,7 @@
 
     picker.value = initial;
     picker.addEventListener("change", function () {
-      var value = valid(picker.value) ? picker.value : "balanced";
+      var value = valid(picker.value) ? picker.value : "plex";
       apply(value);
       try {
         window.localStorage.setItem(storageKey, value);

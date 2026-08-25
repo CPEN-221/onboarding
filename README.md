@@ -27,6 +27,7 @@ can be offered separately in PrairieLearn without changing this material.
 | `notes/` | Authoritative Markdown guides and Java readings |
 | `examples/` | Complete Java 25 source files and deliberate failure fixtures |
 | `site/` | Generated static site committed for review and deployed by Pages |
+| `site/assets/fonts/` | Self-hosted reading and code fonts with SIL OFL notices |
 | `scripts/` | Site build, publication checks, and Java example validation |
 | `PLAN.md` | Design decisions and crosswalk from the inherited material |
 | `STATUS.md` | Completed work and observed validation results |
