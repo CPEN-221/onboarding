@@ -12,39 +12,59 @@
 <body id="top">
   <!-- source-sha256: e411ca5dd2d28582dc7ed44a97f3030a9a35c6b912a83f9457cccf61a77154fd -->
   <!-- source-file: 01-running-java-programs.md -->
-  <a class="skip-link" href="#reading-content">Skip to reading</a>
-  <header class="site-header">
-    <a class="wordmark" href="../../"><strong>Getting Started with CPEN 221</strong><span>Software Tools and Java</span></a>
-  </header>
+  <a class="skip-link" href="#chapter-content">Skip to reading</a>
+
+  <nav class="book-nav" aria-label="Reading navigation">
+    <a class="wordmark" href="../../">
+      <strong>CPEN 221</strong>
+      <span>Getting Started</span>
+    </a>
+    <div class="nav-contents">
+      <p class="part-label">Java foundations</p>
+      <h2><a href="#top" aria-current="page">Running Java Programs <small>J1</small></a></h2>
+      <ul>
+        <li><a href="#1-begin-with-an-observable-program"><small>1.1</small><span>Begin with an Observable Program</span></a></li>
+        <li><a href="#2-trace-values-before-changing-the-program"><small>1.2</small><span>Trace Values Before Changing the Program</span></a></li>
+        <li><a href="#3-give-the-interpretation-a-method"><small>1.3</small><span>Give the Interpretation a Method</span></a></li>
+        <li><a href="#4-select-one-result-with-control-flow"><small>1.4</small><span>Select One Result with Control Flow</span></a></li>
+        <li><a href="#5-classify-failures-before-repairing-them"><small>1.5</small><span>Classify Failures Before Repairing Them</span></a></li>
+        <li><a href="#6-move-from-a-small-file-to-a-course-project"><small>1.6</small><span>Move from a Small File to a Course Project</span></a></li>
+        <li><a href="#7-a-common-misconception-execution-starts-at-the-top"><small>1.7</small><span>A Common Misconception: Execution Starts at the Top</span></a></li>
+        <li><a href="#8-practice-by-predicting-and-explaining"><small>1.8</small><span>Practice by Predicting and Explaining</span></a></li>
+        <li><a href="#summary"><small>§</small><span>Summary</span></a></li>
+      </ul>
+      <div class="prev-next">
+        <a href="../../">← Contents</a>
+        <a href="../../">Up</a>
+        <a href="../02-objects-state-and-references/">Next →</a>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="book-nav-mobile" aria-label="Compact reading navigation">
+    <a class="mobile-arrow" href="../../" aria-label="Previous: contents">←</a>
+    <a class="mobile-title" href="../../">CPEN 221</a>
+    <a class="mobile-arrow" href="../02-objects-state-and-references/" aria-label="Next: Objects, State, and References">→</a>
+  </nav>
+
   <div class="typeface-tools">
-    <label for="typeface-picker">Typeface set</label>
-    <select id="typeface-picker" data-typeface-picker>
-      <option value="plex">IBM Plex Serif + Sans</option>
-      <option value="google-sans">Google Sans Flex + Code</option>
-    </select>
+    <label>
+      <span>Reading type</span>
+      <select data-typeface-picker aria-label="Reading typeface combination">
+        <option value="plex">IBM Plex Serif + Sans</option>
+        <option value="google-sans">Google Sans Flex + Code</option>
+      </select>
+    </label>
   </div>
-  <div class="reading-layout">
-    <nav class="contents" aria-label="On this page">
-      <p>Segment 1 of 3</p>
-      <ol>
-          <li><a href="#1-begin-with-an-observable-program">Begin with an Observable Program</a></li>
-          <li><a href="#2-trace-values-before-changing-the-program">Trace Values Before Changing the Program</a></li>
-          <li><a href="#3-give-the-interpretation-a-method">Give the Interpretation a Method</a></li>
-          <li><a href="#4-select-one-result-with-control-flow">Select One Result with Control Flow</a></li>
-          <li><a href="#5-classify-failures-before-repairing-them">Classify Failures Before Repairing Them</a></li>
-          <li><a href="#6-move-from-a-small-file-to-a-course-project">Move from a Small File to a Course Project</a></li>
-          <li><a href="#7-a-common-misconception-execution-starts-at-the-top">A Common Misconception: Execution Starts at the Top</a></li>
-          <li><a href="#8-practice-by-predicting-and-explaining">Practice by Predicting and Explaining</a></li>
-          <li><a href="#summary">Summary</a></li>
-      </ol>
-    </nav>
-    <main id="reading-content">
-      <article class="reading">
-        <header class="reading-header">
-          <p>Segment 1</p>
-          <h1>Running Java Programs</h1>
-          <p class="lede">Run, trace, and repair a small Java 25 program before translating it to the form used in course projects.</p>
-        </header>
+
+  <main id="chapter-content" class="page">
+    <article class="chapter">
+      <div class="chapter-number" aria-hidden="true">J1</div>
+      <header class="chapter-header">
+        <p class="chapter-kicker">Segment 1 of 3</p>
+        <h1>Running Java Programs</h1>
+        <p class="lede">Run, trace, and repair a small Java 25 program before translating it to the form used in course projects.</p>
+      </header>
 <p>The arrival display says that the next bus will arrive in −3 minutes.</p>
 <p>The program subtracted the scheduled minute from the predicted minute and printed the result. Its arithmetic answered one question: the prediction is three minutes before the schedule. The display treated that result as a waiting time, so correct arithmetic produced the wrong message.</p>
 <p>We will repair this display while learning how a small Java program starts, how it evaluates expressions, how values move into methods, and how control flow selects a result. The same mechanisms appear in the larger Gradle project in Chapter 1.</p>
@@ -56,7 +76,7 @@
 <li>distinguish a compilation failure, a runtime failure, and an unwanted result; and</li>
 <li>translate a compact source example into the explicit class-and-<code>static</code> form used in course projects.</li>
 </ul></section>
-<h2 id="1-begin-with-an-observable-program"><a href="#1-begin-with-an-observable-program">1. Begin with an Observable Program</a></h2>
+<h2 id="1-begin-with-an-observable-program"><a href="#1-begin-with-an-observable-program"><span class="section-number">1.1</span>Begin with an Observable Program</a></h2>
 <p>This complete file records a scheduled arrival at minute 600 and a prediction at minute 597. These values could denote 10:00 and 9:57 on one service day.</p>
 <div class="code-block"><pre class="java"><code>void main() {
     int scheduledMinute = 600;
@@ -72,7 +92,7 @@
 <p><code>RawDifference.java</code> is a <strong>source file</strong>: text that follows Java's grammatical and typing rules. The <code>java</code> launcher compiles this source and starts the program. In this compact source file, execution begins with the first statement inside <code>void main()</code>. The three declarations above <code>System.out.println</code> run in order.</p>
 <p>Java 25 permits this compact form so that a small program does not need an explicit class declaration. The form is part of the Java language, not a special operation performed by the readings website. We will use it briefly while the program fits in one file, then show the explicit form used in course projects.</p>
 <p>The output also gives us a concrete failure to repair. The value <code>-3</code> is meaningful inside the calculation, but the phrase <code>Arrival in -3 minutes</code> does not communicate that the vehicle is early. We need the program to interpret the sign before it prints a message.</p>
-<h2 id="2-trace-values-before-changing-the-program"><a href="#2-trace-values-before-changing-the-program">2. Trace Values Before Changing the Program</a></h2>
+<h2 id="2-trace-values-before-changing-the-program"><a href="#2-trace-values-before-changing-the-program"><span class="section-number">1.2</span>Trace Values Before Changing the Program</a></h2>
 <p>Consider the first declaration:</p>
 <div class="code-block"><pre class="java"><code>int scheduledMinute = 600;</code></pre></div>
 <p>The declaration introduces a local variable named <code>scheduledMinute</code>. Its declared type is <code>int</code>, Java's 32-bit signed integer type, and its initial value is <code>600</code>. A <strong>local variable</strong> is a name available within the method or block that declares it. The declaration does not create a field on an object.</p>
@@ -130,7 +150,7 @@
 </details>
 </form>
 
-<h2 id="3-give-the-interpretation-a-method"><a href="#3-give-the-interpretation-a-method">3. Give the Interpretation a Method</a></h2>
+<h2 id="3-give-the-interpretation-a-method"><a href="#3-give-the-interpretation-a-method"><span class="section-number">1.3</span>Give the Interpretation a Method</a></h2>
 <p>The original program mixes two responsibilities. It calculates a difference and decides how that difference should be described. We will move the interpretation into a method named <code>arrivalMessage</code>:</p>
 <div class="code-block"><pre class="java"><code>String arrivalMessage(int scheduledMinute, int predictedMinute) {
     int difference = predictedMinute - scheduledMinute;
@@ -152,7 +172,7 @@
 <p>The variables <code>scheduledMinute</code> and <code>predictedMinute</code> in the header are <strong>parameters</strong>. When a caller evaluates <code>arrivalMessage(600, 597)</code>, Java assigns the argument values <code>600</code> and <code>597</code> to those parameters for that call. The method then calculates its own local <code>difference</code>.</p>
 <p>For this example, both arguments must be service-day minute values from 0 through 1800. That assumption keeps the values meaningful and ensures that the subtraction and negation fit in an <code>int</code>. The Java type <code>int</code> alone does not express this range; we will learn to state such requirements more systematically in Chapter 2.</p>
 <p>Each <code>return</code> finishes the current call and supplies its expression's value to the caller. A call with arguments <code>600</code> and <code>597</code> returns the string <code>"EARLY by 3 minutes"</code>. The method does not print that string. Its caller decides whether to print, store, test, or otherwise use the returned value.</p>
-<h2 id="4-select-one-result-with-control-flow"><a href="#4-select-one-result-with-control-flow">4. Select One Result with Control Flow</a></h2>
+<h2 id="4-select-one-result-with-control-flow"><a href="#4-select-one-result-with-control-flow"><span class="section-number">1.4</span>Select One Result with Control Flow</a></h2>
 <p>The expression <code>difference &lt; 0</code> evaluates to a <code>boolean</code>: either <code>true</code> or <code>false</code>. An <code>if</code> statement executes its body only when its condition evaluates to <code>true</code>.</p>
 <p>Trace the call <code>arrivalMessage(600, 597)</code>:</p>
 <ol type="1">
@@ -207,7 +227,7 @@ String arrivalMessage(int scheduledMinute, int predictedMinute) {
 <blockquote class="design-note"><p><strong>Design principle: separate a calculation from the decision about how its result should be interpreted.</strong></p>
 </blockquote>
 <p>The method name gives the interpretation a place in the program. The caller no longer needs to reconstruct the sign convention or duplicate its branches.</p>
-<h2 id="5-classify-failures-before-repairing-them"><a href="#5-classify-failures-before-repairing-them">5. Classify Failures Before Repairing Them</a></h2>
+<h2 id="5-classify-failures-before-repairing-them"><a href="#5-classify-failures-before-repairing-them"><span class="section-number">1.5</span>Classify Failures Before Repairing Them</a></h2>
 <p>Java programs can fail at different stages. The stage determines what evidence is available and what to inspect next.</p>
 <p>A <strong>compilation failure</strong> occurs when the source violates a grammatical or static typing rule. Assigning <code>"597"</code> to an <code>int</code> variable belongs in this category. The program does not begin running.</p>
 <p>A <strong>runtime failure</strong> occurs after compilation and launch. This statement compiles because <code>Integer.parseInt</code> accepts a <code>String</code> and has return type <code>int</code>:</p>
@@ -228,7 +248,7 @@ String arrivalMessage(int scheduledMinute, int predictedMinute) {
 </form>
 
 <p>This classification is more durable than memorising an exact compiler message. Diagnostic wording can change across JDK releases. The relevant Java rule is that a <code>String</code> value cannot be assigned to an <code>int</code> variable without an explicit conversion that produces an integer.</p>
-<h2 id="6-move-from-a-small-file-to-a-course-project"><a href="#6-move-from-a-small-file-to-a-course-project">6. Move from a Small File to a Course Project</a></h2>
+<h2 id="6-move-from-a-small-file-to-a-course-project"><a href="#6-move-from-a-small-file-to-a-course-project"><span class="section-number">1.6</span>Move from a Small File to a Course Project</a></h2>
 <p>Compact source files reduce ceremony while we learn the first mechanisms. Ordinary course projects use named classes, packages, and a build tool. Here is the same program in an explicit class:</p>
 <div class="code-block"><pre class="java"><code>public final class ArrivalDisplayExpanded {
     private ArrivalDisplayExpanded() { }
@@ -264,34 +284,34 @@ String arrivalMessage(int scheduledMinute, int predictedMinute) {
 <p>Java 25 does not require every program to use this particular <code>main</code> header. It accepts the compact <code>void main()</code> shown earlier and other candidate main methods. CPEN 221 projects use the explicit <code>public static void main(String[] args)</code> form when they need a command-line entry point because it states the class and arguments explicitly and works naturally with the project build.</p>
 <p>Compiling with <code>javac -Xlint:all ArrivalDisplayExpanded.java</code> and then running <code>java ArrivalDisplayExpanded</code> produced the same line as the compact program:</p>
 <div class="code-block"><pre class="text"><code>EARLY by 3 minutes</code></pre></div>
-<h2 id="7-a-common-misconception-execution-starts-at-the-top"><a href="#7-a-common-misconception-execution-starts-at-the-top">7. A Common Misconception: Execution Starts at the Top</a></h2>
+<h2 id="7-a-common-misconception-execution-starts-at-the-top"><a href="#7-a-common-misconception-execution-starts-at-the-top"><span class="section-number">1.7</span>A Common Misconception: Execution Starts at the Top</a></h2>
 <p>A Java source file is not executed from its first character to its last. Class and method declarations describe program structure. The launcher selects a candidate <code>main</code> method and begins with that method's body. Other method bodies run only when a call reaches them.</p>
 <p>In <code>ArrivalDisplay.java</code>, Java does not execute <code>arrivalMessage</code> merely because its declaration appears in the file. <code>main</code> calls it with two argument values. The call transfers control into the method, and <code>return</code> transfers a value and control back to the caller.</p>
 <p>This distinction becomes important as programs acquire more files and classes. Text position helps a reader navigate source; calls and control-flow statements determine the execution order.</p>
-<h2 id="8-practice-by-predicting-and-explaining"><a href="#8-practice-by-predicting-and-explaining">8. Practice by Predicting and Explaining</a></h2>
+<h2 id="8-practice-by-predicting-and-explaining"><a href="#8-practice-by-predicting-and-explaining"><span class="section-number">1.8</span>Practice by Predicting and Explaining</a></h2>
 <p>Answer each question before running or editing the program.</p>
-<h3 id="1-complete-a-trace"><a href="#1-complete-a-trace">1. Complete a trace</a></h3>
+<h3 id="1-complete-a-trace"><a href="#1-complete-a-trace">Complete a trace</a></h3>
 <p>For <code>arrivalMessage(720, 725)</code>, record the values of both parameters and <code>difference</code>. State which comparisons Java evaluates and which <code>return</code> finishes the call.</p>
 <details class="practice-explanation">
 <summary>Compare with the trace</summary>
 <p>The parameters receive <code>720</code> and <code>725</code>. The subtraction assigns <code>5</code> to <code>difference</code>. The first comparison is false; the second is true. The second body returns <code>"LATE by 5 minutes"</code>.</p>
 </details>
 
-<h3 id="2-repair-a-boundary"><a href="#2-repair-a-boundary">2. Repair a boundary</a></h3>
+<h3 id="2-repair-a-boundary"><a href="#2-repair-a-boundary">Repair a boundary</a></h3>
 <p>A revision changes the first condition to <code>difference &lt;= 0</code>. Predict the result of <code>arrivalMessage(600, 600)</code>. Identify the smallest repair and explain why a test only using early and late predictions would not expose this error.</p>
 <details class="practice-explanation">
 <summary>Compare with the explanation</summary>
 <p>The revised method returns <code>"EARLY by 0 minutes"</code>. Restore the strict comparison <code>difference &lt; 0</code>. Tests using only negative and positive differences do not exercise the zero boundary, so both can pass while the on-time case remains wrong.</p>
 </details>
 
-<h3 id="3-separate-type-from-text"><a href="#3-separate-type-from-text">3. Separate type from text</a></h3>
+<h3 id="3-separate-type-from-text"><a href="#3-separate-type-from-text">Separate type from text</a></h3>
 <p>Explain why <code>"597" + 3</code> produces <code>"5973"</code> while <code>597 + 3</code> produces <code>600</code>. Name the type of each result.</p>
 <details class="practice-explanation">
 <summary>Compare with the explanation</summary>
 <p>The first left operand is a <code>String</code>, so <code>+</code> performs concatenation and produces another <code>String</code>. Both operands in the second expression are <code>int</code> values, so Java performs integer addition and produces an <code>int</code>.</p>
 </details>
 
-<h3 id="4-classify-three-observations"><a href="#4-classify-three-observations">4. Classify three observations</a></h3>
+<h3 id="4-classify-three-observations"><a href="#4-classify-three-observations">Classify three observations</a></h3>
 <p>Classify each as a compilation failure, runtime failure, or unwanted result:</p>
 <ul>
 <li>the source omits the closing brace of <code>main</code>;</li>
@@ -304,7 +324,7 @@ String arrivalMessage(int scheduledMinute, int predictedMinute) {
 <p>The missing brace is a compilation failure because the source does not satisfy Java's grammar. The exception is a runtime failure because parsing begins after successful compilation. The negative message is an unwanted result because execution finishes but the output does not meet the display requirement.</p>
 </details>
 
-<h3 id="5-explain-the-two-program-forms"><a href="#5-explain-the-two-program-forms">5. Explain the two program forms</a></h3>
+<h3 id="5-explain-the-two-program-forms"><a href="#5-explain-the-two-program-forms">Explain the two program forms</a></h3>
 <p>Name one feature shared by the compact and explicit arrival-display programs and one structural difference. Does the explicit form make the classification logic more correct?</p>
 <details class="practice-explanation">
 <summary>Compare with the explanation</summary>
@@ -322,16 +342,13 @@ String arrivalMessage(int scheduledMinute, int predictedMinute) {
 <li><a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-4.html">The Java Language Specification, Java SE 25, Chapter 4: Types, Values, and Variables</a></li>
 <li><a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-14.html">The Java Language Specification, Java SE 25, Chapter 14: Blocks, Statements, and Patterns</a></li>
 </ul>
-<aside class="source-links" aria-label="Example files">
-          <h2>Use the complete files</h2>
-          <p><a href="../../examples/01-running-java-programs/">Browse the complete example files</a>.</p>
-        </aside>
-        <nav class="reading-nav" aria-label="Segment sequence">
-          <a href="../../">← Contents</a>
-          <a href="../02-objects-state-and-references/">Objects, State, and References →</a>
-        </nav>
-      </article>
-    </main>
-  </div>
+<p class="chapter-examples"><a href="../../examples/01-running-java-programs/">Browse the complete example files →</a></p>
+
+      <footer class="book-footer">
+        <a class="next" href="../02-objects-state-and-references/">Objects, State, and References →</a>
+        CPEN 221 · Getting Started · Software Tools and Java
+      </footer>
+    </article>
+  </main>
 </body>
 </html>

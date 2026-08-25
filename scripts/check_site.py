@@ -218,8 +218,20 @@ def main() -> None:
             failures.append(f"assets/fonts/licenses/{licence_name}: invalid licence")
 
     stylesheet = SITE_ROOT / "assets" / "css" / "site.css"
+    stylesheet_source = stylesheet.read_text(encoding="utf-8")
+    brace_depth = 0
+    for character in stylesheet_source:
+        if character == "{":
+            brace_depth += 1
+        elif character == "}":
+            brace_depth -= 1
+            if brace_depth < 0:
+                failures.append("assets/css/site.css: unmatched closing brace")
+                break
+    if brace_depth > 0:
+        failures.append("assets/css/site.css: unmatched opening brace")
     for font_name in FONT_FILES:
-        if f'../fonts/{font_name}' not in stylesheet.read_text(encoding="utf-8"):
+        if f'../fonts/{font_name}' not in stylesheet_source:
             failures.append(f"assets/css/site.css: does not declare {font_name}")
 
     expected_figures = set(FIGURE_FILES)

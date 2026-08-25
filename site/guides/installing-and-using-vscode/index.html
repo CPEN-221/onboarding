@@ -12,41 +12,61 @@
 <body id="top">
   <!-- source-sha256: f441ea0edc3d693cdf530e2681f96a2c07bcd51b5234a75ab9ff6a5e9722b1eb -->
   <!-- source-file: guide-vscode.md -->
-  <a class="skip-link" href="#reading-content">Skip to reading</a>
-  <header class="site-header">
-    <a class="wordmark" href="../../"><strong>Getting Started with CPEN 221</strong><span>Software Tools and Java</span></a>
-  </header>
+  <a class="skip-link" href="#chapter-content">Skip to reading</a>
+
+  <nav class="book-nav" aria-label="Reading navigation">
+    <a class="wordmark" href="../../">
+      <strong>CPEN 221</strong>
+      <span>Getting Started</span>
+    </a>
+    <div class="nav-contents">
+      <p class="part-label">Preparation guides</p>
+      <h2><a href="#top" aria-current="page">Installing and Using Visual Studio Code <small>G3</small></a></h2>
+      <ul>
+        <li><a href="#1-install-the-editor"><small>3.1</small><span>Install the Editor</span></a></li>
+        <li><a href="#2-install-a-small-extension-set"><small>3.2</small><span>Install a Small Extension Set</span></a></li>
+        <li><a href="#3-open-the-folder-not-an-isolated-file"><small>3.3</small><span>Open the Folder, Not an Isolated File</span></a></li>
+        <li><a href="#4-confirm-java-25-and-import-the-build"><small>3.4</small><span>Confirm Java 25 and Import the Build</span></a></li>
+        <li><a href="#5-edit-and-navigate-java"><small>3.5</small><span>Edit and Navigate Java</span></a></li>
+        <li><a href="#6-run-and-test"><small>3.6</small><span>Run and Test</span></a></li>
+        <li><a href="#7-debug-a-failing-test"><small>3.7</small><span>Debug a Failing Test</span></a></li>
+        <li><a href="#8-use-the-integrated-terminal"><small>3.8</small><span>Use the Integrated Terminal</span></a></li>
+        <li><a href="#9-use-source-control-without-hiding-the-model"><small>3.9</small><span>Use Source Control Without Hiding the Model</span></a></li>
+        <li><a href="#10-a-setup-exercise"><small>3.10</small><span>A Setup Exercise</span></a></li>
+        <li><a href="#11-summary"><small>3.11</small><span>Summary</span></a></li>
+      </ul>
+      <div class="prev-next">
+        <a href="../using-command-line-interface/">← Previous</a>
+        <a href="../../">Up</a>
+        <a href="../build-process-and-tools/">Next →</a>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="book-nav-mobile" aria-label="Compact reading navigation">
+    <a class="mobile-arrow" href="../using-command-line-interface/" aria-label="Previous: Using the Command Line Interface">←</a>
+    <a class="mobile-title" href="../../">CPEN 221</a>
+    <a class="mobile-arrow" href="../build-process-and-tools/" aria-label="Next: The Build Process and Tools">→</a>
+  </nav>
+
   <div class="typeface-tools">
-    <label for="typeface-picker">Typeface set</label>
-    <select id="typeface-picker" data-typeface-picker>
-      <option value="plex">IBM Plex Serif + Sans</option>
-      <option value="google-sans">Google Sans Flex + Code</option>
-    </select>
+    <label>
+      <span>Reading type</span>
+      <select data-typeface-picker aria-label="Reading typeface combination">
+        <option value="plex">IBM Plex Serif + Sans</option>
+        <option value="google-sans">Google Sans Flex + Code</option>
+      </select>
+    </label>
   </div>
-  <div class="reading-layout">
-    <nav class="contents" aria-label="On this page">
-      <p>Preparation guide 3 of 5</p>
-      <ol>
-          <li><a href="#1-install-the-editor">Install the Editor</a></li>
-          <li><a href="#2-install-a-small-extension-set">Install a Small Extension Set</a></li>
-          <li><a href="#3-open-the-folder-not-an-isolated-file">Open the Folder, Not an Isolated File</a></li>
-          <li><a href="#4-confirm-java-25-and-import-the-build">Confirm Java 25 and Import the Build</a></li>
-          <li><a href="#5-edit-and-navigate-java">Edit and Navigate Java</a></li>
-          <li><a href="#6-run-and-test">Run and Test</a></li>
-          <li><a href="#7-debug-a-failing-test">Debug a Failing Test</a></li>
-          <li><a href="#8-use-the-integrated-terminal">Use the Integrated Terminal</a></li>
-          <li><a href="#9-use-source-control-without-hiding-the-model">Use Source Control Without Hiding the Model</a></li>
-          <li><a href="#10-a-setup-exercise">A Setup Exercise</a></li>
-          <li><a href="#11-summary">Summary</a></li>
-      </ol>
-    </nav>
-    <main id="reading-content">
-      <article class="reading">
-        <header class="reading-header">
-          <p>Preparation guide 3</p>
-          <h1>Installing and Using Visual Studio Code</h1>
-          <p class="lede">Configure Java, Gradle, Git, testing, debugging, and the integrated terminal without hiding the project build.</p>
-        </header>
+
+  <main id="chapter-content" class="page">
+    <article class="chapter">
+      <div class="chapter-number" aria-hidden="true">G3</div>
+      <header class="chapter-header">
+        <p class="chapter-kicker">Preparation guide 3 of 5</p>
+        <h1>Installing and Using Visual Studio Code</h1>
+        <p class="lede">Configure Java, Gradle, Git, testing, debugging, and the integrated terminal without hiding the project build.</p>
+      </header>
 <p>For CPEN 221, open the complete Gradle project in Visual Studio Code (VS Code), not an individual Java file. The Java and Gradle extensions then read the build, find the source and test directories, and use the project's Java configuration.</p>
 <section class="learning-outcomes" aria-labelledby="learning-outcomes"><h2 id="learning-outcomes"><a href="#learning-outcomes">Learning outcomes</a></h2><ul>
 <li>install VS Code and the extensions needed for a CPEN 221 Java project;</li>
@@ -55,11 +75,11 @@
 <li>use the integrated terminal and built-in Git interface without treating them as separate project states; and</li>
 <li>distinguish required support from optional GitHub conveniences.</li>
 </ul></section>
-<h2 id="1-install-the-editor"><a href="#1-install-the-editor">1. Install the Editor</a></h2>
+<h2 id="1-install-the-editor"><a href="#1-install-the-editor"><span class="section-number">3.1</span>Install the Editor</a></h2>
 <p>Follow the operating-system steps in <a href="../software-to-install/">Software to Install</a> or the official VS Code setup page for <a href="https://code.visualstudio.com/docs/setup/mac">macOS</a>, <a href="https://code.visualstudio.com/docs/setup/linux">Linux</a>, or <a href="https://code.visualstudio.com/docs/setup/windows">Windows</a>. Enable the <code>code</code> command, then verify it in a new terminal:</p>
 <div class="code-block"><pre class="text"><code>code --version</code></pre></div>
 <p>VS Code updates independently of your projects. Installing an update does not change the Java version declared by a Gradle build.</p>
-<h2 id="2-install-a-small-extension-set"><a href="#2-install-a-small-extension-set">2. Install a Small Extension Set</a></h2>
+<h2 id="2-install-a-small-extension-set"><a href="#2-install-a-small-extension-set"><span class="section-number">3.2</span>Install a Small Extension Set</a></h2>
 <p>Open <strong>Extensions</strong> and install:</p>
 <ol type="1">
 <li><strong>Extension Pack for Java</strong>, published by Microsoft;</li>
@@ -81,7 +101,7 @@
 </details>
 </form>
 
-<h2 id="3-open-the-folder-not-an-isolated-file"><a href="#3-open-the-folder-not-an-isolated-file">3. Open the Folder, Not an Isolated File</a></h2>
+<h2 id="3-open-the-folder-not-an-isolated-file"><a href="#3-open-the-folder-not-an-isolated-file"><span class="section-number">3.3</span>Open the Folder, Not an Isolated File</a></h2>
 <p>Clone or download a project, then open the directory containing these files:</p>
 <div class="code-block"><pre class="text"><code>build.gradle.kts
 settings.gradle.kts
@@ -94,7 +114,7 @@ src/</code></pre></div>
 <p>Opening only <code>TransitBoard.java</code> deprives the Java extension of the build file, test source set, and dependency declarations. A source file may still be editable, but the editor cannot accurately reproduce the project build.</p>
 <p>VS Code may display a <strong>Workspace Trust</strong> prompt. A repository can contain tasks, debug configurations, and extension recommendations that execute code. Trust a course repository obtained from its official location after confirming that you opened the intended folder. Do not automatically trust an unrelated archive.</p>
 <p>The build definition specifies the project. Configure the editor to read it.</p>
-<h2 id="4-confirm-java-25-and-import-the-build"><a href="#4-confirm-java-25-and-import-the-build">4. Confirm Java 25 and Import the Build</a></h2>
+<h2 id="4-confirm-java-25-and-import-the-build"><a href="#4-confirm-java-25-and-import-the-build"><span class="section-number">3.4</span>Confirm Java 25 and Import the Build</a></h2>
 <p>After the extensions start, VS Code shows Java's progress in the status bar. Let the initial import finish. The first Gradle wrapper run may download Gradle and test dependencies.</p>
 <p>Open the Command Palette and run <strong>Java: Configure Java Runtime</strong>. Confirm that the project resolves a Java 25 JDK. The editor can know about several JDKs; the one used for language services and the one requested by the Gradle toolchain should both support the project.</p>
 <p>Also open VS Code's terminal and run:</p>
@@ -106,7 +126,7 @@ javac -version</code></pre></div>
 <div class="code-block"><pre class="powershell"><code>.\gradlew.bat test</code></pre></div>
 <p>The editor can run a selected class or test. The wrapper runs the versioned task that the project and continuous-integration service share.</p>
 <p>If imports stay red after a successful command-line build, use <strong>Java: Clean Java Language Server Workspace</strong> and allow the project to re-import. If the wrapper also fails, fix that build failure before resetting editor caches.</p>
-<h2 id="5-edit-and-navigate-java"><a href="#5-edit-and-navigate-java">5. Edit and Navigate Java</a></h2>
+<h2 id="5-edit-and-navigate-java"><a href="#5-edit-and-navigate-java"><span class="section-number">3.5</span>Edit and Navigate Java</a></h2>
 <p>The Java language server can:</p>
 <ul>
 <li>complete names and show method parameters;</li>
@@ -117,7 +137,7 @@ javac -version</code></pre></div>
 </ul>
 <p>Treat automated edits as proposed changes. Review the diff after a rename or import reorganization. Compilation is still required: a diagnostic underline can lag behind the file or omit a build-specific check.</p>
 <p>The Explorer reflects the filesystem. Java source belongs under <code>src/main/java</code>, while tests belong under <code>src/test/java</code>. Package declarations and directory names should match. Do not move a Java file merely to make the Explorer look tidy; use the project's layout.</p>
-<h2 id="6-run-and-test"><a href="#6-run-and-test">6. Run and Test</a></h2>
+<h2 id="6-run-and-test"><a href="#6-run-and-test"><span class="section-number">3.6</span>Run and Test</a></h2>
 <p>The <strong>Testing</strong> view discovers JUnit tests after the Gradle project imports. It can run one test or display a failure beside its source. The Java editor also offers Run and Debug links above runnable classes and tests.</p>
 <p>Use those controls for a focused investigation, then run the project command before considering the work complete:</p>
 <div class="code-block"><pre class="sh"><code>./gradlew test</code></pre></div>
@@ -135,7 +155,7 @@ javac -version</code></pre></div>
 </details>
 </form>
 
-<h2 id="7-debug-a-failing-test"><a href="#7-debug-a-failing-test">7. Debug a Failing Test</a></h2>
+<h2 id="7-debug-a-failing-test"><a href="#7-debug-a-failing-test"><span class="section-number">3.7</span>Debug a Failing Test</a></h2>
 <p>A debugger pauses a running program and lets you inspect its current state. To investigate a failure:</p>
 <ol type="1">
 <li>reproduce it with a small test;</li>
@@ -148,17 +168,17 @@ javac -version</code></pre></div>
 <p>The debugger shows one execution. It does not prove a rule about every execution, and it does not replace a test assertion. Record the observation that changed your explanation, then encode the required behaviour in a test where appropriate.</p>
 <h3 id="debugger-changes-do-not-edit-the-source"><a href="#debugger-changes-do-not-edit-the-source">Debugger Changes Do Not Edit the Source</a></h3>
 <p>“The debugger changed my code” is usually a confusion between state and source. Editing a variable in a debug session changes that running process, not the Java source. The change disappears when the process ends unless you also edit and save the source file.</p>
-<h2 id="8-use-the-integrated-terminal"><a href="#8-use-the-integrated-terminal">8. Use the Integrated Terminal</a></h2>
+<h2 id="8-use-the-integrated-terminal"><a href="#8-use-the-integrated-terminal"><span class="section-number">3.8</span>Use the Integrated Terminal</a></h2>
 <p>Open <strong>Terminal → New Terminal</strong>. VS Code normally starts it at the workspace root, but verify:</p>
 <div class="code-block"><pre class="sh"><code>pwd
 ls</code></pre></div>
 <p>The integrated terminal can run the same <code>git</code>, <code>java</code>, and wrapper commands as an external terminal. It is not an emulator with a separate copy of the repository. Changes made by a terminal command appear in the Explorer and Source Control view.</p>
 <p>On Windows, choose PowerShell or Git Bash from the terminal-profile menu and stay aware of which syntax you are using. The project wrapper provides a POSIX script for Git Bash and a <code>.bat</code> script for PowerShell.</p>
-<h2 id="9-use-source-control-without-hiding-the-model"><a href="#9-use-source-control-without-hiding-the-model">9. Use Source Control Without Hiding the Model</a></h2>
+<h2 id="9-use-source-control-without-hiding-the-model"><a href="#9-use-source-control-without-hiding-the-model"><span class="section-number">3.9</span>Use Source Control Without Hiding the Model</a></h2>
 <p>The Source Control view displays changed files. Selecting a file opens its diff. The plus button stages a file; the Commit action creates a local commit from staged changes; synchronization communicates with a remote.</p>
 <p>These actions operate on the same Git repository as terminal commands. Run <code>git status</code> at any time to see the underlying state. Learn the commands in <a href="../git-and-github/">Git and GitHub</a> even if you prefer the interface: command output is easier to share exactly when something goes wrong.</p>
 <p>Do not use <strong>Discard Changes</strong> casually. For an uncommitted file, discarding can remove work that Git has no snapshot of. Inspect the diff and know which version will replace it.</p>
-<h2 id="10-a-setup-exercise"><a href="#10-a-setup-exercise">10. A Setup Exercise</a></h2>
+<h2 id="10-a-setup-exercise"><a href="#10-a-setup-exercise"><span class="section-number">3.10</span>A Setup Exercise</a></h2>
 <p>Open the companion Gradle project from the build-process guide and complete this checklist:</p>
 <ol type="1">
 <li>confirm the Explorer root contains both Gradle build files and wrapper scripts;</li>
@@ -170,7 +190,7 @@ ls</code></pre></div>
 <li>open Source Control and verify that your repository is clean again.</li>
 </ol>
 <p>Explain any difference between the editor test result and the wrapper output. If there is no difference, state which two independent observations agreed.</p>
-<h2 id="11-summary"><a href="#11-summary">11. Summary</a></h2>
+<h2 id="11-summary"><a href="#11-summary"><span class="section-number">3.11</span>Summary</a></h2>
 <p>Install the Java and Gradle extensions, while relying on VS Code's built-in Git support for ordinary version control. Open the project root as a folder, select Java 25, let Gradle import the build, and use the editor for navigation and focused runs. Use the checked-in wrapper for the complete build and tests.</p>
 <h2 id="references"><a href="#references">References</a></h2>
 <ul>
@@ -182,12 +202,12 @@ ls</code></pre></div>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github">Visual Studio Marketplace: GitHub Pull Requests and Issues</a></li>
 </ul>
 
-        <nav class="reading-nav" aria-label="Preparation guide sequence">
-          <a href="../using-command-line-interface/">← Using the Command Line Interface</a>
-          <a href="../build-process-and-tools/">The Build Process and Tools →</a>
-        </nav>
-      </article>
-    </main>
-  </div>
+
+      <footer class="book-footer">
+        <a class="next" href="../build-process-and-tools/">The Build Process and Tools →</a>
+        CPEN 221 · Getting Started · Software Tools and Java
+      </footer>
+    </article>
+  </main>
 </body>
 </html>

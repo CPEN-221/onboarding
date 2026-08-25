@@ -12,41 +12,61 @@
 <body id="top">
   <!-- source-sha256: aeb76fa546616a79ff6c612f0bdf069a27edbddff16128ef26efca60dde8b87e -->
   <!-- source-file: 03-iteration-collections-and-interfaces.md -->
-  <a class="skip-link" href="#reading-content">Skip to reading</a>
-  <header class="site-header">
-    <a class="wordmark" href="../../"><strong>Getting Started with CPEN 221</strong><span>Software Tools and Java</span></a>
-  </header>
+  <a class="skip-link" href="#chapter-content">Skip to reading</a>
+
+  <nav class="book-nav" aria-label="Reading navigation">
+    <a class="wordmark" href="../../">
+      <strong>CPEN 221</strong>
+      <span>Getting Started</span>
+    </a>
+    <div class="nav-contents">
+      <p class="part-label">Java foundations</p>
+      <h2><a href="#top" aria-current="page">Iteration, Collections, and Interfaces <small>J3</small></a></h2>
+      <ul>
+        <li><a href="#1-traverse-a-fixed-array-by-index"><small>3.1</small><span>Traverse a Fixed Array by Index</span></a></li>
+        <li><a href="#2-use-an-enhanced-loop-when-the-index-does-not-matter"><small>3.2</small><span>Use an Enhanced Loop When the Index Does Not Matter</span></a></li>
+        <li><a href="#3-use-a-list-for-an-ordered-sequence"><small>3.3</small><span>Use a List for an Ordered Sequence</span></a></li>
+        <li><a href="#4-use-a-set-for-unique-elements"><small>3.4</small><span>Use a Set for Unique Elements</span></a></li>
+        <li><a href="#5-use-a-map-for-key-to-value-associations"><small>3.5</small><span>Use a Map for Key-to-Value Associations</span></a></li>
+        <li><a href="#6-choose-the-contract-before-the-implementation"><small>3.6</small><span>Choose the Contract Before the Implementation</span></a></li>
+        <li><a href="#7-use-an-interface-to-share-an-operation"><small>3.7</small><span>Use an Interface to Share an Operation</span></a></li>
+        <li><a href="#8-combine-rules-through-composition"><small>3.8</small><span>Combine Rules through Composition</span></a></li>
+        <li><a href="#9-a-common-misconception-one-collection-type-is-enough"><small>3.9</small><span>A Common Misconception: One Collection Type Is Enough</span></a></li>
+        <li><a href="#10-practice-by-tracing-containers-and-calls"><small>3.10</small><span>Practice by Tracing Containers and Calls</span></a></li>
+        <li><a href="#summary"><small>§</small><span>Summary</span></a></li>
+      </ul>
+      <div class="prev-next">
+        <a href="../02-objects-state-and-references/">← Previous</a>
+        <a href="../../">Up</a>
+        <a href="../../">Contents ↑</a>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="book-nav-mobile" aria-label="Compact reading navigation">
+    <a class="mobile-arrow" href="../02-objects-state-and-references/" aria-label="Previous: Objects, State, and References">←</a>
+    <a class="mobile-title" href="../../">CPEN 221</a>
+    <a class="mobile-arrow" href="../../" aria-label="Next: contents">↑</a>
+  </nav>
+
   <div class="typeface-tools">
-    <label for="typeface-picker">Typeface set</label>
-    <select id="typeface-picker" data-typeface-picker>
-      <option value="plex">IBM Plex Serif + Sans</option>
-      <option value="google-sans">Google Sans Flex + Code</option>
-    </select>
+    <label>
+      <span>Reading type</span>
+      <select data-typeface-picker aria-label="Reading typeface combination">
+        <option value="plex">IBM Plex Serif + Sans</option>
+        <option value="google-sans">Google Sans Flex + Code</option>
+      </select>
+    </label>
   </div>
-  <div class="reading-layout">
-    <nav class="contents" aria-label="On this page">
-      <p>Segment 3 of 3</p>
-      <ol>
-          <li><a href="#1-traverse-a-fixed-array-by-index">Traverse a Fixed Array by Index</a></li>
-          <li><a href="#2-use-an-enhanced-loop-when-the-index-does-not-matter">Use an Enhanced Loop When the Index Does Not Matter</a></li>
-          <li><a href="#3-use-a-list-for-an-ordered-sequence">Use a List for an Ordered Sequence</a></li>
-          <li><a href="#4-use-a-set-for-unique-elements">Use a Set for Unique Elements</a></li>
-          <li><a href="#5-use-a-map-for-key-to-value-associations">Use a Map for Key-to-Value Associations</a></li>
-          <li><a href="#6-choose-the-contract-before-the-implementation">Choose the Contract Before the Implementation</a></li>
-          <li><a href="#7-use-an-interface-to-share-an-operation">Use an Interface to Share an Operation</a></li>
-          <li><a href="#8-combine-rules-through-composition">Combine Rules through Composition</a></li>
-          <li><a href="#9-a-common-misconception-one-collection-type-is-enough">A Common Misconception: One Collection Type Is Enough</a></li>
-          <li><a href="#10-practice-by-tracing-containers-and-calls">Practice by Tracing Containers and Calls</a></li>
-          <li><a href="#summary">Summary</a></li>
-      </ol>
-    </nav>
-    <main id="reading-content">
-      <article class="reading">
-        <header class="reading-header">
-          <p>Segment 3</p>
-          <h1>Iteration, Collections, and Interfaces</h1>
-          <p class="lede">Traverse values, choose collection contracts, and combine behaviour through interfaces and composition.</p>
-        </header>
+
+  <main id="chapter-content" class="page">
+    <article class="chapter">
+      <div class="chapter-number" aria-hidden="true">J3</div>
+      <header class="chapter-header">
+        <p class="chapter-kicker">Segment 3 of 3</p>
+        <h1>Iteration, Collections, and Interfaces</h1>
+        <p class="lede">Traverse values, choose collection contracts, and combine behaviour through interfaces and composition.</p>
+      </header>
 <p>A prediction service receives several observations for each route. The program must count late predictions, preserve the order in which observations arrived, identify distinct routes, and retain the latest delay for each route. One container cannot provide all four meanings by accident; the program must choose the data structure whose contract matches each requirement.</p>
 <p>We will begin with a fixed array and two loop forms. We will then use <code>List</code>, <code>Set</code>, and <code>Map</code> for three different relationships and finish by selecting delay rules through an interface.</p>
 <section class="learning-outcomes" aria-labelledby="learning-outcomes"><h2 id="learning-outcomes"><a href="#learning-outcomes">Learning outcomes</a></h2><ul>
@@ -58,7 +78,7 @@
 <li>use an interface as a shared type for several implementations; and</li>
 <li>combine behaviour through object composition.</li>
 </ul></section>
-<h2 id="1-traverse-a-fixed-array-by-index"><a href="#1-traverse-a-fixed-array-by-index">1. Traverse a Fixed Array by Index</a></h2>
+<h2 id="1-traverse-a-fixed-array-by-index"><a href="#1-traverse-a-fixed-array-by-index"><span class="section-number">3.1</span>Traverse a Fixed Array by Index</a></h2>
 <p>An <strong>array</strong> stores a fixed number of components of one declared type. This declaration constructs an array with four <code>int</code> components and initializes them:</p>
 <div class="code-block"><pre class="java"><code>int[] delays = {-2, 0, 4, 7};</code></pre></div>
 <p>The variable <code>delays</code> holds a reference to the array object. The components have indices <code>0</code>, <code>1</code>, <code>2</code>, and <code>3</code>. The array's <code>length</code> is <code>4</code>; <code>length</code> is a count, not the final valid index.</p>
@@ -132,7 +152,7 @@ for (int index = 0; index &lt; delays.length; index++) {
 
 <p>Java checks an array index when the access executes. The expression <code>delays[delays.length]</code> compiles because both the index and components have suitable types. At runtime, index <code>4</code> is outside this four-component array, so Java throws <code>ArrayIndexOutOfBoundsException</code>.</p>
 <p>This guarantee concerns the observable array access. We can reason about valid indices without claiming that the array occupies a particular physical heap location; allocation strategy is not a Java language-level property of the source.</p>
-<h2 id="2-use-an-enhanced-loop-when-the-index-does-not-matter"><a href="#2-use-an-enhanced-loop-when-the-index-does-not-matter">2. Use an Enhanced Loop When the Index Does Not Matter</a></h2>
+<h2 id="2-use-an-enhanced-loop-when-the-index-does-not-matter"><a href="#2-use-an-enhanced-loop-when-the-index-does-not-matter"><span class="section-number">3.2</span>Use an Enhanced Loop When the Index Does Not Matter</a></h2>
 <p>The counting operation needs each delay value but does not otherwise use its index. An enhanced <code>for</code> loop states that relationship directly:</p>
 <div class="code-block"><pre class="java"><code>int lateCount = 0;
 
@@ -146,7 +166,7 @@ for (int delay : delays) {
 <blockquote class="design-note"><p><strong>Design principle: make the loop express the relationship the algorithm needs.</strong></p>
 </blockquote>
 <p>An unnecessary index creates another value whose bounds and updates must be proved correct. An enhanced loop removes that obligation when position does not matter.</p>
-<h2 id="3-use-a-list-for-an-ordered-sequence"><a href="#3-use-a-list-for-an-ordered-sequence">3. Use a List for an Ordered Sequence</a></h2>
+<h2 id="3-use-a-list-for-an-ordered-sequence"><a href="#3-use-a-list-for-an-ordered-sequence"><span class="section-number">3.3</span>Use a List for an Ordered Sequence</a></h2>
 <p>Arrays have fixed length. A prediction service usually does not know in advance how many observations it will receive. A <code>List</code> represents an ordered sequence whose size can be queried and whose common implementations can grow:</p>
 <div class="code-block"><pre class="java"><code>import java.util.ArrayList;
 import java.util.List;
@@ -161,7 +181,7 @@ observedRoutes.add(&quot;44&quot;);</code></pre></div>
 <p>Primitive types cannot appear directly as generic type arguments. Java uses the reference type <code>Integer</code> for integer elements:</p>
 <div class="code-block"><pre class="java"><code>List&lt;Integer&gt; delays = List.of(-2, 0, 4, 7);</code></pre></div>
 <p>Java's boxing conversion produces <code>Integer</code> values for these <code>int</code> literals, and unboxing supplies <code>int</code> values when an enhanced loop declares <code>int delay</code>. There is no need to invoke the deprecated <code>new Integer(...)</code> constructor.</p>
-<h2 id="4-use-a-set-for-unique-elements"><a href="#4-use-a-set-for-unique-elements">4. Use a Set for Unique Elements</a></h2>
+<h2 id="4-use-a-set-for-unique-elements"><a href="#4-use-a-set-for-unique-elements"><span class="section-number">3.4</span>Use a Set for Unique Elements</a></h2>
 <p>The observation sequence contains three entries but only two route identifiers. A <code>Set</code> represents a collection that contains no duplicate elements:</p>
 <div class="code-block"><pre class="java"><code>import java.util.HashSet;
 import java.util.Set;
@@ -182,7 +202,7 @@ Set&lt;String&gt; distinctRoutes = new HashSet&lt;&gt;(observedRoutes);</code></
 </details>
 </form>
 
-<h2 id="5-use-a-map-for-key-to-value-associations"><a href="#5-use-a-map-for-key-to-value-associations">5. Use a Map for Key-to-Value Associations</a></h2>
+<h2 id="5-use-a-map-for-key-to-value-associations"><a href="#5-use-a-map-for-key-to-value-associations"><span class="section-number">3.5</span>Use a Map for Key-to-Value Associations</a></h2>
 <p>The service also needs the latest observed delay for each route. A <code>Map</code> associates each key with at most one value:</p>
 <div class="code-block"><pre class="java"><code>import java.util.HashMap;
 import java.util.Map;
@@ -199,7 +219,7 @@ latestDelayByRoute.put(&quot;44&quot;, 7);</code></pre></div>
 distinct routes: 2
 contains 44: true
 latest delay for 44: 7</code></pre></div>
-<h2 id="6-choose-the-contract-before-the-implementation"><a href="#6-choose-the-contract-before-the-implementation">6. Choose the Contract Before the Implementation</a></h2>
+<h2 id="6-choose-the-contract-before-the-implementation"><a href="#6-choose-the-contract-before-the-implementation"><span class="section-number">3.6</span>Choose the Contract Before the Implementation</a></h2>
 <p>The four containers answer different questions:</p>
 <table>
 <thead>
@@ -234,7 +254,7 @@ latest delay for 44: 7</code></pre></div>
 </table>
 <p>The choice begins with the required relationship. <code>ArrayList</code>, <code>HashSet</code>, and <code>HashMap</code> are implementation choices made after the program identifies the list, set, or map contract it needs.</p>
 <p>An implementation also has performance properties, but performance does not repair a mismatched meaning. A fast set cannot preserve duplicate observations, and a fast list does not by itself state that route identifiers must be unique.</p>
-<h2 id="7-use-an-interface-to-share-an-operation"><a href="#7-use-an-interface-to-share-an-operation">7. Use an Interface to Share an Operation</a></h2>
+<h2 id="7-use-an-interface-to-share-an-operation"><a href="#7-use-an-interface-to-share-an-operation"><span class="section-number">3.7</span>Use an Interface to Share an Operation</a></h2>
 <p>The service sometimes selects delays by a rule. One rule accepts delays of at least five minutes; another accepts delays of at most ten. Both can implement one interface:</p>
 <div class="code-block"><pre class="java"><code>interface DelayRule {
     boolean matches(int delayMinutes);
@@ -257,7 +277,7 @@ latest delay for 44: 7</code></pre></div>
 <div class="code-block"><pre class="java"><code>DelayRule lowerBound = new AtLeastDelay(5);
 DelayRule upperBound = new AtMostDelay(10);</code></pre></div>
 <p>A call such as <code>lowerBound.matches(8)</code> uses the implementation belonging to the receiver object's class. The interface type states which operation the caller may request; the object determines how that operation behaves.</p>
-<h2 id="8-combine-rules-through-composition"><a href="#8-combine-rules-through-composition">8. Combine Rules through Composition</a></h2>
+<h2 id="8-combine-rules-through-composition"><a href="#8-combine-rules-through-composition"><span class="section-number">3.8</span>Combine Rules through Composition</a></h2>
 <p>A delay is concerning for this example only if it is at least five and at most ten minutes. A third implementation can hold two rule objects and delegate to both:</p>
 <div class="code-block"><pre class="java"><code>final class BothRules implements DelayRule {
     private final DelayRule first;
@@ -295,46 +315,46 @@ DelayRule upperBound = new AtMostDelay(10);</code></pre></div>
 </details>
 </form>
 
-<h2 id="9-a-common-misconception-one-collection-type-is-enough"><a href="#9-a-common-misconception-one-collection-type-is-enough">9. A Common Misconception: One Collection Type Is Enough</a></h2>
+<h2 id="9-a-common-misconception-one-collection-type-is-enough"><a href="#9-a-common-misconception-one-collection-type-is-enough"><span class="section-number">3.9</span>A Common Misconception: One Collection Type Is Enough</a></h2>
 <p>All collections hold multiple values, but that common description is too weak to guide a design. Order, duplication, lookup, replacement, and fixed size are observable parts of a container's contract.</p>
 <p>Using one familiar implementation for every requirement forces clients to recover missing meaning through conventions. For example, a <code>List&lt;String&gt;</code> used as a set requires every mutating client to remember to check for duplicates. A <code>Set&lt;String&gt;</code> used as an event log silently discards repeated events and may not preserve their order. Select the abstraction that states the intended relationship.</p>
-<h2 id="10-practice-by-tracing-containers-and-calls"><a href="#10-practice-by-tracing-containers-and-calls">10. Practice by Tracing Containers and Calls</a></h2>
-<h3 id="1-repair-an-array-loop"><a href="#1-repair-an-array-loop">1. Repair an array loop</a></h3>
+<h2 id="10-practice-by-tracing-containers-and-calls"><a href="#10-practice-by-tracing-containers-and-calls"><span class="section-number">3.10</span>Practice by Tracing Containers and Calls</a></h2>
+<h3 id="1-repair-an-array-loop"><a href="#1-repair-an-array-loop">Repair an array loop</a></h3>
 <p>A loop uses <code>index &lt;= delays.length</code>. State the first invalid index and the runtime failure it produces. Give the repaired condition.</p>
 <details class="practice-explanation">
 <summary>Compare with the explanation</summary>
 <p>The first invalid index is <code>delays.length</code>. Evaluating that access throws <code>ArrayIndexOutOfBoundsException</code>. Use <code>index &lt; delays.length</code>.</p>
 </details>
 
-<h3 id="2-trace-boxing-and-iteration"><a href="#2-trace-boxing-and-iteration">2. Trace boxing and iteration</a></h3>
+<h3 id="2-trace-boxing-and-iteration"><a href="#2-trace-boxing-and-iteration">Trace boxing and iteration</a></h3>
 <p>For <code>List&lt;Integer&gt; values = List.of(2, 4)</code>, explain the type stored by the list and the value received by <code>int value</code> in an enhanced loop.</p>
 <details class="practice-explanation">
 <summary>Compare with the explanation</summary>
 <p>The generic list contains references to <code>Integer</code> objects. Boxing converts the literals for storage, and unboxing supplies the primitive values <code>2</code> and <code>4</code> to the loop variable.</p>
 </details>
 
-<h3 id="3-choose-a-collection"><a href="#3-choose-a-collection">3. Choose a collection</a></h3>
+<h3 id="3-choose-a-collection"><a href="#3-choose-a-collection">Choose a collection</a></h3>
 <p>Choose a list, set, or map for each requirement: retain every prediction in arrival order; record which stop identifiers occurred; retrieve the latest prediction for a given stop identifier. State the contract property that supports each answer.</p>
 <details class="practice-explanation">
 <summary>Compare with the explanation</summary>
 <p>Use a list for the ordered sequence including repeats, a set for unique identifiers, and a map for lookup from each identifier to its latest prediction.</p>
 </details>
 
-<h3 id="4-update-a-map"><a href="#4-update-a-map">4. Update a map</a></h3>
+<h3 id="4-update-a-map"><a href="#4-update-a-map">Update a map</a></h3>
 <p>A map associates <code>"44"</code> with <code>4</code>, then with <code>7</code>. How many keys does it contain if no other entries exist, and what does <code>get("44")</code> produce?</p>
 <details class="practice-explanation">
 <summary>Compare with the explanation</summary>
 <p>It contains one key. The second <code>put</code> replaces the value associated with that key, so lookup produces <code>7</code>.</p>
 </details>
 
-<h3 id="5-trace-interface-dispatch"><a href="#5-trace-interface-dispatch">5. Trace interface dispatch</a></h3>
+<h3 id="5-trace-interface-dispatch"><a href="#5-trace-interface-dispatch">Trace interface dispatch</a></h3>
 <p>A variable declared as <code>DelayRule</code> refers to an <code>AtMostDelay(10)</code> object. Which implementation handles <code>matches(12)</code>, and what does it return?</p>
 <details class="practice-explanation">
 <summary>Compare with the explanation</summary>
 <p>The receiver object has class <code>AtMostDelay</code>, so its implementation handles the call and evaluates <code>12 &lt;= 10</code> as false.</p>
 </details>
 
-<h3 id="6-extend-by-composition"><a href="#6-extend-by-composition">6. Extend by composition</a></h3>
+<h3 id="6-extend-by-composition"><a href="#6-extend-by-composition">Extend by composition</a></h3>
 <p>Describe a <code>NotRule</code> that accepts one <code>DelayRule</code> and reverses its result. Which field and method would it need? Why does it not need to know the component's concrete class?</p>
 <details class="practice-explanation">
 <summary>Compare with the explanation</summary>
@@ -355,16 +375,13 @@ DelayRule upperBound = new AtMostDelay(10);</code></pre></div>
 <li><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/HashSet.html">Java SE 25 API: <code>HashSet</code></a></li>
 <li><a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-9.html">The Java Language Specification, Java SE 25, Chapter 9: Interfaces</a></li>
 </ul>
-<aside class="source-links" aria-label="Example files">
-          <h2>Use the complete files</h2>
-          <p><a href="../../examples/03-iteration-collections-and-interfaces/">Browse the complete example files</a>.</p>
-        </aside>
-        <nav class="reading-nav" aria-label="Segment sequence">
-          <a href="../02-objects-state-and-references/">← Objects, State, and References</a>
-          <a href="../../">Contents ↑</a>
-        </nav>
-      </article>
-    </main>
-  </div>
+<p class="chapter-examples"><a href="../../examples/03-iteration-collections-and-interfaces/">Browse the complete example files →</a></p>
+
+      <footer class="book-footer">
+        <a class="next" href="../../">Return to contents ↑</a>
+        CPEN 221 · Getting Started · Software Tools and Java
+      </footer>
+    </article>
+  </main>
 </body>
 </html>

@@ -8,92 +8,135 @@
   <link rel="stylesheet" href="assets/css/site.css">
   <script src="assets/js/typeface-switcher.js"></script>
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="hero">
-    <h1>Getting Started with CPEN 221</h1>
-    <p>Software Tools and Java</p>
-  </header>
+<body id="top">
+  <a class="skip-link" href="#main-content">Skip to the contents</a>
+
+  <nav class="book-nav" aria-label="Book navigation">
+    <a class="wordmark" href="./" aria-current="page">
+      <strong>CPEN 221</strong>
+      <span>Getting Started</span>
+    </a>
+    <div class="nav-contents">
+      <p class="part-label">Software Tools and Java</p>
+      <h2><a href="#top" aria-current="page">Contents</a></h2>
+      <ul>
+        <li><a href="#preparation-guides"><small>G</small><span>Preparation guides</span></a></li>
+        <li><a href="#java-segments"><small>J</small><span>Java foundations</span></a></li>
+      </ul>
+      <div class="prev-next">
+        <a href="#preparation-guides">Guides</a>
+        <a href="guides/software-to-install/">Read →</a>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="book-nav-mobile" aria-label="Compact book navigation">
+    <span class="mobile-arrow" aria-hidden="true">❧</span>
+    <a class="mobile-title" href="./" aria-current="page">CPEN 221</a>
+    <a class="mobile-arrow" href="guides/software-to-install/" aria-label="Next: Software to Install">→</a>
+  </nav>
+
   <div class="typeface-tools">
-    <label for="typeface-picker">Typeface set</label>
-    <select id="typeface-picker" data-typeface-picker>
-      <option value="plex">IBM Plex Serif + Sans</option>
-      <option value="google-sans">Google Sans Flex + Code</option>
-    </select>
+    <label>
+      <span>Reading type</span>
+      <select data-typeface-picker aria-label="Reading typeface combination">
+        <option value="plex">IBM Plex Serif + Sans</option>
+        <option value="google-sans">Google Sans Flex + Code</option>
+      </select>
+    </label>
   </div>
-  <main id="main" class="landing">
-    <section aria-labelledby="preparation-guides">
-      <h2 id="preparation-guides">Set up your tools and workflow</h2>
-      <p>Use these guides to establish the same development environment and project workflow used in CPEN 221. Start with installation, then follow the guides in order if the command line, build tools, or Git are new to you.</p>
-      <ol class="reading-cards">
-      <li>
-        <a href="guides/software-to-install/">
-          <span>Guide 1</span>
-          <strong>Software to Install</strong>
-          <small>Install and verify Java 25, Git, VS Code, and the project-supplied Gradle wrapper on macOS, Linux, or Windows.</small>
-        </a>
-      </li>
-      <li>
-        <a href="guides/using-command-line-interface/">
-          <span>Guide 2</span>
-          <strong>Using the Command Line Interface</strong>
-          <small>Navigate a project, read paths and commands, operate on files carefully, and preserve useful diagnostic output.</small>
-        </a>
-      </li>
-      <li>
-        <a href="guides/installing-and-using-vscode/">
-          <span>Guide 3</span>
-          <strong>Installing and Using Visual Studio Code</strong>
-          <small>Configure Java, Gradle, Git, testing, debugging, and the integrated terminal without hiding the project build.</small>
-        </a>
-      </li>
-      <li>
-        <a href="guides/build-process-and-tools/">
-          <span>Guide 4</span>
-          <strong>The Build Process and Tools</strong>
-          <small>Follow Java source through compilation, testing, execution, and packaging with the Gradle wrapper and JUnit.</small>
-        </a>
-      </li>
-      <li>
-        <a href="guides/git-and-github/">
-          <span>Guide 5</span>
-          <strong>Git and GitHub</strong>
-          <small>Understand why projects need version control, then record commits, share work, use branches, and recover changes.</small>
-        </a>
-      </li>
-      </ol>
-    </section>
-    <section aria-labelledby="java-segments">
-      <h2 id="java-segments">Learn or refresh Java</h2>
-      <p>Begin with the first segment if Java is new to you. If the material is familiar, predict the examples and use the practice to decide where to spend time.</p>
-      <ol class="reading-cards">
-      <li>
-        <a href="readings/01-running-java-programs/">
-          <span>Segment 1</span>
-          <strong>Running Java Programs</strong>
-          <small>Run, trace, and repair a small Java 25 program before translating it to the form used in course projects.</small>
-        </a>
-      </li>
-      <li>
-        <a href="readings/02-objects-state-and-references/">
-          <span>Segment 2</span>
-          <strong>Objects, State, and References</strong>
-          <small>Construct objects and trace mutable state, aliases, reassignment, identity, and null references.</small>
-        </a>
-      </li>
-      <li>
-        <a href="readings/03-iteration-collections-and-interfaces/">
-          <span>Segment 3</span>
-          <strong>Iteration, Collections, and Interfaces</strong>
-          <small>Traverse values, choose collection contracts, and combine behaviour through interfaces and composition.</small>
-        </a>
-      </li>
-      </ol>
-    </section>
-    <section class="requirements" aria-labelledby="requirements">
-      <h2 id="requirements">What you need</h2>
-      <p>The readings work without JavaScript. Begin with <a href="guides/software-to-install/">Software to Install</a>, then use the downloadable examples to check the complete toolchain.</p>
-    </section>
+
+  <main id="main-content" class="page">
+    <article class="contents-page">
+      <header class="contents-header">
+        <p class="kicker">CPEN 221 preparation</p>
+        <h1>Getting Started with CPEN 221</h1>
+        <p class="deck">Software Tools and Java</p>
+      </header>
+
+      <p>These guides and readings establish the development environment, project workflow, and Java foundations used at the start of CPEN 221.</p>
+
+      <div class="ornament" aria-hidden="true">❧</div>
+
+      <div class="contents-group">
+        <section aria-labelledby="preparation-guides">
+          <h2 id="preparation-guides">Preparation guides</h2>
+          <ol class="contents-list">
+            <li>
+              <span class="num">1</span>
+              <div>
+                <strong><a href="guides/software-to-install/">Software to Install</a></strong>
+                <p>Install and verify Java 25, Git, VS Code, and the project-supplied Gradle wrapper on macOS, Linux, or Windows.</p>
+              </div>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <div>
+                <strong><a href="guides/using-command-line-interface/">Using the Command Line Interface</a></strong>
+                <p>Navigate a project, read paths and commands, operate on files carefully, and preserve useful diagnostic output.</p>
+              </div>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <div>
+                <strong><a href="guides/installing-and-using-vscode/">Installing and Using Visual Studio Code</a></strong>
+                <p>Configure Java, Gradle, Git, testing, debugging, and the integrated terminal without hiding the project build.</p>
+              </div>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <div>
+                <strong><a href="guides/build-process-and-tools/">The Build Process and Tools</a></strong>
+                <p>Follow Java source through compilation, testing, execution, and packaging with the Gradle wrapper and JUnit.</p>
+              </div>
+            </li>
+            <li>
+              <span class="num">5</span>
+              <div>
+                <strong><a href="guides/git-and-github/">Git and GitHub</a></strong>
+                <p>Understand why projects need version control, then record commits, share work, use branches, and recover changes.</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+        <section aria-labelledby="java-segments">
+          <h2 id="java-segments">Java foundations</h2>
+          <ol class="contents-list">
+            <li>
+              <span class="num">1</span>
+              <div>
+                <strong><a href="readings/01-running-java-programs/">Running Java Programs</a></strong>
+                <p>Run, trace, and repair a small Java 25 program before translating it to the form used in course projects.</p>
+              </div>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <div>
+                <strong><a href="readings/02-objects-state-and-references/">Objects, State, and References</a></strong>
+                <p>Construct objects and trace mutable state, aliases, reassignment, identity, and null references.</p>
+              </div>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <div>
+                <strong><a href="readings/03-iteration-collections-and-interfaces/">Iteration, Collections, and Interfaces</a></strong>
+                <p>Traverse values, choose collection contracts, and combine behaviour through interfaces and composition.</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+      </div>
+
+      <section class="prototype-note" aria-labelledby="requirements">
+        <h2 id="requirements">Where to begin</h2>
+        <p>Begin with <a href="guides/software-to-install/">Software to Install</a>. If Java is already familiar, use the examples and practice in the Java readings to decide where to spend time.</p>
+      </section>
+
+      <footer class="book-footer">
+        <a class="next" href="guides/software-to-install/">Software to Install →</a>
+        CPEN 221 · Getting Started · Software Tools and Java
+      </footer>
+    </article>
   </main>
 </body>
 </html>

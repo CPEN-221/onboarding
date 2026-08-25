@@ -12,39 +12,59 @@
 <body id="top">
   <!-- source-sha256: 931ccf0b7b1b6ae436926868b795a1e99415c318a5d8664661387ba596a20294 -->
   <!-- source-file: guide-build-process-and-tools.md -->
-  <a class="skip-link" href="#reading-content">Skip to reading</a>
-  <header class="site-header">
-    <a class="wordmark" href="../../"><strong>Getting Started with CPEN 221</strong><span>Software Tools and Java</span></a>
-  </header>
+  <a class="skip-link" href="#chapter-content">Skip to reading</a>
+
+  <nav class="book-nav" aria-label="Reading navigation">
+    <a class="wordmark" href="../../">
+      <strong>CPEN 221</strong>
+      <span>Getting Started</span>
+    </a>
+    <div class="nav-contents">
+      <p class="part-label">Preparation guides</p>
+      <h2><a href="#top" aria-current="page">The Build Process and Tools <small>G4</small></a></h2>
+      <ul>
+        <li><a href="#1-what-the-build-includes"><small>4.1</small><span>What the Build Includes</span></a></li>
+        <li><a href="#2-the-tools-and-their-roles"><small>4.2</small><span>The Tools and Their Roles</span></a></li>
+        <li><a href="#3-build-tools-and-why-we-use-gradle"><small>4.3</small><span>Build Tools and Why We Use Gradle</span></a></li>
+        <li><a href="#4-the-gradle-project-layout"><small>4.4</small><span>The Gradle Project Layout</span></a></li>
+        <li><a href="#5-run-gradle-through-the-wrapper"><small>4.5</small><span>Run Gradle Through the Wrapper</span></a></li>
+        <li><a href="#6-locate-the-outputs"><small>4.6</small><span>Locate the Outputs</span></a></li>
+        <li><a href="#7-read-a-failure-from-the-first-failed-task"><small>4.7</small><span>Read a Failure from the First Failed Task</span></a></li>
+        <li><a href="#8-practice-with-one-controlled-failure"><small>4.8</small><span>Practice with One Controlled Failure</span></a></li>
+        <li><a href="#9-summary"><small>4.9</small><span>Summary</span></a></li>
+      </ul>
+      <div class="prev-next">
+        <a href="../installing-and-using-vscode/">← Previous</a>
+        <a href="../../">Up</a>
+        <a href="../git-and-github/">Next →</a>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="book-nav-mobile" aria-label="Compact reading navigation">
+    <a class="mobile-arrow" href="../installing-and-using-vscode/" aria-label="Previous: Installing and Using Visual Studio Code">←</a>
+    <a class="mobile-title" href="../../">CPEN 221</a>
+    <a class="mobile-arrow" href="../git-and-github/" aria-label="Next: Git and GitHub">→</a>
+  </nav>
+
   <div class="typeface-tools">
-    <label for="typeface-picker">Typeface set</label>
-    <select id="typeface-picker" data-typeface-picker>
-      <option value="plex">IBM Plex Serif + Sans</option>
-      <option value="google-sans">Google Sans Flex + Code</option>
-    </select>
+    <label>
+      <span>Reading type</span>
+      <select data-typeface-picker aria-label="Reading typeface combination">
+        <option value="plex">IBM Plex Serif + Sans</option>
+        <option value="google-sans">Google Sans Flex + Code</option>
+      </select>
+    </label>
   </div>
-  <div class="reading-layout">
-    <nav class="contents" aria-label="On this page">
-      <p>Preparation guide 4 of 5</p>
-      <ol>
-          <li><a href="#1-what-the-build-includes">What the Build Includes</a></li>
-          <li><a href="#2-the-tools-and-their-roles">The Tools and Their Roles</a></li>
-          <li><a href="#3-build-tools-and-why-we-use-gradle">Build Tools and Why We Use Gradle</a></li>
-          <li><a href="#4-the-gradle-project-layout">The Gradle Project Layout</a></li>
-          <li><a href="#5-run-gradle-through-the-wrapper">Run Gradle Through the Wrapper</a></li>
-          <li><a href="#6-locate-the-outputs">Locate the Outputs</a></li>
-          <li><a href="#7-read-a-failure-from-the-first-failed-task">Read a Failure from the First Failed Task</a></li>
-          <li><a href="#8-practice-with-one-controlled-failure">Practice with One Controlled Failure</a></li>
-          <li><a href="#9-summary">Summary</a></li>
-      </ol>
-    </nav>
-    <main id="reading-content">
-      <article class="reading">
-        <header class="reading-header">
-          <p>Preparation guide 4</p>
-          <h1>The Build Process and Tools</h1>
-          <p class="lede">Follow Java source through compilation, testing, execution, and packaging with the Gradle wrapper and JUnit.</p>
-        </header>
+
+  <main id="chapter-content" class="page">
+    <article class="chapter">
+      <div class="chapter-number" aria-hidden="true">G4</div>
+      <header class="chapter-header">
+        <p class="chapter-kicker">Preparation guide 4 of 5</p>
+        <h1>The Build Process and Tools</h1>
+        <p class="lede">Follow Java source through compilation, testing, execution, and packaging with the Gradle wrapper and JUnit.</p>
+      </header>
 <p>A Java project usually contains more than one source file. It may also depend on libraries, tests, compiler options, resources, and packaging instructions. The <strong>build process</strong> turns those inputs into compiled code, test results, and other outputs. A build tool records and runs that process.</p>
 <section class="learning-outcomes" aria-labelledby="learning-outcomes"><h2 id="learning-outcomes"><a href="#learning-outcomes">Learning outcomes</a></h2><ul>
 <li>distinguish Java source, compiled classes, dependencies, test results, and a packaged JAR;</li>
@@ -54,7 +74,7 @@
 <li>use the first failed task to classify a build problem.</li>
 </ul></section>
 <p>This guide has a <a href="../../examples/build-process-and-tools/">complete companion project</a>. Clone or download the <a href="https://github.com/CPEN-221/onboarding">onboarding repository</a> so that the project's directories and wrapper files remain intact.</p>
-<h2 id="1-what-the-build-includes"><a href="#1-what-the-build-includes">1. What the Build Includes</a></h2>
+<h2 id="1-what-the-build-includes"><a href="#1-what-the-build-includes"><span class="section-number">4.1</span>What the Build Includes</a></h2>
 <p>A small Java program can be compiled directly:</p>
 <div class="code-block"><pre class="sh"><code>javac TransitSummary.java
 java TransitSummary</code></pre></div>
@@ -69,7 +89,7 @@ java TransitSummary</code></pre></div>
 </ol>
 <p>This is not a C-style “compile, then link” pipeline. The ordinary Java build in this guide has no separate native linker stage. Dependencies are made available on compile-time and runtime class paths, and the JVM loads classes when needed.</p>
 <p>The build definition records this work as part of the project. It specifies the inputs, the tools and versions to use, and the relationships among build steps. Generated class files, reports, and archives are outputs. If the outputs disappear, the build should be able to reconstruct them from the source and build definition.</p>
-<h2 id="2-the-tools-and-their-roles"><a href="#2-the-tools-and-their-roles">2. The Tools and Their Roles</a></h2>
+<h2 id="2-the-tools-and-their-roles"><a href="#2-the-tools-and-their-roles"><span class="section-number">4.2</span>The Tools and Their Roles</a></h2>
 <p>The <strong>JDK</strong> supplies <code>javac</code>, <code>java</code>, and standard libraries. A Gradle Java <strong>toolchain</strong> declaration asks build tasks to use a particular Java language version—in this project, Java 25.</p>
 <p><strong>Gradle</strong> is the build tool. Plugins add conventions and tasks. The <code>application</code> plugin, for example, supplies Java compilation, testing, packaging, and a <code>run</code> task.</p>
 <p>The <strong>Gradle wrapper</strong> is the checked-in launch mechanism:</p>
@@ -80,7 +100,7 @@ gradle/wrapper/gradle-wrapper.properties</code></pre></div>
 <p>The wrapper properties name a Gradle distribution. The scripts download that version when needed and then run it. Every contributor therefore invokes the same Gradle version without maintaining a global installation.</p>
 <p><strong>JUnit</strong> is the testing framework used by the test source. Gradle resolves the declared JUnit dependencies and its <code>test</code> task launches the tests.</p>
 <p>Keep the build definition and wrapper with the source. A fresh clone can then use the same command and Gradle version as every other clone.</p>
-<h2 id="3-build-tools-and-why-we-use-gradle"><a href="#3-build-tools-and-why-we-use-gradle">3. Build Tools and Why We Use Gradle</a></h2>
+<h2 id="3-build-tools-and-why-we-use-gradle"><a href="#3-build-tools-and-why-we-use-gradle"><span class="section-number">4.3</span>Build Tools and Why We Use Gradle</a></h2>
 <p>Build automation predates Java, and several tools use different models for the same general problem:</p>
 <ul>
 <li><code>make</code> defines targets, their prerequisites, and the commands that produce them. It uses file timestamps to avoid rebuilding targets whose inputs have not changed. It works with many languages, but dependency download and Java project layout require additional conventions or tools.</li>
@@ -90,7 +110,7 @@ gradle/wrapper/gradle-wrapper.properties</code></pre></div>
 <p>CPEN 221 uses Gradle. This is a course choice, not a claim that Gradle is the best tool for every project. The important ideas transfer: a build tool records the procedure, tracks dependencies among steps, and decides which work is required for the requested output.</p>
 <p>Gradle handles one invocation in three phases. It first initializes the build and finds its projects. It then evaluates the build scripts and constructs the task graph. Finally, it executes the requested tasks and the tasks they depend on. This explains why <code>./gradlew build</code> can run compilation and tests even though the command names only <code>build</code>.</p>
 <p>Gradle also resolves external libraries. A declaration such as <code>org.junit.jupiter:junit-jupiter</code> identifies a module, while the JUnit bill of materials used below supplies compatible versions. Gradle searches the declared repositories, downloads the required artifacts and their declared dependencies, and keeps them in a local cache. A first build may therefore need network access; later builds can often reuse the cache.</p>
-<h2 id="4-the-gradle-project-layout"><a href="#4-the-gradle-project-layout">4. The Gradle Project Layout</a></h2>
+<h2 id="4-the-gradle-project-layout"><a href="#4-the-gradle-project-layout"><span class="section-number">4.4</span>The Gradle Project Layout</a></h2>
 <p>The companion project has this structure:</p>
 <div class="code-block"><pre class="text"><code>build-process-and-tools/
 ├── build.gradle.kts
@@ -136,7 +156,7 @@ dependencies {
 </details>
 </form>
 
-<h2 id="5-run-gradle-through-the-wrapper"><a href="#5-run-gradle-through-the-wrapper">5. Run Gradle Through the Wrapper</a></h2>
+<h2 id="5-run-gradle-through-the-wrapper"><a href="#5-run-gradle-through-the-wrapper"><span class="section-number">4.5</span>Run Gradle Through the Wrapper</a></h2>
 <p>From the project root on macOS, Linux, or Git Bash:</p>
 <div class="code-block"><pre class="sh"><code>./gradlew test
 ./gradlew run
@@ -155,7 +175,7 @@ dependencies {
 <p>The validated <code>run</code> task for the companion project printed:</p>
 <div class="code-block"><pre class="text"><code>Route 44: ON TIME</code></pre></div>
 <p>The validated <code>test</code> and <code>build</code> tasks both ended with <code>BUILD SUCCESSFUL</code>. These observations were produced with Java 25 and the checked-in Gradle 9.6.1 wrapper.</p>
-<h2 id="6-locate-the-outputs"><a href="#6-locate-the-outputs">6. Locate the Outputs</a></h2>
+<h2 id="6-locate-the-outputs"><a href="#6-locate-the-outputs"><span class="section-number">4.6</span>Locate the Outputs</a></h2>
 <p>Gradle writes generated files under <code>build/</code>:</p>
 <div class="code-block"><pre class="text"><code>build/
 ├── classes/
@@ -179,7 +199,7 @@ dependencies {
 </details>
 </form>
 
-<h2 id="7-read-a-failure-from-the-first-failed-task"><a href="#7-read-a-failure-from-the-first-failed-task">7. Read a Failure from the First Failed Task</a></h2>
+<h2 id="7-read-a-failure-from-the-first-failed-task"><a href="#7-read-a-failure-from-the-first-failed-task"><span class="section-number">4.7</span>Read a Failure from the First Failed Task</a></h2>
 <p>Gradle output names tasks with a leading colon. The first failed task narrows the search:</p>
 <table>
 <thead>
@@ -230,7 +250,7 @@ dependencies {
 <p>Use <code>--stacktrace</code> when the normal message does not expose the cause. More output is useful only if you can connect it to the failed task.</p>
 <h3 id="the-editor-and-the-build-can-run-different-work"><a href="#the-editor-and-the-build-can-run-different-work">The Editor and the Build Can Run Different Work</a></h3>
 <p>“It works in VS Code” and “the project builds” are not equivalent statements. The editor can run one class or one test with its own launch configuration. The wrapper executes the versioned project tasks. Use editor controls for focused investigation and the wrapper as the shared build interface.</p>
-<h2 id="8-practice-with-one-controlled-failure"><a href="#8-practice-with-one-controlled-failure">8. Practice with One Controlled Failure</a></h2>
+<h2 id="8-practice-with-one-controlled-failure"><a href="#8-practice-with-one-controlled-failure"><span class="section-number">4.8</span>Practice with One Controlled Failure</a></h2>
 <p>In the companion project:</p>
 <ol type="1">
 <li>run <code>test</code>, <code>run</code>, and <code>build</code> and record the summaries;</li>
@@ -241,7 +261,7 @@ dependencies {
 <li>run <code>clean</code>, inspect which directory disappeared, and run <code>build</code> once more.</li>
 </ol>
 <p>Explain why step 4 is a test failure rather than a compilation failure. Then explain why step 6 does not delete the source or wrapper.</p>
-<h2 id="9-summary"><a href="#9-summary">9. Summary</a></h2>
+<h2 id="9-summary"><a href="#9-summary"><span class="section-number">4.9</span>Summary</a></h2>
 <p>A Java build compiles source, resolves dependencies, compiles and runs tests, and can package production classes. The JDK performs Java compilation and execution; Gradle defines and schedules the work; the wrapper pins Gradle; and JUnit supplies the test model. Source and build definitions are authoritative, while <code>build/</code> is generated. Run the wrapper from the project root and diagnose the first failed task.</p>
 <h2 id="references"><a href="#references">References</a></h2>
 <ul>
@@ -254,16 +274,13 @@ dependencies {
 <li><a href="https://docs.gradle.org/current/userguide/build_lifecycle.html">Gradle User Manual: Build Lifecycle</a></li>
 <li><a href="https://docs.junit.org/6.1.3/">JUnit 6.1.3 User Guide</a></li>
 </ul>
-<aside class="source-links" aria-label="Example files">
-          <h2>Use the complete files</h2>
-          <p><a href="../../examples/build-process-and-tools/">Browse the complete example files</a>.</p>
-        </aside>
-        <nav class="reading-nav" aria-label="Preparation guide sequence">
-          <a href="../installing-and-using-vscode/">← Installing and Using Visual Studio Code</a>
-          <a href="../git-and-github/">Git and GitHub →</a>
-        </nav>
-      </article>
-    </main>
-  </div>
+<p class="chapter-examples"><a href="../../examples/build-process-and-tools/">Browse the complete example files →</a></p>
+
+      <footer class="book-footer">
+        <a class="next" href="../git-and-github/">Git and GitHub →</a>
+        CPEN 221 · Getting Started · Software Tools and Java
+      </footer>
+    </article>
+  </main>
 </body>
 </html>

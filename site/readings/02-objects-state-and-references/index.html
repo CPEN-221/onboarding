@@ -12,40 +12,60 @@
 <body id="top">
   <!-- source-sha256: 23a5942324f1f6ece31e2b40cf9243345481d58532ba1d688020a4bc639f8709 -->
   <!-- source-file: 02-objects-state-and-references.md -->
-  <a class="skip-link" href="#reading-content">Skip to reading</a>
-  <header class="site-header">
-    <a class="wordmark" href="../../"><strong>Getting Started with CPEN 221</strong><span>Software Tools and Java</span></a>
-  </header>
+  <a class="skip-link" href="#chapter-content">Skip to reading</a>
+
+  <nav class="book-nav" aria-label="Reading navigation">
+    <a class="wordmark" href="../../">
+      <strong>CPEN 221</strong>
+      <span>Getting Started</span>
+    </a>
+    <div class="nav-contents">
+      <p class="part-label">Java foundations</p>
+      <h2><a href="#top" aria-current="page">Objects, State, and References <small>J2</small></a></h2>
+      <ul>
+        <li><a href="#1-construct-an-arrival-board"><small>2.1</small><span>Construct an Arrival Board</span></a></li>
+        <li><a href="#2-use-a-constructor-to-establish-state"><small>2.2</small><span>Use a Constructor to Establish State</span></a></li>
+        <li><a href="#3-call-an-instance-method-through-a-reference"><small>2.3</small><span>Call an Instance Method through a Reference</span></a></li>
+        <li><a href="#4-trace-two-aliases"><small>2.4</small><span>Trace Two Aliases</span></a></li>
+        <li><a href="#5-reassignment-changes-a-variable-not-an-object"><small>2.5</small><span>Reassignment Changes a Variable, Not an Object</span></a></li>
+        <li><a href="#6-compare-reference-identity-deliberately"><small>2.6</small><span>Compare Reference Identity Deliberately</span></a></li>
+        <li><a href="#7-treat-null-as-the-absence-of-an-object-reference"><small>2.7</small><span>Treat null as the Absence of an Object Reference</span></a></li>
+        <li><a href="#8-a-common-misconception-each-variable-has-its-own-object"><small>2.8</small><span>A Common Misconception: Each Variable Has Its Own Object</span></a></li>
+        <li><a href="#9-practice-by-updating-the-diagram"><small>2.9</small><span>Practice by Updating the Diagram</span></a></li>
+        <li><a href="#summary"><small>§</small><span>Summary</span></a></li>
+      </ul>
+      <div class="prev-next">
+        <a href="../01-running-java-programs/">← Previous</a>
+        <a href="../../">Up</a>
+        <a href="../03-iteration-collections-and-interfaces/">Next →</a>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="book-nav-mobile" aria-label="Compact reading navigation">
+    <a class="mobile-arrow" href="../01-running-java-programs/" aria-label="Previous: Running Java Programs">←</a>
+    <a class="mobile-title" href="../../">CPEN 221</a>
+    <a class="mobile-arrow" href="../03-iteration-collections-and-interfaces/" aria-label="Next: Iteration, Collections, and Interfaces">→</a>
+  </nav>
+
   <div class="typeface-tools">
-    <label for="typeface-picker">Typeface set</label>
-    <select id="typeface-picker" data-typeface-picker>
-      <option value="plex">IBM Plex Serif + Sans</option>
-      <option value="google-sans">Google Sans Flex + Code</option>
-    </select>
+    <label>
+      <span>Reading type</span>
+      <select data-typeface-picker aria-label="Reading typeface combination">
+        <option value="plex">IBM Plex Serif + Sans</option>
+        <option value="google-sans">Google Sans Flex + Code</option>
+      </select>
+    </label>
   </div>
-  <div class="reading-layout">
-    <nav class="contents" aria-label="On this page">
-      <p>Segment 2 of 3</p>
-      <ol>
-          <li><a href="#1-construct-an-arrival-board">Construct an Arrival Board</a></li>
-          <li><a href="#2-use-a-constructor-to-establish-state">Use a Constructor to Establish State</a></li>
-          <li><a href="#3-call-an-instance-method-through-a-reference">Call an Instance Method through a Reference</a></li>
-          <li><a href="#4-trace-two-aliases">Trace Two Aliases</a></li>
-          <li><a href="#5-reassignment-changes-a-variable-not-an-object">Reassignment Changes a Variable, Not an Object</a></li>
-          <li><a href="#6-compare-reference-identity-deliberately">Compare Reference Identity Deliberately</a></li>
-          <li><a href="#7-treat-null-as-the-absence-of-an-object-reference">Treat null as the Absence of an Object Reference</a></li>
-          <li><a href="#8-a-common-misconception-each-variable-has-its-own-object">A Common Misconception: Each Variable Has Its Own Object</a></li>
-          <li><a href="#9-practice-by-updating-the-diagram">Practice by Updating the Diagram</a></li>
-          <li><a href="#summary">Summary</a></li>
-      </ol>
-    </nav>
-    <main id="reading-content">
-      <article class="reading">
-        <header class="reading-header">
-          <p>Segment 2</p>
-          <h1>Objects, State, and References</h1>
-          <p class="lede">Construct objects and trace mutable state, aliases, reassignment, identity, and null references.</p>
-        </header>
+
+  <main id="chapter-content" class="page">
+    <article class="chapter">
+      <div class="chapter-number" aria-hidden="true">J2</div>
+      <header class="chapter-header">
+        <p class="chapter-kicker">Segment 2 of 3</p>
+        <h1>Objects, State, and References</h1>
+        <p class="lede">Construct objects and trace mutable state, aliases, reassignment, identity, and null references.</p>
+      </header>
 <p>The platform display and a mobile view both show the prediction for Brock Hall. A new update reaches the mobile view first. The platform display changes too, even though the update method was not called through the variable named <code>platformDisplay</code>.</p>
 <p>Both variables refer to the same arrival-board object. Updating that object through either reference changes the one shared state. To predict this behaviour, we need to distinguish variables, references, and objects rather than describing all three as “the data”.</p>
 <section class="learning-outcomes" aria-labelledby="learning-outcomes"><h2 id="learning-outcomes"><a href="#learning-outcomes">Learning outcomes</a></h2><ul>
@@ -57,7 +77,7 @@
 <li>predict the difference between mutating an object and reassigning a variable; and</li>
 <li>explain what <code>null</code> means and why dereferencing it fails.</li>
 </ul></section>
-<h2 id="1-construct-an-arrival-board"><a href="#1-construct-an-arrival-board">1. Construct an Arrival Board</a></h2>
+<h2 id="1-construct-an-arrival-board"><a href="#1-construct-an-arrival-board"><span class="section-number">2.1</span>Construct an Arrival Board</a></h2>
 <p>An arrival board has a stop name and a current prediction. The prediction may change while the stop name remains fixed. This class represents that decision:</p>
 <div class="code-block"><pre class="java"><code>public final class ArrivalBoard {
     private static final int MAX_SERVICE_MINUTE = 1800;
@@ -99,7 +119,7 @@
 <p>Most programs retain the reference in a variable:</p>
 <div class="code-block"><pre class="java"><code>ArrivalBoard platformDisplay = new ArrivalBoard(&quot;Brock Hall&quot;, 610);</code></pre></div>
 <p>The declaration introduces a variable named <code>platformDisplay</code>. Its type permits it to hold a reference to an <code>ArrivalBoard</code> object or the special value <code>null</code>. The object has its own fields. The variable is not another name for either field.</p>
-<h2 id="2-use-a-constructor-to-establish-state"><a href="#2-use-a-constructor-to-establish-state">2. Use a Constructor to Establish State</a></h2>
+<h2 id="2-use-a-constructor-to-establish-state"><a href="#2-use-a-constructor-to-establish-state"><span class="section-number">2.2</span>Use a Constructor to Establish State</a></h2>
 <p>A <strong>constructor</strong> initializes a newly allocated object. Its name matches the class and it has no return type. This constructor receives values through two parameters:</p>
 <div class="code-block"><pre class="java"><code>public ArrivalBoard(String stopName, int predictedMinute) {
     if (stopName == null || stopName.isBlank()) {
@@ -132,7 +152,7 @@
 </details>
 </form>
 
-<h2 id="3-call-an-instance-method-through-a-reference"><a href="#3-call-an-instance-method-through-a-reference">3. Call an Instance Method through a Reference</a></h2>
+<h2 id="3-call-an-instance-method-through-a-reference"><a href="#3-call-an-instance-method-through-a-reference"><span class="section-number">2.3</span>Call an Instance Method through a Reference</a></h2>
 <p>The expression below invokes an instance method:</p>
 <div class="code-block"><pre class="java"><code>platformDisplay.message(600)</code></pre></div>
 <p>Java first evaluates <code>platformDisplay</code> to obtain a reference. The referenced object becomes the <strong>receiver</strong> of the call. Within <code>message</code>, <code>this</code> refers to that receiver, so <code>this.stopName</code> and <code>this.predictedMinute</code> read its fields.</p>
@@ -148,7 +168,7 @@
     this.predictedMinute = predictedMinute;
 }</code></pre></div>
 <p>Its return type is <code>void</code>, so a completed call does not produce a result value for the caller. The relevant observable effect is the changed field.</p>
-<h2 id="4-trace-two-aliases"><a href="#4-trace-two-aliases">4. Trace Two Aliases</a></h2>
+<h2 id="4-trace-two-aliases"><a href="#4-trace-two-aliases"><span class="section-number">2.4</span>Trace Two Aliases</a></h2>
 <p>The following program introduces two variables:</p>
 <div class="code-block"><pre class="java"><code>ArrivalBoard platformDisplay = new ArrivalBoard(&quot;Brock Hall&quot;, 610);
 ArrivalBoard mobileView = platformDisplay;</code></pre></div>
@@ -185,7 +205,7 @@ Brock Hall: 14 minutes</code></pre></div>
 </details>
 </form>
 
-<h2 id="5-reassignment-changes-a-variable-not-an-object"><a href="#5-reassignment-changes-a-variable-not-an-object">5. Reassignment Changes a Variable, Not an Object</a></h2>
+<h2 id="5-reassignment-changes-a-variable-not-an-object"><a href="#5-reassignment-changes-a-variable-not-an-object"><span class="section-number">2.5</span>Reassignment Changes a Variable, Not an Object</a></h2>
 <p>Aliasing can end when one variable receives a different reference:</p>
 <div class="code-block"><pre class="java"><code>ArrivalBoard platformDisplay = new ArrivalBoard(&quot;Brock Hall&quot;, 610);
 ArrivalBoard mobileView = platformDisplay;
@@ -199,7 +219,7 @@ mobileView ───────→ object B { &quot;UBC Exchange&quot;, 628 }</
 <div class="code-block"><pre class="text"><code>Brock Hall: 10 minutes
 UBC Exchange: 28 minutes</code></pre></div>
 <p>Assignment has the same basic rule for primitive and reference variables: Java evaluates the right side and copies its value into the variable on the left. For a reference variable, the copied value is a reference. The assignment does not imply an object copy.</p>
-<h2 id="6-compare-reference-identity-deliberately"><a href="#6-compare-reference-identity-deliberately">6. Compare Reference Identity Deliberately</a></h2>
+<h2 id="6-compare-reference-identity-deliberately"><a href="#6-compare-reference-identity-deliberately"><span class="section-number">2.6</span>Compare Reference Identity Deliberately</a></h2>
 <p>The operator <code>==</code> compares two reference values for identity. It reports whether both references select the same object or are both <code>null</code>:</p>
 <div class="code-block"><pre class="java"><code>ArrivalBoard first = new ArrivalBoard(&quot;Brock Hall&quot;, 610);
 ArrivalBoard alias = first;
@@ -210,7 +230,7 @@ System.out.println(first == separate); // false</code></pre></div>
 <p><code>first</code> and <code>alias</code> hold copies of one reference. <code>separate</code> holds the reference produced by a second <code>new</code> expression, so it selects a different object even though the two objects begin with equal-looking field values.</p>
 <p>Reference identity answers an object-reachability question; it does not define when two arrival boards should count as the same abstract value. Java classes can define a separate value-equality operation through <code>equals</code>. Designing that operation requires a decision about which observable properties matter and how equality interacts with hashing. The main course readings develop that contract. In this segment, use <code>==</code> only when object identity or <code>null</code> is the intended question.</p>
 <p>Access control provides another boundary around the object. The fields are <code>private</code>, so ordinary client code cannot assign <code>board.predictedMinute</code> directly. Clients use the public constructor and methods, which apply the range checks before changing state. Java access control follows classes, packages, modules, and declared member access; it is not determined by which filesystem directory happens to be open in an editor.</p>
-<h2 id="7-treat-null-as-the-absence-of-an-object-reference"><a href="#7-treat-null-as-the-absence-of-an-object-reference">7. Treat <code>null</code> as the Absence of an Object Reference</a></h2>
+<h2 id="7-treat-null-as-the-absence-of-an-object-reference"><a href="#7-treat-null-as-the-absence-of-an-object-reference"><span class="section-number">2.7</span>Treat <code>null</code> as the Absence of an Object Reference</a></h2>
 <p>A variable whose type is a class may hold <code>null</code>:</p>
 <div class="code-block"><pre class="java"><code>ArrivalBoard unavailableBoard = null;</code></pre></div>
 <p><code>null</code> is not a hidden arrival board with zero-valued fields. It is the null reference value and does not refer to an object. Assignment and comparison can use it, but an instance method call requires a receiver object.</p>
@@ -230,25 +250,25 @@ System.out.println(first == separate); // false</code></pre></div>
 </details>
 </form>
 
-<h2 id="8-a-common-misconception-each-variable-has-its-own-object"><a href="#8-a-common-misconception-each-variable-has-its-own-object">8. A Common Misconception: Each Variable Has Its Own Object</a></h2>
+<h2 id="8-a-common-misconception-each-variable-has-its-own-object"><a href="#8-a-common-misconception-each-variable-has-its-own-object"><span class="section-number">2.8</span>A Common Misconception: Each Variable Has Its Own Object</a></h2>
 <p>A class-typed variable does not automatically contain a complete independent object. It contains a reference value or <code>null</code>. <code>new</code> constructs an object; a later plain assignment copies the resulting reference.</p>
 <p>This is why counting variables does not count objects. The alias example has two variables and one <code>ArrivalBoard</code> object. The reassignment example has two variables and two <code>ArrivalBoard</code> objects after the second construction. String literals and other library objects may also exist, so a statement about the total number of objects should name the class or objects being counted.</p>
-<h2 id="9-practice-by-updating-the-diagram"><a href="#9-practice-by-updating-the-diagram">9. Practice by Updating the Diagram</a></h2>
-<h3 id="1-trace-construction"><a href="#1-trace-construction">1. Trace construction</a></h3>
+<h2 id="9-practice-by-updating-the-diagram"><a href="#9-practice-by-updating-the-diagram"><span class="section-number">2.9</span>Practice by Updating the Diagram</a></h2>
+<h3 id="1-trace-construction"><a href="#1-trace-construction">Trace construction</a></h3>
 <p>After <code>new ArrivalBoard("Wesbrook Mall", 645)</code> completes, list the constructor parameters and the two instance-field values. Which variable or field uses the class-wide constant?</p>
 <details class="practice-explanation">
 <summary>Compare with the trace</summary>
 <p>The parameters initially hold <code>"Wesbrook Mall"</code> and <code>645</code>. The constructor stores those values in <code>stopName</code> and <code>predictedMinute</code>. <code>MAX_SERVICE_MINUTE</code> is a static field read by <code>checkMinute</code>; it is not copied into each board.</p>
 </details>
 
-<h3 id="2-predict-an-alias-update"><a href="#2-predict-an-alias-update">2. Predict an alias update</a></h3>
+<h3 id="2-predict-an-alias-update"><a href="#2-predict-an-alias-update">Predict an alias update</a></h3>
 <p>Variables <code>first</code>, <code>second</code>, and <code>third</code> all receive the same reference. The program calls <code>third.updatePrediction(700)</code>. Which prediction does a call through <code>first</code> observe? Explain without referring to the variable names as separate boards.</p>
 <details class="practice-explanation">
 <summary>Compare with the explanation</summary>
 <p>All three references select the same receiver object. The update assigns <code>700</code> to that object's field, so a later call through <code>first</code> observes 700.</p>
 </details>
 
-<h3 id="3-separate-mutation-from-reassignment"><a href="#3-separate-mutation-from-reassignment">3. Separate mutation from reassignment</a></h3>
+<h3 id="3-separate-mutation-from-reassignment"><a href="#3-separate-mutation-from-reassignment">Separate mutation from reassignment</a></h3>
 <p>Explain the different effects of these statements:</p>
 <div class="code-block"><pre class="java"><code>second.updatePrediction(700);
 second = new ArrivalBoard(&quot;Waterfront&quot;, 720);</code></pre></div>
@@ -257,14 +277,14 @@ second = new ArrivalBoard(&quot;Waterfront&quot;, 720);</code></pre></div>
 <p>The method call mutates the object currently selected by <code>second</code>. The assignment constructs another object and changes only which reference <code>second</code> holds. Other aliases continue to refer to the earlier object.</p>
 </details>
 
-<h3 id="4-find-the-scopes"><a href="#4-find-the-scopes">4. Find the scopes</a></h3>
+<h3 id="4-find-the-scopes"><a href="#4-find-the-scopes">Find the scopes</a></h3>
 <p>In <code>message</code>, identify the parameter, local variable, instance fields, and static field. State where the parameter and local variable become available.</p>
 <details class="practice-explanation">
 <summary>Compare with the explanation</summary>
 <p><code>currentMinute</code> is a parameter in scope throughout the method body. <code>waitMinutes</code> is a local variable in scope from its declaration to the end of the block. <code>stopName</code> and <code>predictedMinute</code> are instance fields selected from the receiver. <code>MAX_SERVICE_MINUTE</code> is static and belongs to the class.</p>
 </details>
 
-<h3 id="5-diagnose-invalid-construction"><a href="#5-diagnose-invalid-construction">5. Diagnose invalid construction</a></h3>
+<h3 id="5-diagnose-invalid-construction"><a href="#5-diagnose-invalid-construction">Diagnose invalid construction</a></h3>
 <p>Predict what happens when client code evaluates <code>new ArrivalBoard("", 610)</code>. At which stage does the failure occur, and does the caller receive a reference to a completed <code>ArrivalBoard</code> object?</p>
 <details class="practice-explanation">
 <summary>Compare with the explanation</summary>
@@ -283,16 +303,13 @@ second = new ArrivalBoard(&quot;Waterfront&quot;, 720);</code></pre></div>
 <li><a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-15.html#jls-15.9">The Java Language Specification, Java SE 25, Section 15.9: Class Instance Creation Expressions</a></li>
 <li><a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.7">The Java Virtual Machine Specification, Java SE 25, Section 2.7: Representation of Objects</a></li>
 </ul>
-<aside class="source-links" aria-label="Example files">
-          <h2>Use the complete files</h2>
-          <p><a href="../../examples/02-objects-state-and-references/">Browse the complete example files</a>.</p>
-        </aside>
-        <nav class="reading-nav" aria-label="Segment sequence">
-          <a href="../01-running-java-programs/">← Running Java Programs</a>
-          <a href="../03-iteration-collections-and-interfaces/">Iteration, Collections, and Interfaces →</a>
-        </nav>
-      </article>
-    </main>
-  </div>
+<p class="chapter-examples"><a href="../../examples/02-objects-state-and-references/">Browse the complete example files →</a></p>
+
+      <footer class="book-footer">
+        <a class="next" href="../03-iteration-collections-and-interfaces/">Iteration, Collections, and Interfaces →</a>
+        CPEN 221 · Getting Started · Software Tools and Java
+      </footer>
+    </article>
+  </main>
 </body>
 </html>

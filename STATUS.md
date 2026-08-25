@@ -121,13 +121,23 @@ when the enhancement script is unavailable. The font binaries and their SIL OFL
 1.1 licence notices are committed under `site/assets/fonts/`; selecting either set
 makes no request to a font CDN.
 
+The onboarding site now uses the visual system of the main CPEN 221 readings: a
+fixed dark reading rail on wide screens, compact previous-and-next navigation on
+narrow screens, book-like contents lists, a narrow reading column, pale guide and
+section numbers, blue links, cream code blocks, restrained blue and green notes,
+wide figures with narrow captions, and matching responsive and print treatments.
+The templates retain the onboarding title, its two-track organization, and the
+two onboarding typeface choices rather than copying the main site's publication
+content or font selector.
+
 `scripts/check_site.py` accepted every local link, fragment, page landmark, all
 eight source digests, all eight WOFF2 font assets and their four licence notices,
-all five figure source/output pairs, and all twenty-one embedded quick-check
+all five figure source/output pairs, balanced stylesheet braces, and all twenty-one embedded quick-check
 structures. `node --check` accepted the progressive-enhancement scripts. The
 activities remain readable as ordinary questions and answer disclosures without
 JavaScript. With JavaScript, they gain local Check buttons and retry feedback.
 They make no network
-requests and retain no completion record. Responsive and print rules are present,
-but final visual review in the target browsers remains part of the instructor
-review.
+requests and retain no completion record. Local previews of the landing page,
+preparation guide, Java reading, and example index were visually compared with the
+main readings after the redesign. Final review in the instructors' target browsers
+remains part of publication review.

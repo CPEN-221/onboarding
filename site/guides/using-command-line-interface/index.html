@@ -12,41 +12,61 @@
 <body id="top">
   <!-- source-sha256: b2f36c6fdd72c0f19884086cfa9f593236287c268f600c78adcbea81ef2bd687 -->
   <!-- source-file: guide-command-line-interface.md -->
-  <a class="skip-link" href="#reading-content">Skip to reading</a>
-  <header class="site-header">
-    <a class="wordmark" href="../../"><strong>Getting Started with CPEN 221</strong><span>Software Tools and Java</span></a>
-  </header>
+  <a class="skip-link" href="#chapter-content">Skip to reading</a>
+
+  <nav class="book-nav" aria-label="Reading navigation">
+    <a class="wordmark" href="../../">
+      <strong>CPEN 221</strong>
+      <span>Getting Started</span>
+    </a>
+    <div class="nav-contents">
+      <p class="part-label">Preparation guides</p>
+      <h2><a href="#top" aria-current="page">Using the Command Line Interface <small>G2</small></a></h2>
+      <ul>
+        <li><a href="#1-terminal-shell-and-prompt"><small>2.1</small><span>Terminal, Shell, and Prompt</span></a></li>
+        <li><a href="#2-how-the-filesystem-is-organized"><small>2.2</small><span>How the Filesystem Is Organized</span></a></li>
+        <li><a href="#3-know-where-you-are"><small>2.3</small><span>Know Where You Are</span></a></li>
+        <li><a href="#4-read-paths"><small>2.4</small><span>Read Paths</span></a></li>
+        <li><a href="#5-inspect-before-you-change"><small>2.5</small><span>Inspect Before You Change</span></a></li>
+        <li><a href="#6-run-programs-from-the-project-root"><small>2.6</small><span>Run Programs from the Project Root</span></a></li>
+        <li><a href="#7-read-output-as-evidence"><small>2.7</small><span>Read Output as Evidence</span></a></li>
+        <li><a href="#8-stop-a-running-program"><small>2.8</small><span>Stop a Running Program</span></a></li>
+        <li><a href="#9-a-navigation-exercise"><small>2.9</small><span>A Navigation Exercise</span></a></li>
+        <li><a href="#10-the-terminal-and-file-browser-use-the-same-files"><small>2.10</small><span>The Terminal and File Browser Use the Same Files</span></a></li>
+        <li><a href="#11-summary"><small>2.11</small><span>Summary</span></a></li>
+      </ul>
+      <div class="prev-next">
+        <a href="../software-to-install/">← Previous</a>
+        <a href="../../">Up</a>
+        <a href="../installing-and-using-vscode/">Next →</a>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="book-nav-mobile" aria-label="Compact reading navigation">
+    <a class="mobile-arrow" href="../software-to-install/" aria-label="Previous: Software to Install">←</a>
+    <a class="mobile-title" href="../../">CPEN 221</a>
+    <a class="mobile-arrow" href="../installing-and-using-vscode/" aria-label="Next: Installing and Using Visual Studio Code">→</a>
+  </nav>
+
   <div class="typeface-tools">
-    <label for="typeface-picker">Typeface set</label>
-    <select id="typeface-picker" data-typeface-picker>
-      <option value="plex">IBM Plex Serif + Sans</option>
-      <option value="google-sans">Google Sans Flex + Code</option>
-    </select>
+    <label>
+      <span>Reading type</span>
+      <select data-typeface-picker aria-label="Reading typeface combination">
+        <option value="plex">IBM Plex Serif + Sans</option>
+        <option value="google-sans">Google Sans Flex + Code</option>
+      </select>
+    </label>
   </div>
-  <div class="reading-layout">
-    <nav class="contents" aria-label="On this page">
-      <p>Preparation guide 2 of 5</p>
-      <ol>
-          <li><a href="#1-terminal-shell-and-prompt">Terminal, Shell, and Prompt</a></li>
-          <li><a href="#2-how-the-filesystem-is-organized">How the Filesystem Is Organized</a></li>
-          <li><a href="#3-know-where-you-are">Know Where You Are</a></li>
-          <li><a href="#4-read-paths">Read Paths</a></li>
-          <li><a href="#5-inspect-before-you-change">Inspect Before You Change</a></li>
-          <li><a href="#6-run-programs-from-the-project-root">Run Programs from the Project Root</a></li>
-          <li><a href="#7-read-output-as-evidence">Read Output as Evidence</a></li>
-          <li><a href="#8-stop-a-running-program">Stop a Running Program</a></li>
-          <li><a href="#9-a-navigation-exercise">A Navigation Exercise</a></li>
-          <li><a href="#10-the-terminal-and-file-browser-use-the-same-files">The Terminal and File Browser Use the Same Files</a></li>
-          <li><a href="#11-summary">Summary</a></li>
-      </ol>
-    </nav>
-    <main id="reading-content">
-      <article class="reading">
-        <header class="reading-header">
-          <p>Preparation guide 2</p>
-          <h1>Using the Command Line Interface</h1>
-          <p class="lede">Navigate a project, read paths and commands, operate on files carefully, and preserve useful diagnostic output.</p>
-        </header>
+
+  <main id="chapter-content" class="page">
+    <article class="chapter">
+      <div class="chapter-number" aria-hidden="true">G2</div>
+      <header class="chapter-header">
+        <p class="chapter-kicker">Preparation guide 2 of 5</p>
+        <h1>Using the Command Line Interface</h1>
+        <p class="lede">Navigate a project, read paths and commands, operate on files carefully, and preserve useful diagnostic output.</p>
+      </header>
 <p>The command line interface gives you a textual way to navigate the filesystem and run programs. Course instructions use it for Java, Gradle, and Git because a written command states which program to run and which arguments to pass.</p>
 <section class="learning-outcomes" aria-labelledby="learning-outcomes"><h2 id="learning-outcomes"><a href="#learning-outcomes">Learning outcomes</a></h2><ul>
 <li>identify the shell, prompt, command, arguments, and working directory;</li>
@@ -56,7 +76,7 @@
 <li>run a program or Gradle wrapper from the project root; and</li>
 <li>preserve complete command output when diagnosing a failure.</li>
 </ul></section>
-<h2 id="1-terminal-shell-and-prompt"><a href="#1-terminal-shell-and-prompt">1. Terminal, Shell, and Prompt</a></h2>
+<h2 id="1-terminal-shell-and-prompt"><a href="#1-terminal-shell-and-prompt"><span class="section-number">2.1</span>Terminal, Shell, and Prompt</a></h2>
 <p>A <strong>terminal</strong> is the window or panel that displays text input and output. A <strong>shell</strong> is the program inside it that reads commands. macOS commonly uses Zsh, Linux commonly uses Bash, and Windows commonly uses PowerShell. Git for Windows also supplies Git Bash.</p>
 <p>VS Code's integrated terminal runs one of these real shells. Open it with <strong>Terminal → New Terminal</strong>. It normally starts in the folder open in VS Code.</p>
 <p>A shell displays a <strong>prompt</strong> when it is ready. Prompts vary:</p>
@@ -68,7 +88,7 @@ PS C:\Users\alex\transit-board&gt;</code></pre></div>
 <p>Commands consist of a program name followed by arguments:</p>
 <div class="code-block"><pre class="text"><code>git status --short</code></pre></div>
 <p>Here <code>git</code> is the program. <code>status</code> selects an operation and <code>--short</code> requests a compact display. Spaces separate arguments. The shell then finds <code>git</code> using <code>PATH</code>, starts it in the current working directory, and prints its output.</p>
-<h2 id="2-how-the-filesystem-is-organized"><a href="#2-how-the-filesystem-is-organized">2. How the Filesystem Is Organized</a></h2>
+<h2 id="2-how-the-filesystem-is-organized"><a href="#2-how-the-filesystem-is-organized"><span class="section-number">2.2</span>How the Filesystem Is Organized</a></h2>
 <p>Before <code>javac</code> can compile <code>TransitBoard.java</code>, it must locate that file among the files available to the computer. The <strong>filesystem</strong> organizes files and directories as a hierarchy. A <strong>directory</strong> is what graphical interfaces usually call a folder. It contains named entries for files and other directories. A file holds data; a directory establishes part of the route used to reach that data. Except for the root, every directory has a parent. A directory can have many children, and two entries in the same directory cannot have the same name.</p>
 <p>In the tree below, <code>transit-board</code> contains three files and a directory named <code>src</code>; <code>src</code> contains <code>main</code> and <code>test</code>.</p>
 <div class="code-block"><pre class="text"><code>transit-board/
@@ -99,7 +119,7 @@ PS C:\Users\alex\transit-board&gt;</code></pre></div>
 </figure>
 
 <p>A file browser presents this same hierarchy with expandable folders. The command line uses paths instead. Understanding the hierarchy matters because a path is interpreted from a particular starting location.</p>
-<h2 id="3-know-where-you-are"><a href="#3-know-where-you-are">3. Know Where You Are</a></h2>
+<h2 id="3-know-where-you-are"><a href="#3-know-where-you-are"><span class="section-number">2.3</span>Know Where You Are</a></h2>
 <p>We will use this project tree:</p>
 <div class="code-block"><pre class="text"><code>transit-board/
 ├── build.gradle.kts
@@ -132,7 +152,7 @@ Get-ChildItem</code></pre></div>
 </details>
 </form>
 
-<h2 id="4-read-paths"><a href="#4-read-paths">4. Read Paths</a></h2>
+<h2 id="4-read-paths"><a href="#4-read-paths"><span class="section-number">2.4</span>Read Paths</a></h2>
 <p>A path identifies a location in the filesystem. An <strong>absolute path</strong> begins from a filesystem root:</p>
 <div class="code-block"><pre class="text"><code>/Users/alex/cpen221/transit-board        macOS
 /home/alex/cpen221/transit-board         Linux
@@ -160,7 +180,7 @@ C:\Users\alex\cpen221\transit-board      Windows</code></pre></div>
 <p>Tab completion is safer than typing a long path. Enter a few characters and press Tab. The shell completes an unambiguous name or offers choices.</p>
 <p>Names are case-sensitive on most Linux filesystems. On common macOS and Windows installations they are often case-insensitive, although that is a filesystem configuration rather than a Java rule. Use the spelling stored in the project so that commands also work on a case-sensitive system.</p>
 <p>Before running a project command, establish the working directory and verify it.</p>
-<h2 id="5-inspect-before-you-change"><a href="#5-inspect-before-you-change">5. Inspect Before You Change</a></h2>
+<h2 id="5-inspect-before-you-change"><a href="#5-inspect-before-you-change"><span class="section-number">2.5</span>Inspect Before You Change</a></h2>
 <p>The following table uses POSIX commands, which work in macOS, Linux, and Git Bash, and gives the corresponding PowerShell command.</p>
 <table>
 <thead>
@@ -220,7 +240,7 @@ C:\Users\alex\cpen221\transit-board      Windows</code></pre></div>
 </table>
 <p>Before a copy, move, or removal, use <code>pwd</code> and <code>ls</code> to resolve both source and destination. Shell removal normally bypasses a graphical trash folder. This guide therefore does not ask you to use recursive deletion. Generated Gradle files should be removed with <code>./gradlew clean</code>, which has a narrowly defined target.</p>
 <p>Wildcards such as <code>*.java</code> are expanded by many shells. They are convenient, but they can select more files than you intended. Inspect the matching names before using a wildcard in a command that modifies or removes files.</p>
-<h2 id="6-run-programs-from-the-project-root"><a href="#6-run-programs-from-the-project-root">6. Run Programs from the Project Root</a></h2>
+<h2 id="6-run-programs-from-the-project-root"><a href="#6-run-programs-from-the-project-root"><span class="section-number">2.6</span>Run Programs from the Project Root</a></h2>
 <p>In macOS, Linux, or Git Bash, <code>./</code> explicitly names a program in the current directory:</p>
 <div class="code-block"><pre class="sh"><code>./gradlew test</code></pre></div>
 <p>The shell does not usually search the current directory for security reasons, so <code>gradlew test</code> may fail even when <code>gradlew</code> is visible in <code>ls</code>.</p>
@@ -244,7 +264,7 @@ java Hello</code></pre></div>
 </details>
 </form>
 
-<h2 id="7-read-output-as-evidence"><a href="#7-read-output-as-evidence">7. Read Output as Evidence</a></h2>
+<h2 id="7-read-output-as-evidence"><a href="#7-read-output-as-evidence"><span class="section-number">2.7</span>Read Output as Evidence</a></h2>
 <p>A successful command can print nothing, and a failed command can print several screenfuls. The prompt returning only means the process ended. Check the final summary and do not infer success from the presence of some green text near the top.</p>
 <p>For a build failure, preserve:</p>
 <ol type="1">
@@ -256,10 +276,10 @@ java Hello</code></pre></div>
 </ol>
 <p>Use the terminal's scrollback or copy the output as text. Screenshots often cut off the command, paths, or final cause. Do not post passwords, access tokens, or private repository URLs containing embedded credentials.</p>
 <p>Shells maintain command history. Press Up to recall a command, edit only the needed argument, and run it again. This reduces transcription errors and makes an experiment reproducible.</p>
-<h2 id="8-stop-a-running-program"><a href="#8-stop-a-running-program">8. Stop a Running Program</a></h2>
+<h2 id="8-stop-a-running-program"><a href="#8-stop-a-running-program"><span class="section-number">2.8</span>Stop a Running Program</a></h2>
 <p>Some commands keep running: a web server waits for requests, and a program may be stuck in a loop. In a terminal, <code>Ctrl+C</code> usually asks the foreground process to stop. It is not the normal copy shortcut inside many terminals. VS Code uses the platform's terminal copy shortcuts and can copy a selection through its context menu.</p>
 <p>If <code>Ctrl+C</code> does not return a prompt, wait for the program's shutdown message and try once more. Closing the entire terminal loses context that might help diagnose the program.</p>
-<h2 id="9-a-navigation-exercise"><a href="#9-a-navigation-exercise">9. A Navigation Exercise</a></h2>
+<h2 id="9-a-navigation-exercise"><a href="#9-a-navigation-exercise"><span class="section-number">2.9</span>A Navigation Exercise</a></h2>
 <p>Create a disposable practice directory somewhere you can identify clearly. Then:</p>
 <ol type="1">
 <li>print the working directory;</li>
@@ -271,10 +291,10 @@ java Hello</code></pre></div>
 <li>explain, before acting, how you would remove the practice directory safely.</li>
 </ol>
 <p>Do not memorize command lists in isolation. For each step, state the location before and after the command. Keep track of where the shell is and what each path will select.</p>
-<h2 id="10-the-terminal-and-file-browser-use-the-same-files"><a href="#10-the-terminal-and-file-browser-use-the-same-files">10. The Terminal and File Browser Use the Same Files</a></h2>
+<h2 id="10-the-terminal-and-file-browser-use-the-same-files"><a href="#10-the-terminal-and-file-browser-use-the-same-files"><span class="section-number">2.10</span>The Terminal and File Browser Use the Same Files</a></h2>
 <p>The file explorer and terminal are not separate filesystems. They are two views of the same files. A change made in one should appear in the other after refresh. If it does not, compare their full paths: you probably opened two similarly named directories or two copies of the repository.</p>
 <p>Changing directory does not move any files. It changes the location that the shell uses to interpret relative paths for subsequent commands. A second terminal can have a different working directory at the same time because each shell keeps its own location.</p>
-<h2 id="11-summary"><a href="#11-summary">11. Summary</a></h2>
+<h2 id="11-summary"><a href="#11-summary"><span class="section-number">2.11</span>Summary</a></h2>
 <p>The terminal hosts a shell, and the shell runs a command in a working directory. Paths may be absolute or relative; <code>.</code>, <code>..</code>, quoting, and tab completion make relative navigation reliable. Inspect before modifying files, run the Gradle wrapper from the project root, and preserve complete commands and output as diagnostic evidence.</p>
 <h2 id="references"><a href="#references">References</a></h2>
 <ul>
@@ -283,12 +303,12 @@ java Hello</code></pre></div>
 <li><a href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_aliases">Microsoft Learn: About aliases in PowerShell</a></li>
 </ul>
 
-        <nav class="reading-nav" aria-label="Preparation guide sequence">
-          <a href="../software-to-install/">← Software to Install</a>
-          <a href="../installing-and-using-vscode/">Installing and Using Visual Studio Code →</a>
-        </nav>
-      </article>
-    </main>
-  </div>
+
+      <footer class="book-footer">
+        <a class="next" href="../installing-and-using-vscode/">Installing and Using Visual Studio Code →</a>
+        CPEN 221 · Getting Started · Software Tools and Java
+      </footer>
+    </article>
+  </main>
 </body>
 </html>

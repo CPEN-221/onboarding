@@ -12,39 +12,59 @@
 <body id="top">
   <!-- source-sha256: d99cd082f6c174c88689798f4784d05a11bfb565f240f2ffca77e7078b3281dd -->
   <!-- source-file: guide-software-to-install.md -->
-  <a class="skip-link" href="#reading-content">Skip to reading</a>
-  <header class="site-header">
-    <a class="wordmark" href="../../"><strong>Getting Started with CPEN 221</strong><span>Software Tools and Java</span></a>
-  </header>
+  <a class="skip-link" href="#chapter-content">Skip to reading</a>
+
+  <nav class="book-nav" aria-label="Reading navigation">
+    <a class="wordmark" href="../../">
+      <strong>CPEN 221</strong>
+      <span>Getting Started</span>
+    </a>
+    <div class="nav-contents">
+      <p class="part-label">Preparation guides</p>
+      <h2><a href="#top" aria-current="page">Software to Install <small>G1</small></a></h2>
+      <ul>
+        <li><a href="#1-what-you-need"><small>1.1</small><span>What You Need</span></a></li>
+        <li><a href="#2-identify-your-operating-system-and-processor"><small>1.2</small><span>Identify Your Operating System and Processor</span></a></li>
+        <li><a href="#3-macos"><small>1.3</small><span>macOS</span></a></li>
+        <li><a href="#4-linux"><small>1.4</small><span>Linux</span></a></li>
+        <li><a href="#5-windows"><small>1.5</small><span>Windows</span></a></li>
+        <li><a href="#6-verify-the-complete-toolchain"><small>1.6</small><span>Verify the Complete Toolchain</span></a></li>
+        <li><a href="#7-diagnose-a-version-mismatch"><small>1.7</small><span>Diagnose a Version Mismatch</span></a></li>
+        <li><a href="#8-installation-check"><small>1.8</small><span>Installation Check</span></a></li>
+        <li><a href="#9-summary"><small>1.9</small><span>Summary</span></a></li>
+      </ul>
+      <div class="prev-next">
+        <a href="../../">← Contents</a>
+        <a href="../../">Up</a>
+        <a href="../using-command-line-interface/">Next →</a>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="book-nav-mobile" aria-label="Compact reading navigation">
+    <a class="mobile-arrow" href="../../" aria-label="Previous: contents">←</a>
+    <a class="mobile-title" href="../../">CPEN 221</a>
+    <a class="mobile-arrow" href="../using-command-line-interface/" aria-label="Next: Using the Command Line Interface">→</a>
+  </nav>
+
   <div class="typeface-tools">
-    <label for="typeface-picker">Typeface set</label>
-    <select id="typeface-picker" data-typeface-picker>
-      <option value="plex">IBM Plex Serif + Sans</option>
-      <option value="google-sans">Google Sans Flex + Code</option>
-    </select>
+    <label>
+      <span>Reading type</span>
+      <select data-typeface-picker aria-label="Reading typeface combination">
+        <option value="plex">IBM Plex Serif + Sans</option>
+        <option value="google-sans">Google Sans Flex + Code</option>
+      </select>
+    </label>
   </div>
-  <div class="reading-layout">
-    <nav class="contents" aria-label="On this page">
-      <p>Preparation guide 1 of 5</p>
-      <ol>
-          <li><a href="#1-what-you-need">What You Need</a></li>
-          <li><a href="#2-identify-your-operating-system-and-processor">Identify Your Operating System and Processor</a></li>
-          <li><a href="#3-macos">macOS</a></li>
-          <li><a href="#4-linux">Linux</a></li>
-          <li><a href="#5-windows">Windows</a></li>
-          <li><a href="#6-verify-the-complete-toolchain">Verify the Complete Toolchain</a></li>
-          <li><a href="#7-diagnose-a-version-mismatch">Diagnose a Version Mismatch</a></li>
-          <li><a href="#8-installation-check">Installation Check</a></li>
-          <li><a href="#9-summary">Summary</a></li>
-      </ol>
-    </nav>
-    <main id="reading-content">
-      <article class="reading">
-        <header class="reading-header">
-          <p>Preparation guide 1</p>
-          <h1>Software to Install</h1>
-          <p class="lede">Install and verify Java 25, Git, VS Code, and the project-supplied Gradle wrapper on macOS, Linux, or Windows.</p>
-        </header>
+
+  <main id="chapter-content" class="page">
+    <article class="chapter">
+      <div class="chapter-number" aria-hidden="true">G1</div>
+      <header class="chapter-header">
+        <p class="chapter-kicker">Preparation guide 1 of 5</p>
+        <h1>Software to Install</h1>
+        <p class="lede">Install and verify Java 25, Git, VS Code, and the project-supplied Gradle wrapper on macOS, Linux, or Windows.</p>
+      </header>
 <section class="learning-outcomes" aria-labelledby="learning-outcomes"><h2 id="learning-outcomes"><a href="#learning-outcomes">Learning outcomes</a></h2><ul>
 <li>install a Java 25 <strong>JDK</strong>, Git, and Visual Studio Code on macOS, Linux, or Windows;</li>
 <li>explain why course projects use the Gradle wrapper instead of a separately installed Gradle command;</li>
@@ -52,7 +72,7 @@
 <li>diagnose the common case in which an installation succeeded but the terminal still finds an older program.</li>
 </ul></section>
 <p>Use an account with permission to install software. If your computer is managed by an employer or school and you cannot install a required tool, ask the course staff before changing security settings.</p>
-<h2 id="1-what-you-need"><a href="#1-what-you-need">1. What You Need</a></h2>
+<h2 id="1-what-you-need"><a href="#1-what-you-need"><span class="section-number">1.1</span>What You Need</a></h2>
 <p>Install these components before beginning the other preparation guides:</p>
 <table>
 <thead>
@@ -88,7 +108,7 @@
 <p>A <strong>JDK</strong> is a Java Development Kit. It includes the Java launcher and the compiler. A runtime-only installation is insufficient: <code>java</code> might work while <code>javac</code> is missing.</p>
 <p>Gradle is the unusual row. When a project contains <code>gradlew</code>, <code>gradlew.bat</code>, and <code>gradle/wrapper/</code>, Gradle's own installation guide says that no separate Gradle installation is required. The first wrapper run downloads the version named by the project. CPEN 221 projects use this mechanism, so <code>gradle test</code> is not the course command.</p>
 <p>A project should declare the tool version it needs instead of relying on whichever version happens to be installed globally.</p>
-<h2 id="2-identify-your-operating-system-and-processor"><a href="#2-identify-your-operating-system-and-processor">2. Identify Your Operating System and Processor</a></h2>
+<h2 id="2-identify-your-operating-system-and-processor"><a href="#2-identify-your-operating-system-and-processor"><span class="section-number">1.2</span>Identify Your Operating System and Processor</a></h2>
 <p>Choose instructions for the operating system on which you will actually edit and run the project. A Linux virtual machine inside Windows is a separate environment; software installed only in Windows is not automatically installed inside it.</p>
 <p>You may also have to choose a processor architecture:</p>
 <ul>
@@ -96,7 +116,7 @@
 <li><code>x64</code> or <code>x86_64</code> is used by most Intel and AMD computers.</li>
 </ul>
 <p>On macOS, <strong>Apple menu → About This Mac</strong> names the chip. On Windows, <strong>Settings → System → About → System type</strong> reports the architecture. On Linux, <code>uname -m</code> reports it. Choose the installer matching that result.</p>
-<h2 id="3-macos"><a href="#3-macos">3. macOS</a></h2>
+<h2 id="3-macos"><a href="#3-macos"><span class="section-number">1.3</span>macOS</a></h2>
 <h3 id="install-java-25"><a href="#install-java-25">Install Java 25</a></h3>
 <p>Open the <a href="https://adoptium.net/temurin/releases/?version=25">Eclipse Temurin 25 downloads</a>, select macOS and your architecture, and download the JDK <code>.pkg</code> installer. Run the installer. The package format registers the JDK in the standard macOS location.</p>
 <p>Open a <strong>new</strong> terminal and run:</p>
@@ -110,7 +130,7 @@ javac -version
 <p>If that opens an Apple developer-tools installer, completing that installer gives you Git. You may instead use one of the current installers linked from the official <a href="https://git-scm.com/install/">Git installation page</a>. If you already manage software with Homebrew, <code>brew install git</code> is also an option. The course does not require Homebrew.</p>
 <h3 id="install-vs-code"><a href="#install-vs-code">Install VS Code</a></h3>
 <p>Download the macOS build from the <a href="https://code.visualstudio.com/docs/setup/mac">official VS Code instructions</a>, open the <code>.dmg</code>, and drag Visual Studio Code to <strong>Applications</strong>. In VS Code, open the Command Palette and run <strong>Shell Command: Install 'code' command in PATH</strong>. Open a new terminal before testing <code>code --version</code>.</p>
-<h2 id="4-linux"><a href="#4-linux">4. Linux</a></h2>
+<h2 id="4-linux"><a href="#4-linux"><span class="section-number">1.4</span>Linux</a></h2>
 <p>Linux distributions use different package formats. Use the repository instructions for your distribution rather than pasting a command intended for another one.</p>
 <h3 id="install-java-25-1"><a href="#install-java-25-1">Install Java 25</a></h3>
 <p>Adoptium publishes signed DEB, RPM, and APK packages. Follow its <a href="https://adoptium.net/installation/">Linux package instructions</a> for your distribution and choose the Temurin 25 JDK package, not a JRE package. Then run:</p>
@@ -123,7 +143,7 @@ command -v java</code></pre></div>
 <p>Verify:</p>
 <div class="code-block"><pre class="sh"><code>git --version
 code --version</code></pre></div>
-<h2 id="5-windows"><a href="#5-windows">5. Windows</a></h2>
+<h2 id="5-windows"><a href="#5-windows"><span class="section-number">1.5</span>Windows</a></h2>
 <p>Use a normal PowerShell terminal for installation and verification. The later command-line guide shows both PowerShell and Git Bash commands.</p>
 <h3 id="install-java-25-2"><a href="#install-java-25-2">Install Java 25</a></h3>
 <p>On a current Windows system with <code>winget</code>, run:</p>
@@ -137,7 +157,7 @@ where.exe java</code></pre></div>
 <p>Download <strong>Git for Windows</strong> through the <a href="https://git-scm.com/install/">official Git installation page</a>. The installer includes Git Bash and Git Credential Manager. Keeping the default options is suitable for this material. After installation, a new terminal should accept <code>git --version</code>.</p>
 <h3 id="install-vs-code-1"><a href="#install-vs-code-1">Install VS Code</a></h3>
 <p>Use the <strong>User Installer</strong> described in Microsoft's <a href="https://code.visualstudio.com/docs/setup/windows">Windows installation instructions</a>. It does not normally require administrator rights and adds <code>code</code> to <code>PATH</code>. Close and reopen the terminal, then run <code>code --version</code>.</p>
-<h2 id="6-verify-the-complete-toolchain"><a href="#6-verify-the-complete-toolchain">6. Verify the Complete Toolchain</a></h2>
+<h2 id="6-verify-the-complete-toolchain"><a href="#6-verify-the-complete-toolchain"><span class="section-number">1.6</span>Verify the Complete Toolchain</a></h2>
 <p>Open a fresh terminal and run the four version checks:</p>
 <div class="code-block"><pre class="text"><code>java -version
 javac -version
@@ -168,7 +188,7 @@ code --version</code></pre></div>
 </details>
 </form>
 
-<h2 id="7-diagnose-a-version-mismatch"><a href="#7-diagnose-a-version-mismatch">7. Diagnose a Version Mismatch</a></h2>
+<h2 id="7-diagnose-a-version-mismatch"><a href="#7-diagnose-a-version-mismatch"><span class="section-number">1.7</span>Diagnose a Version Mismatch</a></h2>
 <p>Installing a program does not change terminals that are already running. Start by closing and reopening the terminal and VS Code. If an older Java still appears, locate the executable:</p>
 <div class="code-block"><pre class="sh"><code>command -v java       # macOS or Linux</code></pre></div>
 <div class="code-block"><pre class="powershell"><code>where.exe java        # Windows</code></pre></div>
@@ -187,7 +207,7 @@ code --version</code></pre></div>
 </details>
 </form>
 
-<h2 id="8-installation-check"><a href="#8-installation-check">8. Installation Check</a></h2>
+<h2 id="8-installation-check"><a href="#8-installation-check"><span class="section-number">1.8</span>Installation Check</a></h2>
 <p>Before moving on, collect the output from all version commands in one text file. Then answer:</p>
 <ol type="1">
 <li>Which JDK distribution, major version, and architecture did you install?</li>
@@ -196,7 +216,7 @@ code --version</code></pre></div>
 <li>In a project with wrapper files, which command reports the pinned Gradle version on your operating system?</li>
 </ol>
 <p>If you ask for installation help, include the operating system, processor architecture, commands entered, and complete output. “Java does not work” hides the evidence needed to distinguish a missing executable from a wrong version or wrong directory.</p>
-<h2 id="9-summary"><a href="#9-summary">9. Summary</a></h2>
+<h2 id="9-summary"><a href="#9-summary"><span class="section-number">1.9</span>Summary</a></h2>
 <p>The required base is a Java 25 JDK, Git, and VS Code. A course project supplies its own Gradle wrapper, so a global Gradle installation is unnecessary. Verification is part of installation: check both Java tools, Git, VS Code, and the project wrapper from a new terminal. When a version is wrong, identify the executable selected by <code>PATH</code> before changing configuration.</p>
 <h2 id="references"><a href="#references">References</a></h2>
 <ul>
@@ -209,12 +229,12 @@ code --version</code></pre></div>
 <li><a href="https://code.visualstudio.com/docs/setup/windows">Visual Studio Code setup for Windows</a></li>
 </ul>
 
-        <nav class="reading-nav" aria-label="Preparation guide sequence">
-          <a href="../../">← Contents</a>
-          <a href="../using-command-line-interface/">Using the Command Line Interface →</a>
-        </nav>
-      </article>
-    </main>
-  </div>
+
+      <footer class="book-footer">
+        <a class="next" href="../using-command-line-interface/">Using the Command Line Interface →</a>
+        CPEN 221 · Getting Started · Software Tools and Java
+      </footer>
+    </article>
+  </main>
 </body>
 </html>
