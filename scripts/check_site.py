@@ -120,9 +120,11 @@ def main() -> None:
             failures.append(f"{relative}: missing typeface preference script")
         if "data-typeface-picker" not in page_source:
             failures.append(f"{relative}: missing typeface selector")
-        for choice in TYPEFACE_CHOICES:
-            if f'<option value="{choice}">' not in page_source:
-                failures.append(f"{relative}: missing {choice} typeface option")
+        observed_choices = set(
+            re.findall(r'<option value="([^"]+)">', page_source)
+        )
+        if observed_choices != set(TYPEFACE_CHOICES):
+            failures.append(f"{relative}: typeface options do not match the contract")
         if SITE_SUBTITLE not in page_source:
             failures.append(f"{relative}: missing site subtitle")
         if len(page.ids) != len(set(page.ids)):
@@ -237,9 +239,11 @@ def main() -> None:
     for font_name in FONT_FILES:
         if f'../fonts/{font_name}' not in stylesheet_source:
             failures.append(f"assets/css/site.css: does not declare {font_name}")
-    for choice in TYPEFACE_CHOICES:
-        if f'html[data-typeface="{choice}"]' not in stylesheet_source:
-            failures.append(f"assets/css/site.css: missing {choice} typeface mapping")
+    observed_mappings = set(
+        re.findall(r'html\[data-typeface="([^"]+)"\]', stylesheet_source)
+    )
+    if observed_mappings != set(TYPEFACE_CHOICES):
+        failures.append("assets/css/site.css: typeface mappings do not match the contract")
 
     switcher_source = (
         SITE_ROOT / "assets" / "js" / "typeface-switcher.js"

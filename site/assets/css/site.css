@@ -837,6 +837,7 @@ summary {
 
 .typeface-tools select {
   width: 100%;
+  max-width: 100%;
   min-height: 2.1rem;
   padding: 0.25rem 1.8rem 0.25rem 0.55rem;
   color: #dce8ee;
