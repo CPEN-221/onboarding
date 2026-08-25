@@ -4,20 +4,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Traverse values, choose collection contracts, and combine behaviour through interfaces and composition.">
-  <title>Iteration, Collections, and Interfaces · Java On-ramp</title>
+  <title>Iteration, Collections, and Interfaces · Getting Started with Java</title>
   <link rel="stylesheet" href="../../assets/css/site.css">
+  <script src="../../assets/js/typeface-switcher.js"></script>
   <script defer src="../../assets/js/quick-checks.js"></script>
 </head>
 <body id="top">
-  <!-- source-sha256: 66bf39e9bbbffe902c36f827da4e577a81ffccc7adcd7a0ec9aae41167e7129d -->
+  <!-- source-sha256: 9d1f1c756b0956f33779daefdc5e554c9f2232ebfc75e0e84beefbd934d60cd6 -->
   <!-- source-file: 03-iteration-collections-and-interfaces.md -->
   <a class="skip-link" href="#reading-content">Skip to reading</a>
   <header class="site-header">
-    <a class="wordmark" href="../../"><strong>Java On-ramp</strong><span>CPEN 221 preparation</span></a>
+    <a class="wordmark" href="../../"><strong>Getting Started with Java</strong><span>CPEN 221 preparation</span></a>
   </header>
+  <div class="typeface-tools">
+    <label for="typeface-picker">Reading typeface</label>
+    <select id="typeface-picker" data-typeface-picker>
+      <option value="balanced">Balanced serif + sans</option>
+      <option value="serif">Serif</option>
+      <option value="sans">Sans serif</option>
+    </select>
+  </div>
   <div class="reading-layout">
     <nav class="contents" aria-label="On this page">
-      <p>Reading 3 of 3</p>
+      <p>Segment 3 of 3</p>
       <ol>
           <li><a href="#1-traverse-a-fixed-array-by-index">Traverse a Fixed Array by Index</a></li>
           <li><a href="#2-use-an-enhanced-loop-when-the-index-does-not-matter">Use an Enhanced Loop When the Index Does Not Matter</a></li>
@@ -35,7 +44,7 @@
     <main id="reading-content">
       <article class="reading">
         <header class="reading-header">
-          <p>Java on-ramp 3</p>
+          <p>Segment 3</p>
           <h1>Iteration, Collections, and Interfaces</h1>
           <p class="lede">Traverse values, choose collection contracts, and combine behaviour through interfaces and composition.</p>
         </header>
@@ -337,7 +346,7 @@ DelayRule upperBound = new AtMostDelay(10);</code></pre></div>
 <p>An array stores a fixed number of typed components with indices from zero through <code>length - 1</code>. Indexed loops expose positions; enhanced loops express traversal when the algorithm needs values but not indices. Java checks array bounds when an access executes.</p>
 <p>Generic collection types state additional relationships. A <code>List</code> is an ordered sequence that permits duplicates, a <code>Set</code> contains no duplicate elements, and a <code>Map</code> associates each key with at most one value. <code>HashSet</code> and <code>HashMap</code> do not promise an iteration order; unspecified order is not the same claim as random order.</p>
 <p>An interface states an operation shared by several implementations. A call through the interface uses the implementation of the receiver object's class. Composition builds behaviour by storing and invoking other interface-typed objects, as <code>BothRules</code> combines two independent delay rules.</p>
-<p>Together, the three on-ramp readings supply the Java mechanisms assumed at the start of the CPEN 221 core readings: entry points, expressions, methods, control flow, objects, references, arrays, collections, iteration, and interfaces.</p>
+<p>Together, the three segments supply the Java mechanisms assumed at the start of the CPEN 221 core readings: entry points, expressions, methods, control flow, objects, references, arrays, collections, iteration, and interfaces.</p>
 <h2 id="references"><a href="#references">References</a></h2>
 <ul>
 <li><a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-10.html">The Java Language Specification, Java SE 25, Chapter 10: Arrays</a></li>
@@ -358,6 +367,5 @@ DelayRule upperBound = new AtMostDelay(10);</code></pre></div>
       </article>
     </main>
   </div>
-  <footer><p>Ungraded preparation for CPEN 221. Answers remain in your browser and are not submitted.</p></footer>
 </body>
 </html>

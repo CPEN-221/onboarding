@@ -1,4 +1,4 @@
-# Java On-ramp 1 | Running Java Programs
+# Getting Started with Java | Segment 1: Running Java Programs
 
 The arrival display says that the next bus will arrive in −3 minutes.
 
@@ -329,7 +329,7 @@ The explicit version adds structure around the same control flow:
 - `ArrivalDisplayExpanded` names the class that groups the two methods. A public
   class and its source file use the same name.
 - `static` states that a method belongs to the class and does not require a receiver
-  object. The next on-ramp distinguishes static methods from instance methods.
+  object. The next segment distinguishes static methods from instance methods.
 - `String[] args` receives command-line arguments. This program does not use them.
 - `final` prevents another class from extending this utility class.
 - The private constructor prevents ordinary client code from constructing an
@@ -443,7 +443,7 @@ maps negative, zero, and positive differences to messages explicitly.
 
 Compact source files give small Java 25 programs a direct entry point. The explicit
 class-and-`static` form adds the structure used by larger projects without changing
-the underlying expressions and control flow. The next on-ramp introduces objects,
+the underlying expressions and control flow. The next segment introduces objects,
 instance methods, state, and references.
 
 ## References

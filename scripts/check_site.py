@@ -95,6 +95,10 @@ def main() -> None:
         page_source = path.read_text(encoding="utf-8")
         if any(ord(character) < 32 and character not in "\n\r\t" for character in page_source):
             failures.append(f"{relative}: unexpected control character")
+        if "typeface-switcher.js" not in page_source:
+            failures.append(f"{relative}: missing typeface preference script")
+        if "data-typeface-picker" not in page_source:
+            failures.append(f"{relative}: missing typeface selector")
         if len(page.ids) != len(set(page.ids)):
             failures.append(f"{relative}: duplicate id")
         if any(alt is None or not alt.strip() for alt in page.image_alt):

@@ -1,4 +1,4 @@
-# Java On-ramp Design Record
+# Getting Started with Java — Design Record
 
 Last updated: August 25, 2026
 
@@ -42,23 +42,23 @@ a static method, local variables, conditionals, and string results. It then move
 directly to Gradle and JUnit. A novice must already understand enough Java syntax to
 read that example.
 
-The replacement should therefore be a **Java on-ramp** that precedes Chapter 1. It
-is not Chapter 1 itself: the on-ramp explains Java programs, values, methods,
+The replacement should therefore be a **preparatory sequence** that precedes Chapter 1. It
+is not Chapter 1 itself: the sequence explains Java programs, values, methods,
 objects, references, iteration, collections, and interfaces. Chapter 1 then uses
 those mechanisms to establish the build, test, Git, and evidence loop.
 
 Students with prior Java experience should be able to use a short readiness check
-to identify which on-ramp readings they need. Later chapters may assume the
-on-ramp's stated outcomes whether a student learned them here or elsewhere.
+to identify which segments they need. Later chapters may assume the
+sequence's stated outcomes whether a student learned them here or elsewhere.
 
-The on-ramp has its own landing page and three-reading navigation sequence. This
+The sequence has its own landing page and three-segment navigation. This
 keeps preparatory material out of the numbered core readings while preserving a
-clear transition: the on-ramp establishes enough Java to read the opening example,
+clear transition: the sequence establishes enough Java to read the opening example,
 then Chapter 1 introduces the course build, test, Git, and evidence loop.
 
-## On-ramp Sequence
+## Segment Sequence
 
-### On-ramp 1 — Running Java Programs
+### Segment 1 — Running Java Programs
 
 Central problem: a transit display prints a negative waiting time because the
 program reports a calculation without interpreting what the value means.
@@ -77,7 +77,7 @@ Outcomes:
 This reading replaces the calculator-first opening and introduces an observable
 program before classes and object inspection.
 
-### On-ramp 2 — Objects, State, and References
+### Segment 2 — Objects, State, and References
 
 Central problem: two variables refer to the same mutable arrival board, so a change
 through one name becomes visible through the other.
@@ -95,7 +95,7 @@ Outcomes:
 This reading supplies only the aliasing foundation. Chapter 4 remains responsible
 for representation exposure, defensive copying, and debugging mutable systems.
 
-### On-ramp 3 — Iteration, Collections, and Shared Behaviour
+### Segment 3 — Iteration, Collections, and Shared Behaviour
 
 Central problem: the program must classify several predictions, reject duplicate
 stop identifiers, and look up a stop by identifier without duplicating traversal
@@ -111,7 +111,7 @@ Outcomes:
 - use an interface as the type shared by several implementations; and
 - prefer composition unless an inheritance relationship has a behavioural reason.
 
-Abstract classes and implementation inheritance do not belong in the on-ramp. The
+Abstract classes and implementation inheritance do not belong in this sequence. The
 core readings develop behavioural subtyping and composition with stronger design
 motivation.
 
@@ -123,19 +123,19 @@ the corresponding runnable source remains in the Tech.io repository.
 
 | Current unit | Useful material | Replacement location | Disposition |
 |---|---|---|---|
-| 1 — programs, calculator, syntax | Predicting output; deliberate syntax failures | On-ramp 1 | Replace the Tester opening with a Java 25 compact program. Combine arithmetic and syntax into expression traces and diagnostic classification. |
-| 2 — fields and types | String concatenation; numeric types; compiler type checks | On-ramp 1 | Start with local variables rather than fields. Retain type-error reasoning. Replace the gravity, wages, and video-game examples. State overflow and floating-point limits precisely. |
-| 3 — methods and design recipe | Repeated computation; parameters; return values; compiler diagnostics | On-ramp 1 | Retain the problem-before-method progression. State the contract before implementation. Remove exact-diagnostic transcription and Tester-specific execution. |
-| 4 — booleans and conditionals | Branch prediction; boundary cases | On-ramp 1 | Retain and compress. Repair inconsistent boundaries and use the transit classification example. |
-| 5 — compound data, references, scope | Constructors; method calls; aliases; local scope | On-ramp 2 | Rebuild around private fields and explicit object diagrams. Do not use Tester labels as reference values. Correct the account of parameter and local-variable scopes. |
-| 6 — more classes and testing | String methods; examples becoming tests | On-ramp 2 and Chapter 1 | Retain selected method-call practice. Replace Tester with JUnit 6, introduced by Chapter 1's feedback loop. |
-| 7 — nested data and geometry | Nested objects; approximate equality; boundary testing | On-ramp 2 | Retain nested-object tracing and one numerical caveat. Replace the geometry hierarchy and repair the circle-boundary inconsistency. |
-| 8 — interfaces and query composition | Interface types; several implementations; composite queries | On-ramp 3 | Retain the conceptual progression but use the transit example. Emphasize contracts and composition rather than field visibility by directory. |
-| 9 — arrays, static methods, and `main` | Indexed access; class methods; command-line execution | On-ramps 1 and 3 | Teach Java 25 launch rules accurately. Present `public static void main(String[] args)` as the course-project convention, not the only Java entry point. |
-| 10 — loops and array manipulation | Loop traces; boundary conditions; construction of result arrays | On-ramp 3 | Retain prediction and repair tasks. Prefer enhanced loops and collections when indexing is not the point. Remove or repair non-compiling examples. |
-| 11 — nested arrays and loops | Row/column traversal | Optional practice after On-ramp 3 | Keep one trace only if later labs require it. Remove the incorrect explanation of `[Z` and avoid treating allocation location as a language guarantee. |
-| 12 — generics and collections | Generic types; `ArrayList`, `HashSet`, and `HashMap` | On-ramp 3 | Rewrite against Java 25. Correct `add`'s return value, autoboxing, Go generics, wrapper construction, and collection-order guarantees. |
-| 13 — abstract classes and inheritance | Recognition of shared implementation | Core Chapters 7 and 8 | Remove from the on-ramp. The one-line `and` method is better expressed as an interface default method; inheritance needs a behavioural-subtyping motivation. |
+| 1 — programs, calculator, syntax | Predicting output; deliberate syntax failures | Segment 1 | Replace the Tester opening with a Java 25 compact program. Combine arithmetic and syntax into expression traces and diagnostic classification. |
+| 2 — fields and types | String concatenation; numeric types; compiler type checks | Segment 1 | Start with local variables rather than fields. Retain type-error reasoning. Replace the gravity, wages, and video-game examples. State overflow and floating-point limits precisely. |
+| 3 — methods and design recipe | Repeated computation; parameters; return values; compiler diagnostics | Segment 1 | Retain the problem-before-method progression. State the contract before implementation. Remove exact-diagnostic transcription and Tester-specific execution. |
+| 4 — booleans and conditionals | Branch prediction; boundary cases | Segment 1 | Retain and compress. Repair inconsistent boundaries and use the transit classification example. |
+| 5 — compound data, references, scope | Constructors; method calls; aliases; local scope | Segment 2 | Rebuild around private fields and explicit object diagrams. Do not use Tester labels as reference values. Correct the account of parameter and local-variable scopes. |
+| 6 — more classes and testing | String methods; examples becoming tests | Segment 2 and Chapter 1 | Retain selected method-call practice. Replace Tester with JUnit 6, introduced by Chapter 1's feedback loop. |
+| 7 — nested data and geometry | Nested objects; approximate equality; boundary testing | Segment 2 | Retain nested-object tracing and one numerical caveat. Replace the geometry hierarchy and repair the circle-boundary inconsistency. |
+| 8 — interfaces and query composition | Interface types; several implementations; composite queries | Segment 3 | Retain the conceptual progression but use the transit example. Emphasize contracts and composition rather than field visibility by directory. |
+| 9 — arrays, static methods, and `main` | Indexed access; class methods; command-line execution | Segments 1 and 3 | Teach Java 25 launch rules accurately. Present `public static void main(String[] args)` as the course-project convention, not the only Java entry point. |
+| 10 — loops and array manipulation | Loop traces; boundary conditions; construction of result arrays | Segment 3 | Retain prediction and repair tasks. Prefer enhanced loops and collections when indexing is not the point. Remove or repair non-compiling examples. |
+| 11 — nested arrays and loops | Row/column traversal | Optional practice after Segment 3 | Keep one trace only if later labs require it. Remove the incorrect explanation of `[Z` and avoid treating allocation location as a language guarantee. |
+| 12 — generics and collections | Generic types; `ArrayList`, `HashSet`, and `HashMap` | Segment 3 | Rewrite against Java 25. Correct `add`'s return value, autoboxing, Go generics, wrapper construction, and collection-order guarantees. |
+| 13 — abstract classes and inheritance | Recognition of shared implementation | Core Chapters 7 and 8 | Remove from the preparatory sequence. The one-line `and` method is better expressed as an interface default method; inheritance needs a behavioural-subtyping motivation. |
 
 Across all units, remove standalone summary pages and fold concise summaries into
 the end of each reading. Replace questions that ask students to copy code, count
@@ -180,7 +180,7 @@ not remove the explanation or activity.
 - Check the no-JavaScript and keyboard-only activity experience.
 - Do not pin questions to exact `javac` wording unless the wording itself is the
   subject and the JDK version is stated.
-- End each on-ramp reading with only the references directly used by that reading.
+- End each segment with only the references directly used by that segment.
 
 ## Implemented Publication Model
 

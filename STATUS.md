@@ -2,16 +2,16 @@
 
 Last updated: August 25, 2026
 
-## Complete onboarding sequence
+## Complete Java preparation sequence
 
 The standalone sequence contains three student-facing readings written from new
 outlines:
 
 | Reading | Words | Formative checks | Explanation practice |
 |---|---:|---:|---:|
-| Running Java Programs | 2,784 | 3 | 5 |
-| Objects, State, and References | 2,527 | 3 | 5 |
-| Iteration, Collections, and Interfaces | 2,580 | 3 | 6 |
+| Running Java Programs | 2,787 | 3 | 5 |
+| Objects, State, and References | 2,530 | 3 | 5 |
+| Iteration, Collections, and Interfaces | 2,582 | 3 | 6 |
 
 Each reading begins with a transit-display problem, states its learning outcomes,
 develops one central example and a design principle, addresses a misconception,
@@ -53,6 +53,11 @@ The static-site build uses pinned Pandoc 3.10 and publishes the authoritative
 Markdown and complete example files alongside the rendered readings. The generated
 site has seven HTML pages: one landing page, three readings, and three example-file
 indexes.
+
+The published title is **Getting Started with Java**, organized as three segments.
+Every page includes a typeface selector with balanced, serif, and sans-serif
+choices. The preference is applied locally across the site and the content remains
+usable when the enhancement script is unavailable.
 
 `scripts/check_site.py` accepted every local link, fragment, page landmark, source
 digest, and embedded quick-check structure. `node --check` accepted the progressive

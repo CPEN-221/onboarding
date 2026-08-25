@@ -1,4 +1,4 @@
-# Java On-ramp 3 | Iteration, Collections, and Interfaces
+# Getting Started with Java | Segment 3: Iteration, Collections, and Interfaces
 
 A prediction service receives several observations for each route. The program must
 count late predictions, preserve the order in which observations arrived, identify
@@ -448,7 +448,7 @@ the interface uses the implementation of the receiver object's class. Compositio
 builds behaviour by storing and invoking other interface-typed objects, as
 `BothRules` combines two independent delay rules.
 
-Together, the three on-ramp readings supply the Java mechanisms assumed at the
+Together, the three segments supply the Java mechanisms assumed at the
 start of the CPEN 221 core readings: entry points, expressions, methods, control
 flow, objects, references, arrays, collections, iteration, and interfaces.
 

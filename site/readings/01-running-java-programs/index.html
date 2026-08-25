@@ -4,20 +4,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Run, trace, and repair a small Java 25 program before translating it to the form used in course projects.">
-  <title>Running Java Programs · Java On-ramp</title>
+  <title>Running Java Programs · Getting Started with Java</title>
   <link rel="stylesheet" href="../../assets/css/site.css">
+  <script src="../../assets/js/typeface-switcher.js"></script>
   <script defer src="../../assets/js/quick-checks.js"></script>
 </head>
 <body id="top">
-  <!-- source-sha256: 2c692e8e534990f1464080d4ee8d3d5d6b9cc162f49380853af837eeaaab4595 -->
+  <!-- source-sha256: d46a74479d8488af79c4cb4816ccecf642d1dfde934a8c15a0ff13a2783f0bdb -->
   <!-- source-file: 01-running-java-programs.md -->
   <a class="skip-link" href="#reading-content">Skip to reading</a>
   <header class="site-header">
-    <a class="wordmark" href="../../"><strong>Java On-ramp</strong><span>CPEN 221 preparation</span></a>
+    <a class="wordmark" href="../../"><strong>Getting Started with Java</strong><span>CPEN 221 preparation</span></a>
   </header>
+  <div class="typeface-tools">
+    <label for="typeface-picker">Reading typeface</label>
+    <select id="typeface-picker" data-typeface-picker>
+      <option value="balanced">Balanced serif + sans</option>
+      <option value="serif">Serif</option>
+      <option value="sans">Sans serif</option>
+    </select>
+  </div>
   <div class="reading-layout">
     <nav class="contents" aria-label="On this page">
-      <p>Reading 1 of 3</p>
+      <p>Segment 1 of 3</p>
       <ol>
           <li><a href="#1-begin-with-an-observable-program">Begin with an Observable Program</a></li>
           <li><a href="#2-trace-values-before-changing-the-program">Trace Values Before Changing the Program</a></li>
@@ -33,7 +42,7 @@
     <main id="reading-content">
       <article class="reading">
         <header class="reading-header">
-          <p>Java on-ramp 1</p>
+          <p>Segment 1</p>
           <h1>Running Java Programs</h1>
           <p class="lede">Run, trace, and repair a small Java 25 program before translating it to the form used in course projects.</p>
         </header>
@@ -248,7 +257,7 @@ String arrivalMessage(int scheduledMinute, int predictedMinute) {
 <p>The explicit version adds structure around the same control flow:</p>
 <ul>
 <li><code>ArrivalDisplayExpanded</code> names the class that groups the two methods. A public class and its source file use the same name.</li>
-<li><code>static</code> states that a method belongs to the class and does not require a receiver object. The next on-ramp distinguishes static methods from instance methods.</li>
+<li><code>static</code> states that a method belongs to the class and does not require a receiver object. The next segment distinguishes static methods from instance methods.</li>
 <li><code>String[] args</code> receives command-line arguments. This program does not use them.</li>
 <li><code>final</code> prevents another class from extending this utility class.</li>
 <li>The private constructor prevents ordinary client code from constructing an <code>ArrivalDisplayExpanded</code> object when the class contains only static operations.</li>
@@ -307,7 +316,7 @@ String arrivalMessage(int scheduledMinute, int predictedMinute) {
 <p>A Java program begins at a selected <code>main</code> method, not at the first line of its source file. Statements in the method evaluate expressions, introduce local variables, assign values, call other methods, and select branches.</p>
 <p>Types constrain those operations. An <code>int</code> value and a <code>String</code> containing digits are not interchangeable. A method header states the types of its parameters and returned value, while <code>return</code> finishes one call with a result.</p>
 <p>Compilation failures, runtime failures, and unwanted results provide different evidence. Classify the stage before choosing a repair. The arrival display ran successfully but interpreted a signed difference incorrectly; the repaired method maps negative, zero, and positive differences to messages explicitly.</p>
-<p>Compact source files give small Java 25 programs a direct entry point. The explicit class-and-<code>static</code> form adds the structure used by larger projects without changing the underlying expressions and control flow. The next on-ramp introduces objects, instance methods, state, and references.</p>
+<p>Compact source files give small Java 25 programs a direct entry point. The explicit class-and-<code>static</code> form adds the structure used by larger projects without changing the underlying expressions and control flow. The next segment introduces objects, instance methods, state, and references.</p>
 <h2 id="references"><a href="#references">References</a></h2>
 <ul>
 <li><a href="https://docs.oracle.com/en/java/javase/25/language/compact-source-files-instance-main-methods.html">Java SE 25: Compact Source Files and Instance <code>main</code> Methods</a></li>
@@ -325,6 +334,5 @@ String arrivalMessage(int scheduledMinute, int predictedMinute) {
       </article>
     </main>
   </div>
-  <footer><p>Ungraded preparation for CPEN 221. Answers remain in your browser and are not submitted.</p></footer>
 </body>
 </html>

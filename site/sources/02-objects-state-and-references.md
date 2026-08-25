@@ -1,4 +1,4 @@
-# Java On-ramp 2 | Objects, State, and References
+# Getting Started with Java | Segment 2: Objects, State, and References
 
 The platform display and a mobile view both show the prediction for Brock Hall. A
 new update reaches the mobile view first. The platform display changes too, even
@@ -303,7 +303,7 @@ two arrival boards should count as the same abstract value. Java classes can def
 a separate value-equality operation through `equals`. Designing that operation
 requires a decision about which observable properties matter and how equality
 interacts with hashing. The main course readings develop that contract. In this
-on-ramp, use `==` only when object identity or `null` is the intended question.
+segment, use `==` only when object identity or `null` is the intended question.
 
 Access control provides another boundary around the object. The fields are
 `private`, so ordinary client code cannot assign `board.predictedMinute` directly.
@@ -437,7 +437,7 @@ variable's reference without redirecting other aliases. A diagram should use
 abstract object identities and should not claim to reveal physical addresses or an
 implementation's allocation strategy.
 
-The next on-ramp uses these object and reference rules while iterating through
+The next segment uses these object and reference rules while iterating through
 arrays and collections and selecting behaviour through interfaces.
 
 ## References

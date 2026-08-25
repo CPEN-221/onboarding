@@ -96,6 +96,17 @@ def transform_body(body: str) -> tuple[str, list[tuple[str, str]]]:
     return body, sections
 
 
+def typeface_tools() -> str:
+    return """  <div class="typeface-tools">
+    <label for="typeface-picker">Reading typeface</label>
+    <select id="typeface-picker" data-typeface-picker>
+      <option value="balanced">Balanced serif + sans</option>
+      <option value="serif">Serif</option>
+      <option value="sans">Sans serif</option>
+    </select>
+  </div>"""
+
+
 def reading_page(
     reading: Reading,
     body: str,
@@ -124,19 +135,21 @@ def reading_page(
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{escape(reading.description)}">
-  <title>{escape(reading.title)} · Java On-ramp</title>
+  <title>{escape(reading.title)} · Getting Started with Java</title>
   <link rel="stylesheet" href="../../assets/css/site.css">
+  <script src="../../assets/js/typeface-switcher.js"></script>
   <script defer src="../../assets/js/quick-checks.js"></script>
 </head>
 <body id="top">
   {provenance_comments(reading.source, digest)}
   <a class="skip-link" href="#reading-content">Skip to reading</a>
   <header class="site-header">
-    <a class="wordmark" href="../../"><strong>Java On-ramp</strong><span>CPEN 221 preparation</span></a>
+    <a class="wordmark" href="../../"><strong>Getting Started with Java</strong><span>CPEN 221 preparation</span></a>
   </header>
+{typeface_tools()}
   <div class="reading-layout">
     <nav class="contents" aria-label="On this page">
-      <p>Reading {reading.number} of {len(READINGS)}</p>
+      <p>Segment {reading.number} of {len(READINGS)}</p>
       <ol>
 {section_links}
       </ol>
@@ -144,7 +157,7 @@ def reading_page(
     <main id="reading-content">
       <article class="reading">
         <header class="reading-header">
-          <p>Java on-ramp {reading.number}</p>
+          <p>Segment {reading.number}</p>
           <h1>{escape(reading.title)}</h1>
           <p class="lede">{escape(reading.description)}</p>
         </header>
@@ -160,7 +173,6 @@ def reading_page(
       </article>
     </main>
   </div>
-  <footer><p>Ungraded preparation for CPEN 221. Answers remain in your browser and are not submitted.</p></footer>
 </body>
 </html>
 """
@@ -170,7 +182,7 @@ def landing_page() -> str:
     cards = "\n".join(
         f"""      <li>
         <a href="readings/{reading.slug}/">
-          <span>Reading {reading.number}</span>
+          <span>Segment {reading.number}</span>
           <strong>{escape(reading.title)}</strong>
           <small>{escape(reading.description)}</small>
         </a>
@@ -182,21 +194,23 @@ def landing_page() -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A self-paced Java 25 on-ramp for CPEN 221.">
-  <title>Java On-ramp · CPEN 221</title>
+  <meta name="description" content="Getting started with Java in preparation for CPEN 221.">
+  <title>Getting Started with Java · CPEN 221</title>
   <link rel="stylesheet" href="assets/css/site.css">
+  <script src="assets/js/typeface-switcher.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to readings</a>
   <header class="hero">
     <p>CPEN 221 preparation</p>
-    <h1>Java On-ramp</h1>
-    <p>Three short readings for learning or refreshing the Java needed at the start of Software Construction.</p>
+    <h1>Getting Started with Java</h1>
+    <p>Preparing for CPEN 221 in Three Segments</p>
   </header>
+{typeface_tools()}
   <main id="main" class="landing">
     <section aria-labelledby="how-to-use">
-      <h2 id="how-to-use">How to use this on-ramp</h2>
-      <p>Begin with the first reading if Java is new to you. If the material is familiar, predict the examples and use the practice to decide where to spend time. The checks are for feedback only: there is no account, score, or submission.</p>
+      <h2 id="how-to-use">How to use these segments</h2>
+      <p>Begin with the first segment if Java is new to you. If the material is familiar, predict the examples and use the practice to decide where to spend time.</p>
       <ol class="reading-cards">
 {cards}
       </ol>
@@ -206,7 +220,6 @@ def landing_page() -> str:
       <p>The readings work without JavaScript. To run the downloadable examples, install a Java 25 JDK and use a terminal. Each example directory includes the exact commands and observed output.</p>
     </section>
   </main>
-  <footer><p>Java 25 · No tracking · No grades</p></footer>
 </body>
 </html>
 """
@@ -224,11 +237,13 @@ def example_index(directory: Path) -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{escape(title)} · Java On-ramp examples</title>
+  <title>{escape(title)} · Getting Started with Java examples</title>
   <link rel="stylesheet" href="../../assets/css/site.css">
+  <script src="../../assets/js/typeface-switcher.js"></script>
 </head>
 <body>
-  <header class="site-header"><a class="wordmark" href="../../"><strong>Java On-ramp</strong><span>Example files</span></a></header>
+  <header class="site-header"><a class="wordmark" href="../../"><strong>Getting Started with Java</strong><span>Example files</span></a></header>
+{typeface_tools()}
   <main class="file-list">
     <h1>{escape(title)}</h1>
     <p>Download these authoritative files rather than copying code from the rendered reading.</p>
