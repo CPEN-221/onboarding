@@ -353,6 +353,41 @@ a:hover {
   max-width: 70ch;
 }
 
+.reading-figure {
+  margin: 2.25rem 0;
+  max-width: 46rem;
+}
+
+.figure-scroll {
+  overflow-x: auto;
+}
+
+.figure-scroll img {
+  background: #fffdf7;
+  border: 1px solid var(--line);
+  border-radius: 0.55rem;
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.reading-figure figcaption {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-top: 0.65rem;
+  max-width: 70ch;
+}
+
+.reading-figure figcaption strong {
+  color: var(--ink);
+}
+
+.figure-scroll:focus-visible {
+  outline: 3px solid #d58d13;
+  outline-offset: 3px;
+}
+
 .learning-outcomes,
 .design-note,
 .source-links {
@@ -559,6 +594,10 @@ footer p {
 }
 
 @media (max-width: 34rem) {
+  .figure-scroll img {
+    min-width: 40rem;
+  }
+
   .contents ol {
     columns: 1;
   }
@@ -596,7 +635,8 @@ footer p {
   .quick-check,
   .learning-outcomes,
   .design-note,
-  .source-links {
+  .source-links,
+  .reading-figure {
     break-inside: avoid;
   }
 

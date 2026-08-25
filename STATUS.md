@@ -13,7 +13,7 @@ documents in `CPEN 221 Aux` as topic references where applicable:
 | Using the Command Line Interface | 1,932 | 2 |
 | Installing and Using Visual Studio Code | 1,643 | 2 |
 | The Build Process and Tools | 1,871 | 2 |
-| Git and GitHub | 3,200 | 4 |
+| Git and GitHub | 3,455 | 4 |
 
 The command-line guide now develops the filesystem hierarchy before introducing
 navigation: root, home, and project directories; parent, child, sibling, and
@@ -25,6 +25,14 @@ control: related files must be recorded as one project state, temporary saves
 should not become permanent checkpoints, and concurrent changes need a controlled
 merge. It then develops repository storage, file states, remotes, branches, and
 recovery.
+
+The Git guide now includes three original SVG figures: linked project-wide
+snapshots, the working-tree/staging/local-repository/GitHub flow, and the branch
+pointers before and after a fast-forward merge. Each figure has nearby explanatory
+prose, alternative text, a caption, and an internal SVG title and description.
+Narrow screens retain a legible figure size in a keyboard-scrollable region.
+Editable sources and publication metadata live under `assets/`; the site build
+copies the declared files to `site/assets/figures/`.
 
 The rewrite replaces outdated JUnit 4, Spring, `master`, `checkout`, password, and
 global-build-tool advice with Java 25, JUnit 6.1.3, Gradle wrappers, `main`, modern
@@ -107,7 +115,8 @@ makes no request to a font CDN.
 
 `scripts/check_site.py` accepted every local link, fragment, page landmark, all
 eight source digests, all eight WOFF2 font assets and their four licence notices,
-and all twenty-one embedded quick-check structures. `node
+all three figure source/output pairs, and all twenty-one embedded quick-check
+structures. `node
 --check` accepted the progressive-enhancement scripts. The activities remain
 readable as ordinary questions and answer disclosures without JavaScript; with
 JavaScript, they gain local Check buttons and retry feedback. They make no network

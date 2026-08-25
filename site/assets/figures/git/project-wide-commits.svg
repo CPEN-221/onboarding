@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" role="img" aria-labelledby="title description">
+  <title id="title">Two linked Git commits as project-wide snapshots</title>
+  <desc id="description">Commit A and commit B each contain recorded versions of a Java source file, its test, and its documentation. Commit B points back to commit A as its parent.</desc>
+  <defs>
+    <marker id="arrow" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
+      <path d="M0 0 L8 4 L0 8 Z" fill="#064638"/>
+    </marker>
+    <style>
+      text { fill: #17211b; font-family: "IBM Plex Sans", Arial, sans-serif; }
+      .card { fill: #fffdf7; stroke: #17211b; stroke-width: 2; }
+      .new-card { fill: #edf4ee; stroke: #064638; stroke-width: 3; }
+      .file { fill: #ffffff; stroke: #9aaba0; stroke-width: 1.5; }
+      .eyebrow { fill: #064638; font-size: 16px; font-weight: 700; letter-spacing: 1px; }
+      .heading { font-size: 21px; font-weight: 700; }
+      .filename { font-family: "JetBrains Mono", Menlo, monospace; font-size: 15px; font-weight: 700; }
+      .version { fill: #526057; font-size: 14px; }
+      .badge { fill: #064638; font-size: 15px; font-weight: 700; }
+      .file-letter { fill: #fffdf7; font-family: "JetBrains Mono", Menlo, monospace; font-size: 15px; font-weight: 700; text-anchor: middle; }
+      .direction { fill: #526057; font-size: 14px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <text class="direction" x="40" y="28">OLDER</text>
+  <text class="direction" x="920" y="28" text-anchor="end">NEWER</text>
+
+  <rect class="card" x="40" y="48" width="380" height="342" rx="12"/>
+  <text class="eyebrow" x="65" y="82">COMMIT A</text>
+  <text class="heading" x="65" y="111">Add transit summary</text>
+
+  <rect class="file" x="65" y="136" width="330" height="66" rx="7"/>
+  <rect x="80" y="151" width="36" height="36" rx="5" fill="#12634f"/>
+  <text class="file-letter" x="98" y="175">J</text>
+  <text class="filename" x="132" y="162">TransitSummary.java</text>
+  <text class="version" x="132" y="187">recorded source version 1</text>
+
+  <rect class="file" x="65" y="215" width="330" height="66" rx="7"/>
+  <rect x="80" y="230" width="36" height="36" rx="18" fill="#9b6b18"/>
+  <text class="file-letter" x="98" y="254">T</text>
+  <text class="filename" x="132" y="241">TransitSummaryTest.java</text>
+  <text class="version" x="132" y="266">recorded test version 1</text>
+
+  <rect class="file" x="65" y="294" width="330" height="66" rx="7"/>
+  <path d="M80 309 h27 l9 9 v27 h-36 Z" fill="#526057"/>
+  <path d="M107 309 v9 h9" fill="none" stroke="#fffdf7" stroke-width="2"/>
+  <text class="file-letter" x="98" y="338">D</text>
+  <text class="filename" x="132" y="320">README.md</text>
+  <text class="version" x="132" y="345">recorded documentation version 1</text>
+
+  <rect class="new-card" x="540" y="48" width="380" height="342" rx="12"/>
+  <text class="eyebrow" x="565" y="82">COMMIT B</text>
+  <text class="heading" x="565" y="111">Reject duplicate stops</text>
+
+  <rect class="file" x="565" y="136" width="330" height="66" rx="7"/>
+  <rect x="580" y="151" width="36" height="36" rx="5" fill="#12634f"/>
+  <text class="file-letter" x="598" y="175">J</text>
+  <text class="filename" x="632" y="162">TransitSummary.java</text>
+  <text class="version" x="632" y="187">recorded source version 2</text>
+
+  <rect class="file" x="565" y="215" width="330" height="66" rx="7"/>
+  <rect x="580" y="230" width="36" height="36" rx="18" fill="#9b6b18"/>
+  <text class="file-letter" x="598" y="254">T</text>
+  <text class="filename" x="632" y="241">TransitSummaryTest.java</text>
+  <text class="version" x="632" y="266">recorded test version 2</text>
+
+  <rect class="file" x="565" y="294" width="330" height="66" rx="7"/>
+  <path d="M580 309 h27 l9 9 v27 h-36 Z" fill="#526057"/>
+  <path d="M607 309 v9 h9" fill="none" stroke="#fffdf7" stroke-width="2"/>
+  <text class="file-letter" x="598" y="338">D</text>
+  <text class="filename" x="632" y="320">README.md</text>
+  <text class="version" x="632" y="345">recorded documentation version 1</text>
+
+  <line x1="532" y1="219" x2="430" y2="219" stroke="#064638" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="443" y="190" width="76" height="23" rx="11" fill="#fffdf7"/>
+  <text class="badge" x="481" y="207" text-anchor="middle">parent</text>
+</svg>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" role="img" aria-labelledby="title description">
+  <title id="title">The path from a saved file to a remote Git repository</title>
+  <desc id="description">A file save updates the working tree. Git add selects content for the staging area, Git commit records it in the local repository, and Git push sends commits to the GitHub remote.</desc>
+  <defs>
+    <marker id="arrow" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
+      <path d="M0 0 L8 4 L0 8 Z" fill="#064638"/>
+    </marker>
+    <style>
+      text { fill: #17211b; font-family: "IBM Plex Sans", Arial, sans-serif; }
+      .box-title { font-size: 19px; font-weight: 700; text-anchor: middle; }
+      .box-copy { fill: #526057; font-size: 15px; text-anchor: middle; }
+      .command { fill: #064638; font-family: "JetBrains Mono", Menlo, monospace; font-size: 15px; font-weight: 700; text-anchor: middle; }
+      .save { fill: #526057; font-size: 15px; font-weight: 700; text-anchor: middle; }
+      .working { fill: #f5e8cb; stroke: #7b5514; stroke-width: 2; }
+      .staging { fill: #fffdf7; stroke: #12634f; stroke-dasharray: 8 6; stroke-width: 3; }
+      .repository { fill: #edf4ee; stroke: #064638; stroke-width: 2; }
+      .remote { fill: #e8f0f5; stroke: #315d75; stroke-width: 3; }
+      .arrow { fill: none; marker-end: url(#arrow); stroke: #064638; stroke-width: 3; }
+      .leader { stroke: #9aaba0; stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <text class="save" x="110" y="28">Save in the editor</text>
+  <path class="arrow" d="M110 38 V88"/>
+
+  <path class="working" d="M20 104 H92 L109 88 H200 Q210 88 210 98 V250 Q210 260 200 260 H30 Q20 260 20 250 Z"/>
+  <text class="box-title" x="115" y="159">Working tree</text>
+  <text class="box-copy" x="115" y="190">files you edit</text>
+  <text class="box-copy" x="115" y="213">and save</text>
+
+  <rect class="staging" x="270" y="104" width="190" height="156" rx="12"/>
+  <text class="box-title" x="365" y="159">Staging area</text>
+  <text class="box-copy" x="365" y="190">content selected</text>
+  <text class="box-copy" x="365" y="213">for the next commit</text>
+
+  <rect class="repository" x="526" y="116" width="184" height="144" rx="10"/>
+  <rect class="repository" x="519" y="110" width="184" height="144" rx="10"/>
+  <rect class="repository" x="512" y="104" width="184" height="144" rx="10"/>
+  <text class="box-title" x="604" y="159">Local repository</text>
+  <text class="box-copy" x="604" y="190">completed commits</text>
+  <text class="box-copy" x="604" y="213">on this computer</text>
+
+  <rect class="remote" x="760" y="96" width="180" height="164" rx="22"/>
+  <rect x="770" y="106" width="160" height="144" rx="15" fill="none" stroke="#315d75" stroke-width="1.5"/>
+  <text class="box-title" x="850" y="159">GitHub remote</text>
+  <text class="box-copy" x="850" y="190">commits pushed to</text>
+  <text class="box-copy" x="850" y="213">the shared repository</text>
+
+  <path class="arrow" d="M212 179 H262"/>
+  <line class="leader" x1="237" y1="195" x2="237" y2="285"/>
+  <text class="command" x="237" y="310">git add</text>
+
+  <path class="arrow" d="M462 179 H504"/>
+  <line class="leader" x1="483" y1="195" x2="483" y2="285"/>
+  <text class="command" x="483" y="310">git commit</text>
+
+  <path class="arrow" d="M712 179 H752"/>
+  <line class="leader" x1="732" y1="195" x2="732" y2="285"/>
+  <text class="command" x="732" y="310">git push</text>
+</svg>

@@ -1,0 +1,30 @@
+figures:
+  - id: git-project-wide-commits
+    guide: git-and-github
+    source: assets/diagrams/source/git/project-wide-commits.svg
+    output: site/assets/figures/git/project-wide-commits.svg
+    tool: SVG
+    purpose: Show that one commit identifies matching versions of all tracked project files and links to its parent.
+    alt: Two commits shown as linked snapshots; each encloses matching versions of source code, tests, and documentation.
+    provenance: Original CPEN 221 diagram.
+    reviewed: 2026-08-25
+
+  - id: git-state-flow
+    guide: git-and-github
+    source: assets/diagrams/source/git/git-state-flow.svg
+    output: site/assets/figures/git/git-state-flow.svg
+    tool: SVG
+    purpose: Distinguish file saves, staging, local commits, and pushed commits by the boundary crossed at each step.
+    alt: Four states connected in order: working tree, staging area, local repository, and GitHub remote.
+    provenance: Original CPEN 221 diagram.
+    reviewed: 2026-08-25
+
+  - id: git-branch-fast-forward
+    guide: git-and-github
+    source: assets/diagrams/source/git/branch-fast-forward.svg
+    output: site/assets/figures/git/branch-fast-forward.svg
+    tool: SVG
+    purpose: Show that a fast-forward merge moves the main branch name without changing the commit graph or creating a merge commit.
+    alt: Before and after commit graphs showing main move from commit B to commit D in a fast-forward merge.
+    provenance: Original CPEN 221 diagram.
+    reviewed: 2026-08-25

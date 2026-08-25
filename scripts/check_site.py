@@ -9,13 +9,18 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 import re
 import sys
+import xml.etree.ElementTree as ElementTree
 
 from site_contract import (
+    FIGURE_FILES,
+    FIGURE_MANIFEST,
+    FIGURE_SOURCE_ROOT,
     FONT_FILES,
     FONT_LICENSES,
     GUIDES,
     GUIDES_ROOT,
     LANG,
+    PUBLISHED_FIGURES_ROOT,
     PUBLISHED_SOURCES,
     READINGS,
     READINGS_ROOT,
@@ -30,6 +35,8 @@ class PageParser(HTMLParser):
         self.ids: list[str] = []
         self.references: list[str] = []
         self.image_alt: list[str | None] = []
+        self.figure_count = 0
+        self.figcaption_count = 0
         self.has_language = False
         self.has_main = False
         self.in_title = False
@@ -47,6 +54,10 @@ class PageParser(HTMLParser):
             self.ids.append(attributes["id"] or "")
         if tag == "img":
             self.image_alt.append(attributes.get("alt"))
+        if tag == "figure":
+            self.figure_count += 1
+        if tag == "figcaption":
+            self.figcaption_count += 1
         for name in ("href", "src"):
             if attributes.get(name):
                 self.references.append(attributes[name] or "")
@@ -87,6 +98,7 @@ def main() -> None:
     failures: list[str] = []
     html_files = sorted(SITE_ROOT.rglob("*.html"))
     pages = {path: parse(path) for path in html_files}
+    referenced_figures: set[Path] = set()
 
     for path, page in pages.items():
         relative = path.relative_to(SITE_ROOT)
@@ -107,6 +119,8 @@ def main() -> None:
             failures.append(f"{relative}: duplicate id")
         if any(alt is None or not alt.strip() for alt in page.image_alt):
             failures.append(f"{relative}: image without useful alt text")
+        if page.figure_count != page.figcaption_count:
+            failures.append(f"{relative}: every figure must have one caption")
         for reference in page.references:
             parsed_reference = urlsplit(reference)
             if (
@@ -129,6 +143,13 @@ def main() -> None:
                 target_page = pages.get(target) or parse(target)
                 if fragment not in target_page.ids:
                     failures.append(f"{relative}: missing fragment {reference}")
+            if target.exists() and target.suffix.lower() == ".svg":
+                try:
+                    target.relative_to(PUBLISHED_FIGURES_ROOT)
+                except ValueError:
+                    pass
+                else:
+                    referenced_figures.add(target)
 
     for label, items, root in (
         ("guide", GUIDES, GUIDES_ROOT),
@@ -195,13 +216,66 @@ def main() -> None:
         if f'../fonts/{font_name}' not in stylesheet.read_text(encoding="utf-8"):
             failures.append(f"assets/css/site.css: does not declare {font_name}")
 
+    expected_figures = set(FIGURE_FILES)
+    source_figures = {path.name for path in FIGURE_SOURCE_ROOT.glob("*.svg")}
+    published_figures = {path.name for path in PUBLISHED_FIGURES_ROOT.glob("*.svg")}
+    if source_figures != expected_figures:
+        failures.append("editable Git figure sources do not match the contract")
+    if published_figures != expected_figures:
+        failures.append("published Git figures do not match the contract")
+
+    for figure_name in FIGURE_FILES:
+        source_figure = FIGURE_SOURCE_ROOT / figure_name
+        published_figure = PUBLISHED_FIGURES_ROOT / figure_name
+        if not source_figure.exists() or not published_figure.exists():
+            continue
+        if source_figure.read_bytes() != published_figure.read_bytes():
+            failures.append(f"assets/figures/git/{figure_name}: stale rendered figure")
+        try:
+            root = ElementTree.parse(source_figure).getroot()
+        except ElementTree.ParseError as error:
+            failures.append(f"assets/diagrams/source/git/{figure_name}: invalid SVG: {error}")
+            continue
+        namespace = "{http://www.w3.org/2000/svg}"
+        title = root.find(f"{namespace}title")
+        description = root.find(f"{namespace}desc")
+        if root.tag != f"{namespace}svg" or not root.get("viewBox"):
+            failures.append(f"assets/diagrams/source/git/{figure_name}: missing SVG viewBox")
+        if title is None or not "".join(title.itertext()).strip():
+            failures.append(f"assets/diagrams/source/git/{figure_name}: missing title")
+        if description is None or not "".join(description.itertext()).strip():
+            failures.append(f"assets/diagrams/source/git/{figure_name}: missing description")
+        if root.get("role") != "img" or not root.get("aria-labelledby"):
+            failures.append(f"assets/diagrams/source/git/{figure_name}: missing image semantics")
+
+    expected_figure_targets = {
+        (PUBLISHED_FIGURES_ROOT / figure_name).resolve()
+        for figure_name in FIGURE_FILES
+    }
+    if referenced_figures != expected_figure_targets:
+        failures.append("published Git figures are not each referenced by the site")
+
+    if not FIGURE_MANIFEST.exists():
+        failures.append("assets/manifest.yml: missing figure metadata")
+    else:
+        manifest = FIGURE_MANIFEST.read_text(encoding="utf-8")
+        for figure_name in FIGURE_FILES:
+            for declared_path in (
+                f"assets/diagrams/source/git/{figure_name}",
+                f"site/assets/figures/git/{figure_name}",
+            ):
+                if declared_path not in manifest:
+                    failures.append(
+                        f"assets/manifest.yml: missing metadata for {declared_path}"
+                    )
+
     if failures:
         print("\n".join(failures), file=sys.stderr)
         raise SystemExit(1)
     print(
         f"Checked {len(html_files)} HTML pages: local links, fragments, landmarks, "
         f"{len(expected_sources)} source digests, {len(FONT_FILES)} self-hosted fonts, "
-        "and all client-side checks are valid."
+        f"{len(FIGURE_FILES)} accessible figures, and all client-side checks are valid."
     )
 
 

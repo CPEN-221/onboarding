@@ -10,7 +10,7 @@
   <script defer src="../../assets/js/quick-checks.js"></script>
 </head>
 <body id="top">
-  <!-- source-sha256: 3b9026560afbc2efc00c4a52152bb47be848fbcb75ac15ff1dfd2aec7e1a8a1e -->
+  <!-- source-sha256: 77d3e31c0a885f92354a2ea3bbbad3029bb5a7d5da5b578f06895286bc25131f -->
   <!-- source-file: guide-git-and-github.md -->
   <a class="skip-link" href="#reading-content">Skip to reading</a>
   <header class="site-header">
@@ -54,6 +54,13 @@
 <p>Consider a change to the transit program used in these guides. A new rule for classifying early arrivals may require changes to <code>TransitSummary.java</code>, several tests in <code>TransitSummaryTest.java</code>, and a short explanation in <code>README.md</code>. These edits belong together. The source without the new tests is incomplete, while the new tests without the source fail. What we want to preserve is one state of the project in which the three files agree.</p>
 <p>A synchronized folder treats those files separately. It can copy each saved edit to another computer and may retain earlier versions of each file. It does not know that one version of the Java class, one version of the test class, and one version of the README form a single change. Restoring the Java file from Tuesday while leaving Wednesday's tests and build file in place may produce a project state that never existed and does not build.</p>
 <p>A version-control system records a version of the project as a unit. In Git, that recorded state is a <strong>commit</strong>. A commit lets us return to the source, tests, build files, and documentation as they were at the same point in the project's history. It also lets us compare two project states and see the complete set of files changed by a bug fix or feature.</p>
+<figure class="reading-figure">
+<div class="figure-scroll" tabindex="0" role="group" aria-label="Scrollable Figure 1">
+<img src="../../assets/figures/git/project-wide-commits.svg" alt="Two commits shown as linked snapshots; each encloses matching versions of source code, tests, and documentation.">
+</div>
+<figcaption><strong>Figure 1. Commits are project-wide snapshots.</strong> Commit B links to its parent, commit A. Each commit identifies one version of every tracked file, including files that did not change between the two snapshots.</figcaption>
+</figure>
+
 <h3 id="saving-and-recording-a-version-are-different-actions"><a href="#saving-and-recording-a-version-are-different-actions">Saving and Recording a Version Are Different Actions</a></h3>
 <p>Programmers save files frequently while working. Many of those saved states are temporary: the program may not compile while a method is half-written, or a test may fail while its implementation is being changed. Saving is still necessary, but every press of Save does not deserve a permanent entry in the project history.</p>
 <p>Git separates ordinary file saves from commits. You can save, compile, run tests, revise the code, and repeat that cycle without creating a commit. Once the files describe one coherent change, you select the content that belongs to the change and commit it. You decide where the meaningful checkpoints are.</p>
@@ -128,9 +135,14 @@ git remote -v</code></pre></div>
 </form>
 
 <h2 id="6-follow-changes-through-the-local-repository"><a href="#6-follow-changes-through-the-local-repository">6. Follow Changes Through the Local Repository</a></h2>
-<p>Git asks you to distinguish three views:</p>
-<div class="code-block"><pre class="text"><code>working tree  --git add--&gt;  staging area  --git commit--&gt;  repository history</code></pre></div>
-<p>The <strong>working tree</strong> contains the files you edit. The <strong>staging area</strong>, also called the index, specifies the exact content proposed for the next commit. The local repository stores completed commits.</p>
+<p>Git asks you to distinguish three local views. The <strong>working tree</strong> contains the files you edit. The <strong>staging area</strong>, also called the index, specifies the exact content proposed for the next commit. The local repository stores completed commits. GitHub introduces a fourth location: the remote repository. Saving, staging, committing, and pushing therefore do different work, as Figure 2 shows.</p>
+<figure class="reading-figure">
+<div class="figure-scroll" tabindex="0" role="group" aria-label="Scrollable Figure 2">
+<img src="../../assets/figures/git/git-state-flow.svg" alt="Four states connected in order: working tree, staging area, local repository, and GitHub remote.">
+</div>
+<figcaption><strong>Figure 2. A change crosses several boundaries.</strong> Saving updates a file in the working tree. <code>git add</code> selects content for the staging area, <code>git commit</code> records the staged content in local history, and <code>git push</code> sends commits to GitHub.</figcaption>
+</figure>
+
 <p><code>git status</code> describes files using four related terms:</p>
 <table>
 <thead>
@@ -220,6 +232,14 @@ git pull --ff-only</code></pre></div>
 <div class="code-block"><pre class="sh"><code>git switch main
 git merge --ff-only improve-arrival-message</code></pre></div>
 <p><code>--ff-only</code> is suitable when <code>main</code> has not diverged. Real collaboration sometimes requires a merge or rebase decision. Do not choose one mechanically when Git says the branches diverged; inspect the commit graph and follow the team's workflow.</p>
+<p>In the simple case above, the merge does not copy files and does not create another commit. It moves the <code>main</code> branch name forward to the commit already named by the topic branch. Figure 3 abbreviates <code>improve-arrival-message</code> as <code>improve-message</code> so that the two branch pointers remain legible.</p>
+<figure class="reading-figure">
+<div class="figure-scroll" tabindex="0" role="group" aria-label="Scrollable Figure 3">
+<img src="../../assets/figures/git/branch-fast-forward.svg" alt="Before and after commit graphs showing main move from commit B to commit D in a fast-forward merge.">
+</div>
+<figcaption><strong>Figure 3. A fast-forward moves a branch name.</strong> Before the merge, <code>main</code> points to B and the topic branch points to D. Afterwards, both names point to D. The commits themselves are unchanged, and Git creates no merge commit.</figcaption>
+</figure>
+
 <h2 id="10-undo-one-unstaged-edit"><a href="#10-undo-one-unstaged-edit">10. Undo One Unstaged Edit</a></h2>
 <p>Git can restore tracked content, but the safety depends on what has been recorded. Suppose you made an unwanted unstaged edit to one file. First inspect it:</p>
 <div class="code-block"><pre class="sh"><code>git diff -- src/main/java/ca/ubc/ece/cpen221/prep/TransitSummary.java</code></pre></div>

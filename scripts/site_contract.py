@@ -16,6 +16,9 @@ SITE_ROOT = REPOSITORY_ROOT / "site"
 READINGS_ROOT = SITE_ROOT / "readings"
 GUIDES_ROOT = SITE_ROOT / "guides"
 PUBLISHED_SOURCES = SITE_ROOT / "sources"
+FIGURE_SOURCE_ROOT = REPOSITORY_ROOT / "assets" / "diagrams" / "source" / "git"
+PUBLISHED_FIGURES_ROOT = SITE_ROOT / "assets" / "figures" / "git"
+FIGURE_MANIFEST = REPOSITORY_ROOT / "assets" / "manifest.yml"
 
 PANDOC_VERSION = "3.10"
 PANDOC_ARGUMENTS = (
@@ -41,6 +44,11 @@ FONT_LICENSES = (
     "Google-Sans-Flex-OFL.txt",
     "IBM-Plex-OFL.txt",
     "JetBrains-Mono-OFL.txt",
+)
+FIGURE_FILES = (
+    "branch-fast-forward.svg",
+    "git-state-flow.svg",
+    "project-wide-commits.svg",
 )
 
 

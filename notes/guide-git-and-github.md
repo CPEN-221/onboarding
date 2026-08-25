@@ -28,6 +28,13 @@ files, and documentation as they were at the same point in the project's history
 It also lets us compare two project states and see the complete set of files changed
 by a bug fix or feature.
 
+<figure class="reading-figure">
+<div class="figure-scroll" tabindex="0" role="group" aria-label="Scrollable Figure 1">
+<img src="../../assets/figures/git/project-wide-commits.svg" alt="Two commits shown as linked snapshots; each encloses matching versions of source code, tests, and documentation.">
+</div>
+<figcaption><strong>Figure 1. Commits are project-wide snapshots.</strong> Commit B links to its parent, commit A. Each commit identifies one version of every tracked file, including files that did not change between the two snapshots.</figcaption>
+</figure>
+
 ### Saving and Recording a Version Are Different Actions
 
 Programmers save files frequently while working. Many of those saved states are
@@ -205,15 +212,18 @@ reports the fetch and push URLs. Neither command changes anything.
 
 ## 6. Follow Changes Through the Local Repository
 
-Git asks you to distinguish three views:
+Git asks you to distinguish three local views. The **working tree** contains the
+files you edit. The **staging area**, also called the index, specifies the exact
+content proposed for the next commit. The local repository stores completed
+commits. GitHub introduces a fourth location: the remote repository. Saving,
+staging, committing, and pushing therefore do different work, as Figure 2 shows.
 
-```text
-working tree  --git add-->  staging area  --git commit-->  repository history
-```
-
-The **working tree** contains the files you edit. The **staging area**, also called
-the index, specifies the exact content proposed for the next commit. The local
-repository stores completed commits.
+<figure class="reading-figure">
+<div class="figure-scroll" tabindex="0" role="group" aria-label="Scrollable Figure 2">
+<img src="../../assets/figures/git/git-state-flow.svg" alt="Four states connected in order: working tree, staging area, local repository, and GitHub remote.">
+</div>
+<figcaption><strong>Figure 2. A change crosses several boundaries.</strong> Saving updates a file in the working tree. <code>git add</code> selects content for the staging area, <code>git commit</code> records the staged content in local history, and <code>git push</code> sends commits to GitHub.</figcaption>
+</figure>
 
 `git status` describes files using four related terms:
 
@@ -382,6 +392,18 @@ git merge --ff-only improve-arrival-message
 `--ff-only` is suitable when `main` has not diverged. Real collaboration sometimes
 requires a merge or rebase decision. Do not choose one mechanically when Git says
 the branches diverged; inspect the commit graph and follow the team's workflow.
+
+In the simple case above, the merge does not copy files and does not create another
+commit. It moves the `main` branch name forward to the commit already named by the
+topic branch. Figure 3 abbreviates `improve-arrival-message` as `improve-message`
+so that the two branch pointers remain legible.
+
+<figure class="reading-figure">
+<div class="figure-scroll" tabindex="0" role="group" aria-label="Scrollable Figure 3">
+<img src="../../assets/figures/git/branch-fast-forward.svg" alt="Before and after commit graphs showing main move from commit B to commit D in a fast-forward merge.">
+</div>
+<figcaption><strong>Figure 3. A fast-forward moves a branch name.</strong> Before the merge, <code>main</code> points to B and the topic branch points to D. Afterwards, both names point to D. The commits themselves are unchanged, and Git creates no merge commit.</figcaption>
+</figure>
 
 ## 10. Undo One Unstaged Edit
 

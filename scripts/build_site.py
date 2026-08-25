@@ -12,12 +12,15 @@ import subprocess
 
 from site_contract import (
     EXAMPLES_ROOT,
+    FIGURE_FILES,
+    FIGURE_SOURCE_ROOT,
     GUIDES,
     GUIDES_ROOT,
     LANG,
     NOTES_ROOT,
     PANDOC_ARGUMENTS,
     PANDOC_VERSION,
+    PUBLISHED_FIGURES_ROOT,
     PUBLISHED_SOURCES,
     READINGS,
     READINGS_ROOT,
@@ -296,11 +299,18 @@ def main() -> None:
         GUIDES_ROOT,
         READINGS_ROOT,
         PUBLISHED_SOURCES,
+        PUBLISHED_FIGURES_ROOT,
         SITE_ROOT / "examples",
     ):
         if generated.exists():
             shutil.rmtree(generated)
         generated.mkdir(parents=True)
+
+    for figure_name in FIGURE_FILES:
+        shutil.copy2(
+            FIGURE_SOURCE_ROOT / figure_name,
+            PUBLISHED_FIGURES_ROOT / figure_name,
+        )
 
     def build_collection(
         items: tuple[Reading | Guide, ...], target_root: Path, label: str
@@ -348,8 +358,9 @@ def main() -> None:
 
     (SITE_ROOT / "index.html").write_text(landing_page(), encoding="utf-8")
     print(
-        f"Built {len(GUIDES)} guides, {len(READINGS)} readings, and "
-        f"{len([path for path in EXAMPLES_ROOT.iterdir() if path.is_dir()])} example sets."
+        f"Built {len(GUIDES)} guides, {len(READINGS)} readings, "
+        f"{len([path for path in EXAMPLES_ROOT.iterdir() if path.is_dir()])} example sets, "
+        f"and {len(FIGURE_FILES)} figures."
     )
 
 

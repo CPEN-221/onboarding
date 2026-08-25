@@ -26,8 +26,10 @@ can be offered separately in PrairieLearn without changing this material.
 |---|---|
 | `notes/` | Authoritative Markdown guides and Java readings |
 | `examples/` | Complete Java 25 source files and deliberate failure fixtures |
+| `assets/` | Editable figure sources and figure metadata |
 | `site/` | Generated static site committed for review and deployed by Pages |
 | `site/assets/fonts/` | Self-hosted reading and code fonts with SIL OFL notices |
+| `site/assets/figures/` | Generated SVG figures copied from the editable sources |
 | `scripts/` | Site build, publication checks, and Java example validation |
 | `PLAN.md` | Design decisions and crosswalk from the inherited material |
 | `STATUS.md` | Completed work and observed validation results |
@@ -46,7 +48,7 @@ python3 -m http.server 8000 --directory site
 
 Then open <http://localhost:8000/>. The generated HTML includes source hashes, and
 the checker refuses stale pages, missing local links, invalid fragments, or a
-mismatch between the declared and published guides or readings.
+mismatch between the declared and published guides, readings, or figures.
 
 ## Publish with GitHub Pages
 
