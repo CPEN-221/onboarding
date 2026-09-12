@@ -65,14 +65,26 @@ the required set so that a problem has fewer possible causes.
 
 ## 3. Open the Folder, Not an Isolated File
 
-Clone or download a project, then open the directory containing these files:
+Clone or download a project, then open the directory containing these files. To follow
+along, clone the onboarding repository, which holds these guides and their example
+projects:
+
+```sh
+git clone https://github.com/CPEN-221/onboarding.git
+cd onboarding/examples/build-process-and-tools
+ls
+```
+
+You should see:
 
 ```text
+README.md
 build.gradle.kts
-settings.gradle.kts
+gradle
 gradlew
 gradlew.bat
-src/
+settings.gradle.kts
+src
 ```
 
 From a terminal already in that directory, run:

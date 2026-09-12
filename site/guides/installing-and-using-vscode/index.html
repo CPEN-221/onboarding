@@ -10,7 +10,7 @@
   <script defer src="../../assets/js/quick-checks.js"></script>
 </head>
 <body id="top">
-  <!-- source-sha256: f441ea0edc3d693cdf530e2681f96a2c07bcd51b5234a75ab9ff6a5e9722b1eb -->
+  <!-- source-sha256: fafd0ee90d206fe7f50664e8232a173b3a083d9853944a2c28340876da69a447 -->
   <!-- source-file: guide-vscode.md -->
   <a class="skip-link" href="#chapter-content">Skip to reading</a>
 
@@ -102,12 +102,18 @@
 </form>
 
 <h2 id="3-open-the-folder-not-an-isolated-file"><a href="#3-open-the-folder-not-an-isolated-file"><span class="section-number">3.3</span>Open the Folder, Not an Isolated File</a></h2>
-<p>Clone or download a project, then open the directory containing these files:</p>
-<div class="code-block"><pre class="text"><code>build.gradle.kts
-settings.gradle.kts
+<p>Clone or download a project, then open the directory containing these files. To follow along, clone the onboarding repository, which holds these guides and their example projects:</p>
+<div class="code-block"><pre class="sh"><code>git clone https://github.com/CPEN-221/onboarding.git
+cd onboarding/examples/build-process-and-tools
+ls</code></pre></div>
+<p>You should see:</p>
+<div class="code-block"><pre class="text"><code>README.md
+build.gradle.kts
+gradle
 gradlew
 gradlew.bat
-src/</code></pre></div>
+settings.gradle.kts
+src</code></pre></div>
 <p>From a terminal already in that directory, run:</p>
 <div class="code-block"><pre class="sh"><code>code .</code></pre></div>
 <p>The dot means the current directory. Alternatively, use <strong>File → Open Folder</strong>. The folder shown at the top of the Explorer should be the project root.</p>
